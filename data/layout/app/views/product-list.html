@@ -1,0 +1,143 @@
+<div class="row product-list">
+  <div class="col-xs-12">
+    <ol class="breadcrumb" ng-hide="$root.search.breadcrumb === undefined">
+      <li><a href="/">Página Principal</a></li>
+      <li ng-repeat="categoria in $root.search.breadcrumb"
+          ng-class="{'active': categoria.id == $root.produto.categorias[0].id && !$root.search.brand}"
+          ng-if="categoria.id > 0">
+        <a href="/c/{{categoria.id}}-{{categoria.url.url}}">{{categoria.nome}}</a>
+      </li>
+      <li ng-if="$root.search.brand">
+        {{$root.search.brand.nome}}
+      </li>
+    </ol>
+    <ol class="breadcrumb" ng-hide="$root.search.term === undefined">
+      <li class="active">Você buscou por <span class="glyphicon glyphicon-chevron-right"></span> '{{$root.search.term}}'
+      </li>
+    </ol>
+  </div>
+  <div class="col-xs-12" ng-show="$root.search.result.length === 0 && $root.search.load">
+    <div class="panel panel-warning">
+      <div class="panel-body">
+        Nenhum resultado encontrado.
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12" ng-hide="$root.search.result.length === 0">
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 order">
+        <div class="input-group">
+          <span class="input-group-addon" id="order">Ordenar por: </span>
+          <select class="form-control" id="order" ng-model="$root.search.order" ng-change="buscar()">
+            <option value="1">A - Z</option>
+            <option value="2">Z - A</option>
+            <option value="3">Maior Preço</option>
+            <option value="4">Menor Preço</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-8 col-md-7 col-md-offset-1 col-lg-6 col-lg-offset-3 paginator"
+           ng-show="$root.search.pagination.pages.length > 1">
+        <ul class="pagination">
+          <li ng-class="{'disabled': $root.search.pagination.page == 1}">
+            <a href="{{$root.search.pagination.url}}{{$root.search.pagination.page-1}}" aria-label="Anterior"
+               ng-hide="$root.search.pagination.page == 1" ng-click="buscar($root.search.pagination.page-1)"><span
+              aria-hidden="true">&laquo;</span></a>
+            <span aria-hidden="true" ng-hide="$root.search.pagination.page > 1">&laquo;</span>
+          </li>
+          <li ng-repeat="pag in $root.search.pagination.pages"
+              ng-class="{'active': pag == $root.search.pagination.page}" ng-click="buscar(pag)"><a
+            href="{{$root.search.pagination.url}}{{pag}}">{{pag}}</a></li>
+          <li ng-class="{'disabled': $root.search.pagination.page == $root.search.pagination.totalPages}">
+            <a href="{{$root.search.pagination.url}}{{$root.search.pagination.page+1}}" aria-label="Próximo"
+               ng-hide="$root.search.pagination.page == $root.search.pagination.totalPages"
+               ng-click="buscar($root.search.pagination.page+1)">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+            <span aria-hidden="true"
+                  ng-hide="$root.search.pagination.page < $root.search.pagination.totalPages">&raquo;</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12" ng-hide="$root.search.result.length === 0">
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-4 product" ng-repeat="produto in $root.search.result">
+        <a href="/c/{{produto.categorias[0].id}}-{{produto.categorias[0].url.url}}/p/{{produto.id}}-{{produto.url.url}}" ng-click="$root.setProduto(produto)">
+          <div class="col-xs-12">
+            <div class="row">
+              <div class="image" ng-if="produto.imagens.length > 0"  >
+                <img data-original="{{$root.productImagesURL}}{{ produto.imagens[0].imagem | resizeImage:259:214}}"
+                     src="/images/bsmLoading2.gif" class="lazy"/>
+              </div>
+              <div class="image" ng-if="produto.imagens.length == 0">
+                <img data-original="/images/no-image.gif" src="/images/bsmLoading2.gif" width="120" class="lazy"/>
+              </div>
+              <div class="col-xs-12 box">
+                <div class="col-xs-12 info">
+                  <p class="name">
+                    {{produto.nome}}
+                  </p>
+                  <p class="brand">
+                    {{produto.marca.nome}}
+                  </p>
+                  <div ng-if="produto.valorreal > 0 && produto.disponivel">
+                    <div class="col-xs-6 us">
+                      {{produto.valorreal | moeda:'U$ '}}
+                    </div>
+                    <div class="col-xs-6 rs">
+                      {{produto.valorreal*$root.cambio.real | moeda:'R$ '}}
+                    </div>
+                  </div>
+                  <div class="consult" ng-if="produto.valorreal > 0 && produto.disponivel" style="color: #2da710">
+                    DISPONÍVEL
+                  </div>
+                  <div class="consult" ng-if="produto.valorreal <= 0 && produto.disponivel">
+                    CONSULTE-NOS
+                  </div>
+                  <div class="consult" ng-if="!produto.disponivel" style="color: #ff3728">
+                    INDISPONÍVEL
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12" ng-hide="$root.search.result.length === 0">
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 order">
+
+      </div>
+      <div class="col-xs-12 col-sm-8 col-md-7 col-md-offset-1 col-lg-6 col-lg-offset-3 paginator"
+           ng-show="$root.search.pagination.pages.length > 1">
+        <ul class="pagination">
+          <li ng-class="{'disabled': $root.search.pagination.page == 1}">
+            <a href="{{$root.search.pagination.url}}{{$root.search.pagination.page-1}}" aria-label="Anterior"
+               ng-hide="$root.search.pagination.page == 1" ng-click="buscar($root.search.pagination.page-1)"><span
+              aria-hidden="true">&laquo;</span></a>
+            <span aria-hidden="true" ng-hide="$root.search.pagination.page > 1">&laquo;</span>
+          </li>
+          <li ng-repeat="pag in $root.search.pagination.pages"
+              ng-class="{'active': pag == $root.search.pagination.page}" ng-click="buscar(pag)"><a
+            href="{{$root.search.pagination.url}}{{pag}}">{{pag}}</a></li>
+          <li ng-class="{'disabled': $root.search.pagination.page == $root.search.pagination.totalPages}">
+            <a href="{{$root.search.pagination.url}}{{$root.search.pagination.page+1}}" aria-label="Próximo"
+               ng-hide="$root.search.pagination.page == $root.search.pagination.totalPages"
+               ng-click="buscar($root.search.pagination.page+1)">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+            <span aria-hidden="true"
+                  ng-hide="$root.search.pagination.page < $root.search.pagination.totalPages">&raquo;</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <hr/>
+  </div>
+</div>

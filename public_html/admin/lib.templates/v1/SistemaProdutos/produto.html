@@ -1,0 +1,651 @@
+         
+         {javaScript}
+
+            new FormCheck("formInserir");
+            
+            if('{disponivel}' 	== '1') 	$('disponivel').checked = true;
+            if('{lancamento}' 	== '1') 	$('lancamento').checked = true;
+            if('{destaque}' 	== '1') 	$('destaque').checked 	= true;
+            if('{promocao}' 	== '1') 	$('promocao').checked 	= true;
+            $('marca').value 										= '{marca}';
+            //$('tipoPedido').value									= '{tipoPedido}';
+            //$('frete').value 										= '{frete}';
+            
+            function esconderTabelas(){
+            	
+                $('tabela_infoGerais').style.display = 'none';
+                $('infoGerais').className = 'botaoPlanilha';
+                $('tabela_categorias').style.display = 'none';
+                $('categorias').className = 'botaoPlanilha';
+                $('tabela_imagens').style.display = 'none';
+                $('imagens').className = 'botaoPlanilha';
+                $('tabela_variacoes').style.display = 'none';
+                $('variacoes').className = 'botaoPlanilha';
+                
+            }
+            
+            $('infoGerais').addEvent('click', function(){
+            	
+                esconderTabelas();
+                $('tabela_'+this.id).style.display = '';
+                $(this.id).className = 'botaoPlanilhaSelecionado';
+                
+            });
+            
+            $('categorias').addEvent('click', function(){
+            	
+                esconderTabelas();
+                $('tabela_'+this.id).style.display = '';
+                $(this.id).className = 'botaoPlanilhaSelecionado';
+                
+            });
+            
+            $('imagens').addEvent('click', function(){
+            	
+                esconderTabelas();
+                $('tabela_'+this.id).style.display = '';
+                $(this.id).className = 'botaoPlanilhaSelecionado';
+                
+            });
+            
+            $('variacoes').addEvent('click', function(){
+            	
+                esconderTabelas();
+                $('tabela_'+this.id).style.display = '';
+                $(this.id).className = 'botaoPlanilhaSelecionado';
+                
+            });
+            
+            $('categoria').addEvent('change', function(){
+                
+                carregarCategorias(this);
+                
+            });
+            
+            carregarCategorias($('categoria'));
+            
+            function carregarCategorias(se){
+            	
+                total 	= se.length;
+                id		= se.value;
+                texto	= null;
+                
+                if(se.selectedIndex > -1){
+                	filhos = se.options[se.selectedIndex].lang;
+                    texto = (se.options[se.selectedIndex].text);
+                }else
+                	filhos = 1;
+
+				
+                if((texto != 'Selecione' && texto != '' && filhos > 0) || texto == 'Voltar'){
+                	
+                    for(i = 0; i < total; i++)
+                    	se.remove(0);
+                                    
+                	se.add(new Option('Carregando...'), null);
+                	
+                    var req = new Request({  
+                           
+                            method: 'get',  
+                            url: "{adminCaminhoURL}?p=SistemaProdutos&a=listarProdutoCategorias&json&categoria="+id,  
+                            data: { 'do' : '1' },  
+                            onComplete: function(response) { 
+                               
+                                if(response != ''){
+                                	
+                                    var json = JSON.decode(response);
+                                    
+                                    se.remove(0);
+                                    
+                                    se.add(new Option('Selecione', ''), null);
+                                    se.add(new Option(''), null);
+                                    
+                                    for(i = 0; i < json.length; i++){
+                                        
+                                        op = new Option(json[i].nome, json[i].id);
+                                        se.add(op, null);
+                                        se.options[i+2].lang = json[i].filhos;
+                                        
+                                    }
+                                
+                                }
+                                
+                                
+                            }
+                             
+                    }).send();
+                    
+                    
+                }
+                
+            }
+            
+            imagem = new Upload("upload", "aparecer", {classe: "texto1", imagemBegin: "{caminhoURL}lib.js/Net/css/Upload/linha.jpg", imagemEnd: "{caminhoURL}lib.js/Net/css/Upload/linhav.jpg"});
+            imagem.url = '{uploadCaminhoURL}';
+            imagem.final = function(){
+                
+                al = new SexyAlert;
+                al.alert("Imagem(s) enviada(s) com sucesso!", {onComplete: function(){
+                	$('formInserir').submit();
+                }});
+                
+            }
+            
+            {condicao->alterar.Produto}
+            $('categorias').style.display = 'none';
+            $('imagens').style.display = 'none';
+            $('variacoes').style.display = 'none';
+            {condicao->alterar.Produto}
+            
+            CKEDITOR.replace('descricaoPequena', {filebrowserImageUploadUrl: '{caminhoURL}/lib.js/Utils/ckeditor/upload/upload.php'}); CKEDITOR.replace('descricao', {filebrowserImageUploadUrl: '{caminhoURL}/lib.js/Utils/ckeditor/upload/upload.php'});
+            
+         {javaScript}
+                
+                
+		    <script>
+			var imagem;
+			
+			function addCategoria(id, nome){
+				
+				if(id != '' && id != 0){
+				
+					var tab = new Tabela($("tabela_categoriasSelecionadas"));
+					li 		= tab.novaLinha();
+					
+					cel1	= li.novaCelula(0);
+					cel1.conteudo(nome);
+					
+					cel2	= li.novaCelula(1);
+					cel2.conteudo('<a style="cursor: pointer" onclick="delCategoria(this.parentNode.parentNode.rowIndex);">Deletar</a><input type="hidden" name="categoriasSelecionadas[]" value="'+id+'" />');
+				
+				}
+				
+			}
+			
+			function delCategoria(index){
+				
+				var tab = new Tabela($("tabela_categoriasSelecionadas"));
+				tab.removerLinha(tab.pegarLinha(index));
+				
+			}
+			
+			function deletar(id){
+				
+				var aS = new SexyAlert;
+				aS.confirm("Deseja realmente deletar esta imagem?", {onComplete: function(v){
+					
+					if(v) document.location.href = '{linkDeletar.Imagem.Produto}imagem='+id;
+					
+			    }, textBoxBtnOk: 'Sim', textBoxBtnCancel: 'Não'});
+				
+			}
+			
+			function addVariacao(){
+				
+				var tab = new Tabela($("tabela_variacoesAdicionadas"));
+				id 		= tab.totalLinhas()+1; 
+				li 		= tab.novaLinha();
+				
+				cel1	= li.novaCelula(0);
+				cel1.conteudo('<table width="100%" border="0" cellspacing="0" cellpadding="0">{repetir->ProdutoOpcoes.JavaScript}<tr><td>{nome.ProdutoOpcao}: </td><td>{condicao->Multi.ProdutoOpcao}<select name="opcaoInfo['+id+'][{id.ProdutoOpcao}]" id="opcaoInfo'+id+'{id.ProdutoOpcao}"><option value="">Selecione</option>{repetir->ProdutoOpcaoValores.ProdutoOpcao}<option value="{id.ProdutoOpcaoValor.ProdutoOpcao}">{valor.ProdutoOpcaoValor.ProdutoOpcao}</option>{repetir->ProdutoOpcaoValores.ProdutoOpcao}</select>{else:condicao->Multi.ProdutoOpcao}<input name="opcaoInfo['+id+'][{id.ProdutoOpcao}]" type="text" id="opcaoInfo'+id+'{id.ProdutoOpcao}" value="{opcao{id.ProdutoOpcao}.ProdutoOpcao}" size="63">{condicao->Multi.ProdutoOpcao}</td></tr>{repetir->ProdutoOpcoes.JavaScript}</table>');
+				
+				cel2	= li.novaCelula(1);
+				cel2.conteudo('<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td width="34%" align="left">Estoque:</td><td width="66%" align="left"><input type="text" name="estoqueInfo['+id+']" id="estoqueInfo'+id+'" /></td></tr><tr><td align="left">Valor:</td><td align="left"><input type="text" name="valorInfo['+id+']" id="valorInfo'+id+'" /></td></tr><tr><td align="left">&nbsp;</td><td align="left">&nbsp;</td></tr></table>');
+				
+			}
+			
+			function delVariacao(index){
+				
+				var tab = new Tabela($("tabela_variacoesAdicionadas"));
+				tab.removerLinha(tab.pegarLinha(index));
+				
+			}
+			
+			function selecionar(){
+				var form = document.forms[0]["remover[]"];
+				
+				if(form.length)
+				for (i = 0; i < form.length; i++)    { 
+					form[i].checked = true;
+				}else
+					form.checked = true;
+			}
+			
+			function deselecionar(){
+				var form = document.forms[0]["remover[]"];
+				
+				if(form.length)
+				for (i = 0; i < form.length; i++)    { 
+					form[i].checked = false;
+				}else
+					form.checked = false;
+			}
+			
+		    </script>
+      	{condicaoBotoes}
+        {botoes}
+        <div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF; float: right" align="center"><a href="{linkCadastrarVariacao}">Cadastrar variação</a></div>
+        {botoes}
+        {condicaoBotoes}
+        
+	<form enctype="multipart/form-data" action="" method="post" id="formInserir" name="formInserir" style="padding: 20px">
+            
+            <div class="botaoPlanilhaSelecionado" id="infoGerais">Info. Gerais</div>
+            <div class="botaoPlanilha" id="categorias">Categorias</div>
+            <div class="botaoPlanilha" id="imagens">Imagens</div>
+    <div class="botaoPlanilha" id="variacoes">Variações</div>
+            
+    <table cellpadding="2" cellspacing="0" width="910" style="clear: both" id="tabela_infoGerais">
+	  {condicao->ProdutoPai}
+      <tr class="texto">
+	    <td height="30" bgcolor="#e5e5e5"><strong>Produto Mestre:</strong></td>
+	    <td colspan="3" bgcolor="#e5e5e5"><a href="{linkAlterar.ProdutoPai}" style="color: #000;"><strong>{nome.ProdutoPai}</strong></a></td>
+      </tr>
+	  <tr class="texto">
+	    <td colspan="4"><span style="color: #F00">*As opções deixadas em branco herdarão os valores do produto mestre.</span></td>
+      </tr>
+	  <tr class="texto">
+	    <td>&nbsp;</td>
+	    <td colspan="3">&nbsp;</td>
+      </tr>
+      {condicao->ProdutoPai}
+	  <tr class="texto">
+       		<td width="122" bgcolor="#e5e5e5">Nome:</td>
+       		<td colspan="3" bgcolor="#e5e5e5"><input name="nome" type="text" id="nome" value="{nome}" size="63"></td>
+      </tr>
+        {repetir->nome.Produtos.Idiomas}
+        <tr class="texto">
+       		<td width="122" bgcolor="#e5e5e5">Nome: </td>
+       		<td colspan="3" bgcolor="#e5e5e5"><input name="inome[{id.Idioma}]" type="text" id="inome{id.Idioma}]" value="{nome.Produto.Idioma}" size="63"> 
+   		    ({nome.Idioma})</td>
+   	    </tr>
+        {repetir->nome.Produtos.Idiomas}
+   		<tr class="texto">
+   		  <td>Marca:</td>
+   		  <td colspan="3"><select name="marca" id="marca">
+   		    <option value="0">Selecione</option>
+                    {repetir->ProdutoMarcas}
+                    <option value="{id.ProdutoMarca}">{nome.ProdutoMarca}</option>
+                    {repetir->ProdutoMarcas}
+      		      </select></td>
+	  </tr>
+   		<tr class="texto">
+   		  <td bgcolor="#E5E5E5">URL:</td>
+   		  <td colspan="3" bgcolor="#E5E5E5"><input name="url" type="text" id="url" value="{url}" disabled size="63">
+   		    (url amigavel)</td>
+	  </tr>
+      <tr class="texto">
+   		  <td bgcolor="#FFFFFF">C&oacute;digo:</td>
+   		  <td colspan="3" bgcolor="#FFFFFF"><input name="codigo" type="text" id="codigo" value="{codigo}" class="validate['required']" size="27"></td>
+      </tr>
+   		<tr class="texto">
+   		  <td bgcolor="#E5E5E5">&nbsp;</td>
+   		  <td colspan="3" bgcolor="#E5E5E5">&nbsp;</td>
+	  </tr>
+   		<tr class="texto">
+   		  <td bgcolor="#FFFFFF">Ordem:</td>
+   		  <td colspan="3" bgcolor="#FFFFFF"><input name="ordem" type="text" id="ordem" value="{ordem}" size="27"></td>
+	  </tr>
+      <!--<tr class="texto">
+          <td bgcolor="#E5E5E5">Peso:</td>
+          <td colspan="3" bgcolor="#E5E5E5"><input name="peso" type="text" id="peso" value="{peso}" size="27" /> 
+            Kg</td>
+      </tr>
+      <tr class="texto">
+          <td>Largura:</td>
+          <td colspan="3"><input name="largura" type="text" id="largura" value="{largura}" size="27" /> 
+            cm</td>
+      </tr>
+      <tr class="texto">
+          <td bgcolor="#E5E5E5">Altura:</td>
+          <td colspan="3" bgcolor="#E5E5E5"><input name="altura" type="text" id="altura" value="{altura}" size="27" /> 
+            cm</td>
+      </tr>
+      <tr class="texto">
+          <td>Comprimento:</td>
+          <td colspan="3"><input name="comprimento" type="text" id="comprimento" value="{comprimento}" size="27" /> 
+            cm</td>
+      </tr>
+      <tr class="texto">
+        <td bgcolor="#E5E5E5">Tipo Pedido:</td>
+        <td colspan="3" bgcolor="#E5E5E5"><select name="tipoPedido" id="tipoPedido">
+          <option value="" selected="selected">Selecione</option>
+          <option value="1">Orçamento</option>
+        </select></td>
+      </tr>
+      <tr class="texto">
+        <td>Frete:</td>
+        <td colspan="3"><select name="frete" id="frete">
+          <option value="" selected="selected">Selecione</option>
+          <option value="3">Cobrar Normal</option>
+          <option value="1">Frete Grátis</option>
+          <option value="2">Sem Frete</option>
+        </select></td>
+      </tr>-->
+      <tr class="texto">
+          <td bgcolor="#E5E5E5">&nbsp;</td>
+          <td colspan="3" bgcolor="#E5E5E5">&nbsp;</td>
+      </tr>
+      <tr class="texto">
+        <td>Valor Custo:</td>
+        <td colspan="3"><input name="valorCusto" type="text" id="valorCusto" value="{valorCusto}" size="27" /></td>
+      </tr>
+      <tr class="texto">
+        <td bgcolor="#E5E5E5">Valor Venda:</td>
+        <td colspan="3" bgcolor="#E5E5E5"><input name="valorReal" type="text" id="valorReal" value="{valorReal}" size="27" /></td>
+      </tr>
+      <tr class="texto">
+        <td>Valor Promocional:</td>
+        <td colspan="3"><input name="valorVenda" type="text" id="valorVenda" value="{valorVenda}" size="27" /></td>
+      </tr>
+      <tr class="texto">
+        <td bgcolor="#E5E5E5">&nbsp;</td>
+        <td colspan="3" bgcolor="#E5E5E5">&nbsp;</td>
+      </tr>
+      <tr class="texto">
+        <td>D&iacute;sponivel:</td>
+        <td colspan="3"><input name="disponivel" type="checkbox" id="disponivel" value="1" /></td>
+      </tr>
+      <tr class="texto">
+        <td bgcolor="#E5E5E5">Lançamento:</td>
+        <td colspan="3" bgcolor="#E5E5E5"><input name="lancamento" type="checkbox" id="lancamento" value="1" /></td>
+      </tr>
+      <tr class="texto">
+        <td>Home:</td>
+        <td colspan="3"><input name="destaque" type="checkbox" id="destaque" value="1" /></td>
+      </tr>
+       <tr class="texto">
+         <td bgcolor="#E5E5E5">Promoção:</td>
+         <td colspan="3" bgcolor="#E5E5E5"><input name="promocao" type="checkbox" id="promocao" value="1" /></td>
+      </tr>
+      <tr class="texto">
+         <td>&nbsp;</td>
+         <td colspan="3">&nbsp;</td>
+      </tr>
+      {repetir->ProdutoOpcoes}
+      <tr class="texto" bgcolor="{bgcolor.ProdutoOpcao}">
+         <td>{nome.ProdutoOpcao}:</td>
+         <td colspan="3">
+			{condicao->Multi.ProdutoOpcao}
+            <select name="opcao[{id.ProdutoOpcao}]" id="opcao{id.ProdutoOpcao}">
+           		<option value="">Selecione</option>
+                {repetir->ProdutoOpcaoValores.ProdutoOpcao}
+            	<option value="{id.ProdutoOpcaoValor.ProdutoOpcao}">{valor.ProdutoOpcaoValor.ProdutoOpcao}</option>
+           		{repetir->ProdutoOpcaoValores.ProdutoOpcao}
+          	</select>
+			{else:condicao->Multi.ProdutoOpcao}
+            <input name="opcao[{id.ProdutoOpcao}]" type="text" id="opcao{id.ProdutoOpcao}" value="{opcao{id.ProdutoOpcao}.ProdutoOpcao}" size="63">
+			{condicao->Multi.ProdutoOpcao}
+            <script>document.getElementById('opcao{id.ProdutoOpcao}').value = '{opcao{id.ProdutoOpcao}.ProdutoOpcao}';</script>
+         </td>
+      </tr>
+      {repetir->ProdutoOpcoes}
+      <!--<tr class="texto">
+        <td>&nbsp;</td>
+        <td colspan="3">&nbsp;</td>
+      </tr>            
+      <tr class="texto">
+        <td bgcolor="#E5E5E5">Quantidade opções:</td>
+        <td colspan="3" bgcolor="#E5E5E5"><input name="quantidadeu" type="text" id="quantidadeu" value="{quantidadeu}" size="27" maxlength="1" /></td>
+      </tr>
+      <tr class="texto">
+        <td>Nome opções:</td>
+        <td colspan="3"><input name="tipoUnidade" type="text" id="tipoUnidade" value="{tipoUnidade}" size="27" /> 
+          (Separados por vírgulas)</td>
+      </tr>  
+      <tr class="texto">
+   	      <td bgcolor="#E5E5E5">Estoque:</td>
+   	      <td colspan="3" bgcolor="#E5E5E5"><input name="estoque" type="text" id="estoque" value="{estoque}" size="27" /></td>
+      </tr>
+              
+      <tr class="texto">
+        <td>&nbsp;</td>
+        <td colspan="3">&nbsp;</td>
+      </tr>-->
+      <tr class="texto">
+        <td bgcolor="#E5E5E5">Palavras Chaves:</td>
+        <td colspan="3" bgcolor="#E5E5E5"><input name="palavrasChaves" type="text" id="palavrasChaves" value="{palavrasChaves}" size="63" /></td>
+      </tr>
+      <tr class="texto">
+        <td>YouTube:</td>
+        <td colspan="3"><input name="video" type="text" id="video" value="{video}" size="63" /></td>
+      </tr>
+      <tr class="texto">
+        <td bgcolor="#E5E5E5"> </td>
+        <td colspan="3" bgcolor="#E5E5E5"></td>
+      </tr>
+      <tr class="texto">
+        <td>&nbsp;</td>
+        <td colspan="3">&nbsp;</td>
+      </tr>
+      <tr class="texto">
+   		  <td bgcolor="#E5E5E5">Descri&ccedil;&atilde;o Pequena:</td>
+   		  <td colspan="3" bgcolor="#E5E5E5">&nbsp;</td>
+      </tr>
+   		<tr class="texto">
+   		  <td colspan="4" bgcolor="#E5E5E5"><textarea name="descricaoPequena" id="descricaoPequena" style="width: 100%" rows="10">{descricaoPequena}</textarea></td>
+	  </tr>
+      {repetir->descricaoPequena.Produtos.Idiomas}
+   	  <tr class="texto">
+   		  <td bgcolor="#E5E5E5">Descri&ccedil;&atilde;o Pequena:</td>
+   		  <td colspan="3" bgcolor="#E5E5E5">({nome.Idioma})</td>
+      </tr>
+   		<tr class="texto">
+   		  <td colspan="4" bgcolor="#E5E5E5"><textarea name="idescricaoPequena[{id.Idioma}]" id="idescricaoPequena{id.Idioma}" style="width: 100%" rows="10">{descricaoPequena.Produto.Idioma}</textarea></td>
+	  </tr>
+      {repetir->descricaoPequena.Produtos.Idiomas}
+      <tr class="texto">
+   		  <td>Descri&ccedil;&atilde;o:</td>
+   		  <td colspan="3">&nbsp;</td>
+      </tr>
+   		<tr class="texto">
+   		  <td colspan="4"><textarea name="descricao" id="descricao" style="width: 100%" rows="10">{descricao}</textarea></td>
+	  </tr>
+      {repetir->descricao.Produtos.Idiomas}
+   	  <tr class="texto">
+   		  <td>Descri&ccedil;&atilde;o:</td>
+   		  <td colspan="3">({nome.Idioma})</td>
+      </tr>
+   		<tr class="texto">
+   		  <td colspan="4"><textarea name="idescricao[{id.Idioma}]" id="idescricao{id.Idioma}" style="width: 100%" rows="10">{descricao.Produto.Idioma}</textarea></td>
+	  </tr>
+      <script>window.addEvent("domready", function(){ CKEDITOR.replace('idescricaoPequena{id.Idioma}', {filebrowserImageUploadUrl: '{caminhoURL}/lib.js/Utils/ckeditor/upload/upload.php'}); CKEDITOR.replace('idescricao{id.Idioma}', {filebrowserImageUploadUrl: '{caminhoURL}/lib.js/Utils/ckeditor/upload/upload.php'}); });</script>
+      {repetir->descricao.Produtos.Idiomas}
+   		<tr class="texto">
+   		  <td colspan="4">&nbsp;</td>
+	  </tr>
+   		<tr class="texto">
+   		  <td colspan="4">&nbsp;</td>
+	  </tr>
+   		<tr class="texto">
+   		  <td colspan="4" style="height: 5px;"></td>
+	  </tr>
+    </table>
+            
+    <table width="910" border="0" cellspacing="0" cellpadding="0" id="tabela_categorias" style="display: none; clear: both;">
+      <tr>
+                <td width="121" bgcolor="#e5e5e5">Categoria:</td>
+                <td width="789" bgcolor="#e5e5e5"><select name="categoria" id="categoria">
+                </select></td>
+      </tr>
+              <tr>
+                <td><p>&nbsp;</p>
+                <p>&nbsp;</p></td>
+                <td><div class="botaoGeral" onclick="addCategoria($('categoria').value, $('categoria').options[$('categoria').selectedIndex].text);">Adicionar</div></td>
+              </tr>
+              <tr>
+                <td colspan="2">&nbsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>
+                <table width="500" border="0" cellspacing="3" cellpadding="3" id="tabela_categoriasSelecionadas">
+					{repetir->ProdutoCategorias.Produto}
+                    <tr>
+                    	<td>{navegador.ProdutoCategoria.Produto}</td>
+                        <td><a style="cursor: pointer" onclick="delCategoria(this.parentNode.parentNode.rowIndex);">Deletar</a><input type="hidden" name="categoriasSelecionadas[]" value="{id.ProdutoCategoria.Produto}" /></td>
+                    </tr>
+                    {repetir->ProdutoCategorias.Produto}
+                </table>
+                </td>
+              </tr>
+  </table>
+            
+            <table width="910" border="0" cellspacing="0" cellpadding="0" id="tabela_imagens" style="display: none; clear: both;">
+              <tr>
+                <td bgcolor="#E5E5E5">&nbsp;</td>
+              </tr>
+              <tr>
+                <td><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="130" height="25" id="upload">
+                  <param name="movie" value="{caminhoURL}lib.js/Net/flash/up.swf" />
+                  <param name="quality" value="high" />
+                  <param name="wmode" value="opaque" />
+                  <param name="allowScriptAccess" value="always" />
+                  <param name="swfversion" value="9.0.45.0" />
+                  <!-- This param tag prompts users with Flash Player 6.0 r65 and higher to download the latest version of Flash Player. Delete it if you don't want users to see the prompt. -->
+                  <param name="expressinstall" value="{caminhoURL}lib.js/Utils/flash/uexpressInstall.swf" />
+                  <param name="flashVars" value="classe=imagem" />
+                  <!-- Next object tag is for non-IE browsers. So hide it from IE using IECC. -->
+                  <!--[if !IE]>-->
+                  <object type="application/x-shockwave-flash" id="upload2" data="{caminhoURL}lib.js/Net/flash/up.swf" width="130" height="25">
+                    <!--<![endif]-->
+                    <param name="quality" value="high" />
+                    <param name="wmode" value="opaque" />
+                    <param name="allowScriptAccess" value="always" />
+                    <param name="swfversion" value="9.0.45.0" />
+                    <param name="expressinstall" value="{caminhoURL}lib.js/Utils/flash/uexpressInstall.swf" />
+                    <param name="flashVars" value="classe=imagem" />
+                    <!-- The browser displays the following alternative content for users with Flash Player 6.0 and older. -->
+                    <div>
+                      <h4>Content on this page requires a newer version of Adobe Flash Player.</h4>
+                      <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a></p>
+                    </div>
+                    <!--[if !IE]>-->
+                  </object>
+                  <!--<![endif]-->
+                </object></td>
+              </tr>
+              <tr>
+                <td bgcolor="#E5E5E5"><a style="cursor: pointer" onclick="selecionar();">Marcar todas as Imagens</a> - <a style="cursor: pointer" onclick="deselecionar();">Desmarcar todas as Imagens</a></td>
+              </tr>
+              <tr>
+                <td id="aparecer">&nbsp;</td>
+              </tr>
+              <tr>
+                <td bgcolor="#E5E5E5">&nbsp;</td>
+              </tr>
+              <tr>
+                <td>
+                {repetir->Imagens.Produto}
+                <table width="100%" border="0" cellspacing="3" cellpadding="0" onmouseover="this.style.backgroundColor = '#E5E5E5';" onmouseout="this.style.backgroundColor = '';">
+                  <tr>
+                    <td rowspan="3" align="center" style="height: 150px; width: 250px;">{imagem.Imagem.Produto}</td>
+                    <td rowspan="3" width="50%"><textarea name="legenda[{id.Imagem.Produto}]" style="width: 90%; height: 100px;">{legenda.Imagem.Produto}</textarea></td>
+                    <td align="center"><input type="checkbox" name="remover[]" value="{id.Imagem.Produto}" /></td>
+                  </tr>
+                  <tr>
+                    <td align="center"><div class="botaoGeral" style="float: none" onclick="deletar('{id.Imagem.Produto}');">Remover</div></td>
+                  </tr>
+                  
+                  <tr>
+                    <td align="center">{condicao->principal.Imagem.Produto}<div class="botaoGeral" style="float: none"><a href="{linkPrincipal.Imagem.Produto}">Principal</a></div>{condicao->principal.Imagem.Produto}</td>
+                  </tr>
+                </table>
+                {repetir->Imagens.Produto}
+                </td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+            
+            <table width="910" border="0" cellspacing="0" cellpadding="0" id="tabela_variacoes" style="display: none; clear: both;">
+              <tr>
+                <td></td>
+              </tr>
+              <tr>
+                <td bgcolor="#E5E5E5"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF; cursor: pointer" align="center" onClick="addVariacao();">Adicionar Variação</div></td>
+              </tr>
+              <tr>
+                <td id="aparecer">&nbsp;</td>
+              </tr>
+              <tr>
+                <td bgcolor="#E5E5E5">
+                	<table width="100%" border="0" cellspacing="3" cellpadding="3" id="tabela_variacoesAdicionadas">
+                        {repetir->ProdutoInfos}
+                        <tr>
+                          <td colspan="6"><table width="500" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                              <td width="281" align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                {repetir->ProdutoOpcoes.ProdutoInfo}
+                                <tr>
+                                  <td>{nome.ProdutoOpcao.ProdutoInfo}:</td>
+                                  <td><input type="hidden" name="opcaoInfo[{posicao.ProdutoInfo}][{id.ProdutoOpcao.ProdutoInfo}]" id="opcaoInfo{posicao.ProdutoInfo}{id.ProdutoOpcao.ProdutoInfo}" value="{id.ProdutoOpcaoValor.ProdutoInfo}" />{valor.ProdutoOpcaoValor.ProdutoInfo}</td>
+                                </tr>
+                                {repetir->ProdutoOpcoes.ProdutoInfo}
+                              </table></td>
+                              <td width="219" align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                  <td width="34%" align="left">Estoque:</td>
+                                  <td width="66%" align="left"><input type="text" name="estoqueInfo[{posicao.ProdutoInfo}]" id="estoqueInfo{posicao.ProdutoInfo}" value="{estoque.ProdutoInfo}" /></td>
+                                </tr>
+                                <tr>
+                                  <td align="left">Valor:</td>
+                                  <td align="left"><input type="text" name="valorInfo[{posicao.ProdutoInfo}]" id="valorInfo{posicao.ProdutoInfo}" value="{valor.ProdutoInfo}" /></td>
+                                </tr>
+                                <tr>
+                                  <td align="left"><input type="hidden" name="idInfo[{posicao.ProdutoInfo}]" id="idInfo{posicao.ProdutoInfo}" value="{id.ProdutoInfo}" /></td>
+                                  <td align="left">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                  <td colspan="2" align="left"><a href="{linkAlterar.ProdutoInfo}" style="color: #000;">Mais Opções</a></td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                          </table></td>
+                        </tr>
+                        {repetir->ProdutoInfos}
+                    </table>
+                </td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+            
+  <table width="910" border="0" cellpadding="0" cellspacing="0">
+                <tr class="texto">
+                <td colspan="4"><div style="width: 100%; border-top-color: #999; border-top-style: dotted; border-top-width: medium;"></div></td>
+              </tr>
+              <tr class="texto">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr class="texto">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr class="texto">
+        		  <td>&nbsp;</td>
+        		  <td width="179">&nbsp;</td>
+        		  <td width="58">&nbsp;</td>
+        		  <td width="428"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        		    <tr>
+        		      <td width="27%">&nbsp;</td>
+        		      <td width="38%"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF" align="center"><input type="submit" value="Salvar" style="cursor: pointer; background: none; border: none; margin: 0px; padding: 0px; color: #FFF"></div></td>
+        		      <td width="35%"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF" align="center"><a href="{linkVoltar}">Voltar</a></div></td>
+      		        </tr>
+      		    </table></td>
+   		      </tr>
+          </table>
+            
+        </form>
+		<script type="text/javascript">
+<!--
+swfobject.registerObject("upload");
+//-->
+        </script>

@@ -1,0 +1,65 @@
+		
+		<script>
+			
+			function deletar(id){
+				
+				var aS = new SexyAlert;
+				aS.confirm("Deseja realmente deletar esta categoria?", {onComplete: function(v){
+					
+					if(v) document.location.href = '{linkDeletar.ProdutoCategoria}deletar='+id;
+					
+			    }, textBoxBtnOk: 'Sim', textBoxBtnCancel: 'Não'});
+				
+			}
+			
+		</script>
+        
+        {condicaoBotoes}
+        {botoes}
+        <div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF; float: right" align="center"><a href="{linkCadastrar.ProdutoCategoria}">Cadastrar</a></div>
+        {botoes}
+        {condicaoBotoes}
+        <form action="" method="post" id="formLista" enctype="application/x-www-form-urlencoded">
+        <table style="margin: 20px;" cellpadding="0" cellspacing="2" width="910">
+        	<tr class="texto">
+           		<td>Abaixo está a lista:                </td>
+       		</tr>
+          <tr class="texto">
+        	  <td>&nbsp;</td>
+       	  </tr>
+          
+          <tr class="texto" style="background-color: {bgColorEmpresa}">
+             <td>
+             <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td align="center"></td>
+                <td align="center">&nbsp;</td>
+                <td height="25">&nbsp;</td>
+                <td align="center">Disponível</td>
+                <td align="center">&nbsp;</td>
+                <td align="center">&nbsp;</td>
+                <td align="center">&nbsp;</td>
+              </tr>
+            {repetir->ProdutoCategorias}
+              <tr>
+                <td width="0%" align="center"></td>
+            <td width="15%" align="center">{id.ProdutoCategoria}</td>
+            <td width="43%" height="25">{nome.ProdutoCategoria}</td>
+            <td width="10%" align="center" bgcolor="{bg.Disponivel.ProdutoCategoria}" style="color: #FFF; text-align: center"><label for="desabilitar{id.ProdutoCategoria}" style="width: 100%; height: 100%; float: left; cursor: pointer"><input type="checkbox" name="desabilitar[{id.ProdutoCategoria}]" id="desabilitar{id.ProdutoCategoria}" value="{id.ProdutoCategoria}" {disponivel.ProdutoCategoria} /></label></td>
+            <td width="11%" align="center"><a href="{linkVisualizar.ProdutoCategoria}" style="color:#000">SubCategorias</a></td>
+            <td width="8%" align="center"><a href="{linkAlterar.ProdutoCategoria}" style="color: #000">Alterar</a></td>
+                <td width="13%" align="center"><a style="color: #000; cursor: pointer;" onclick="deletar('{id.ProdutoCategoria}');">Remover</a></td></tr>
+                {repetir->ProdutoCategorias}
+            </table>
+             </td>
+          </tr>
+          
+          <tr class="texto">
+            <td colspan="4">&nbsp;</td>
+          </tr>
+          <tr class="texto">
+            <td colspan="4"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF; float: right" align="center"><a style="cursor:pointer" onclick="history.back();">Voltar</a></div><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF; float: right" align="center"><a style="cursor:pointer" onclick="$('formLista').submit();">Salvar</a></div></td>
+          </tr>
+          
+        </table>
+        </form>

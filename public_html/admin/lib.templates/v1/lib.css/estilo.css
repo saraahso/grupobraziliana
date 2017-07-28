@@ -1,0 +1,27 @@
+.linegeral {
+	border: 1px solid #666666;
+}
+.verdana {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+}
+.tree {
+	font-family: "Trebuchet MS";
+}
+.line {
+	border: 1px solid #999999;
+}
+a {text-decoration:none; color: #000000}
+a:hover {text-decoration: underline; color: #000000;}
+.imp {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+
+}
+.form {
+	font-family: "Verdana";
+	font-size: 9px;
+	background-color: ffffff;
+	border: 1px solid #333333;
+}
+

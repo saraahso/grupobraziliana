@@ -1,0 +1,76 @@
+		
+        {javaScript}
+        $('statusPedido').value = '{statusPedido}';
+        {javaScript}
+        
+		<script>
+			
+			function deletar(id){
+				
+				var aS = new SexyAlert;
+				aS.confirm("Deseja realmente cancelar este pedido?", {onComplete: function(v){
+					
+					if(v) document.location.href = '{linkDeletar.Pedido}deletar='+id;
+					
+			    }, textBoxBtnOk: 'Sim', textBoxBtnCancel: 'Não'});
+				
+			}
+			
+		</script>
+        
+        <table style="margin: 20px;" cellpadding="0" cellspacing="2" width="910">
+        	
+          <tr class="texto">
+              <td>
+                <table width="100%" border="0" cellspacing="2" cellpadding="0">
+                  <tr>
+                    <td width="7%">Busca:</td>
+                    <td width="18%"><input type="text" name="buscar" id="buscar" /></td>
+                    <td width="60%"><input type="submit" name="botao" id="botao" value="Buscar" onclick="document.location.href = '?p=SistemaPedidos&a=listarPedidos&busca='+$('buscar').value+'&status='+$('statusPedido').value;" /></td>
+                    <td width="15%"><select name="statusPedido" id="statusPedido" onchange="document.location.href = '?p=SistemaPedidos&a=listarPedidos&status='+this.value+'&busca='+$('buscar').value;">
+            		      <option value="0">Cancelado</option>
+            		      <option value="1">Aberto</option>
+            		      <option value="4">Produto Enviado</option>
+            		      <option value="2">Aguardando Pagamento</option>
+            		      <option value="3">Pagamento Concluído</option>
+            		      <option value="5">Pagamento em Análise</option>
+            		      <option value="6">Aguardando Contato</option>
+       		        </select></td>
+                  </tr>
+                </table>
+              </td>
+         </tr>
+            <tr class="texto">
+           		<td>Abaixo est&aacute; a lista:                </td>
+       		</tr>
+          <tr class="texto">
+        	  <td>&nbsp;</td>
+       	  </tr>
+          {repetir->Pedidos}
+          <tr class="texto" style="background-color: {bgColorEmpresa}">
+             <td>
+             <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="0%" align="center"></td>
+            <td width="15%" align="center">{id.Pedido}</td>
+            <td width="26%" height="25">{data.Pedido}</td>
+            <td width="10%">Valor Total:</td>
+            <td width="17%">U$ {valor.Pedido}</td>
+            <td width="11%" align="center">&nbsp;</td>
+            <td width="8%" align="center"><a href="{linkAlterar.Pedido}" style="color: #000">Visualizar</a></td>
+                <td width="13%" align="center">{condicao->CancelarPedido}<a style="color: #000; cursor: pointer;" onclick="deletar('{id.Pedido}');">Cancelar</a>{condicao->CancelarPedido}</td></tr>
+            </table>
+             </td>
+          </tr>
+          
+          {repetir->Pedidos}
+          
+          <tr class="texto">
+            <td>&nbsp;</td>
+          </tr>
+          <tr class="texto">
+            <td><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF; float: right" align="center"><a style="cursor:pointer" onclick="history.back();">Voltar</a></div></td>
+          </tr>
+          
+        </table>
+        

@@ -1,0 +1,68 @@
+		
+		<script>
+			
+			function deletar(id){
+				
+				var aS = new SexyAlert;
+				aS.confirm("Deseja realmente deletar esta marca?", {onComplete: function(v){
+					
+					if(v) document.location.href = '{linkDeletar.ProdutoMarca}deletar='+id;
+					
+			    }, textBoxBtnOk: 'Sim', textBoxBtnCancel: 'Não'});
+				
+			}
+			
+		</script>
+        
+        {condicaoBotoes}
+        {botoes}
+        <div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF; float: right" align="center"><a href="{linkCadastrar.ProdutoMarca}">Cadastrar</a></div>
+        {botoes}
+        {condicaoBotoes}
+        <form action="" method="post" id="formLista" enctype="application/x-www-form-urlencoded">
+        <table style="margin: 20px;" cellpadding="0" cellspacing="2" width="910">
+        	<tr class="texto">
+           		<td>Abaixo est&aacute; a lista:                </td>
+       		</tr>
+          <tr class="texto">
+        	  <td>&nbsp;</td>
+       	  </tr>
+          <tr class="texto" style="background-color: {bgColorEmpresa}">
+            <td>
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td width="0%" align="center"></td>
+                  <td width="15%" align="center"></td>
+                  <td width="53%" height="25"></td>
+                  <td width="11%" align="center">Disponível</td>
+                  <td width="8%" align="center"></td>
+                  <td width="13%" align="center"></tr>
+              </table>
+            </td>
+          </tr>
+          {repetir->ProdutoMarcas}
+          <tr class="texto" style="background-color: {bgColorEmpresa}">
+             <td>
+             <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="0%" align="center"></td>
+            <td width="15%" align="center">{id.ProdutoMarca}</td>
+            <td width="53%" height="25">{nome.ProdutoMarca}</td>
+            <td width="11%" align="center" bgcolor="{bg.Disponivel.ProdutoMarca}" style="color: #FFF; text-align: center"><label for="desabilitar{id.ProdutoMarca}" style="width: 100%; height: 100%; float: left; cursor: pointer"><input type="checkbox" name="desabilitar[{id.ProdutoMarca}]" id="desabilitar{id.ProdutoMarca}" value="{id.ProdutoMarca}" {disponivel.ProdutoMarca} /></label></td>
+            <td width="8%" align="center"><a href="{linkAlterar.ProdutoMarca}" style="color: #000">Alterar</a></td>
+                <td width="13%" align="center"><a style="color: #000; cursor: pointer;" onclick="deletar('{id.ProdutoMarca}');">Remover</a></td></tr>
+            </table>
+             </td>
+          </tr>
+          
+          {repetir->ProdutoMarcas}
+          
+          <tr class="texto">
+            <td>&nbsp;</td>
+          </tr>
+          <tr class="texto">
+            <td colspan="4"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF; float: right" align="center"><a style="cursor:pointer" onclick="history.back();">Voltar</a></div><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF; float: right" align="center"><a style="cursor:pointer" onclick="$('formLista').submit();">Salvar</a></div></td>
+          </tr>
+          
+        </table>
+        </form>

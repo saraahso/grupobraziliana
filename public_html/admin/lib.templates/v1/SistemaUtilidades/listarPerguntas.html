@@ -1,0 +1,54 @@
+		
+		<script>
+			
+			function deletar(id){
+				
+				var aS = new SexyAlert;
+				aS.confirm("Deseja realmente deletar esta pergunta?", {onComplete: function(v){
+					
+					if(v) document.location.href = '{linkDeletar.Pergunta}deletar='+id;
+					
+			    }, textBoxBtnOk: 'Sim', textBoxBtnCancel: 'Não'});
+				
+			}
+			
+		</script>
+        
+        {condicaoBotoes}
+        {botoes}
+        <div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF; float: right" align="center"><a href="{linkCadastrar.Pergunta}">Cadastrar</a></div>
+        {botoes}
+        {condicaoBotoes}
+        <table style="margin: 20px;" cellpadding="0" cellspacing="2" width="910">
+        	<tr class="texto">
+           		<td>Abaixo est&aacute; a lista:                </td>
+       		</tr>
+          <tr class="texto">
+        	  <td>&nbsp;</td>
+       	  </tr>
+          {repetir->Perguntas}
+          <tr class="texto" style="background-color: {bgColorEmpresa}">
+             <td>
+             <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="0%" align="center"></td>
+            <td width="15%" align="center">{id.Pergunta}</td>
+            <td width="53%" height="25">{titulo.Pergunta}</td>
+            <td width="11%" align="center">&nbsp;</td>
+            <td width="8%" align="center"><a href="{linkAlterar.Pergunta}" style="color: #000">Alterar</a></td>
+                <td width="13%" align="center"><a style="color: #000; cursor: pointer;" onclick="deletar('{id.Pergunta}');">Remover</a></td></tr>
+            </table>
+             </td>
+          </tr>
+          
+          {repetir->Perguntas}
+          
+          <tr class="texto">
+            <td>&nbsp;</td>
+          </tr>
+          <tr class="texto">
+            <td><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF; float: right" align="center"><a href="{linkVoltar.Pergunta}">Voltar</a></div></td>
+          </tr>
+          
+        </table>
+        

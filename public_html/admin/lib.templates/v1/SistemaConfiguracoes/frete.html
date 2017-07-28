@@ -1,0 +1,75 @@
+		
+        {javaScript}
+        $('ativoCorreio').value = '{ativoCorreio}';
+        $('freteGratis').value = '{freteGratis}';
+        {javaScript}
+        
+        <form enctype="multipart/form-data" action="" method="post" id="formInserir">
+            <table style="margin: 20px;" cellpadding="2" cellspacing="0" width="910">
+        		<tr class="texto">
+        		  <td bgcolor="#E5E5E5">CEP de Origem:</td>
+        		  <td colspan="3" bgcolor="#E5E5E5"><input name="cepOrigem" type="text" id="cepOrigem" value="{cepOrigem}" size="10" maxlength="8" /></td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td>&nbsp;</td>
+        		  <td colspan="3">&nbsp;</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td width="152" bgcolor="#E5E5E5">Ativar Correios:</td>
+        		  <td colspan="3" bgcolor="#E5E5E5"><select name="ativoCorreio" id="ativoCorreio">
+        		    <option value="0" selected="selected">Não</option>
+        		    <option value="1">Sim</option>
+                  </select></td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td>Login Correios:</td>
+        		  <td colspan="3"><input name="loginCorreio" type="text" id="loginCorreio" value="{loginCorreio}" /></td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td bgcolor="#E5E5E5">Senha Correios:</td>
+        		  <td colspan="3" bgcolor="#E5E5E5"><input name="senhaCorreio" type="text" id="senhaCorreio" value="{senhaCorreio}" /></td>
+      		  </tr>
+              <tr class="texto">
+                  <td>&nbsp;</td>
+                  <td colspan="3">&nbsp;</td>
+              </tr>
+              <tr class="texto">
+                  <td>Todo o site Grátis:</td>
+                  <td colspan="3"><select name="freteGratis" id="freteGratis">
+                    <option value="0" selected="selected">Não</option>
+                    <option value="1">Sim</option>
+                </select></td>
+              </tr>
+              <tr class="texto">
+                <td>Frete Grátis apartir de:</td>
+                <td colspan="3"><input name="apartirValorFreteGratis" type="text" id="apartirValorFreteGratis" value="{apartirValorFreteGratis}" /> 
+                  *Informe 0 para nenhum valor.</td>
+              </tr>
+              <tr class="texto">
+                  <td>&nbsp;</td>
+                  <td colspan="3">&nbsp;</td>
+              </tr>
+        		<tr class="texto">
+        		  <td colspan="4" style="height: 5px;"></td>
+       		  </tr>
+        		<tr class="texto">
+        		  <td colspan="4"><div style="width: 100%; border-top-color: #999; border-top-style: dotted; border-top-width: medium;"></div></td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td>&nbsp;</td>
+        		  <td colspan="3">&nbsp;</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td>&nbsp;</td>
+        		  <td width="148">&nbsp;</td>
+        		  <td width="71">&nbsp;</td>
+        		  <td width="521"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        		    <tr>
+        		      <td width="27%">&nbsp;</td>
+        		      <td width="38%"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF" align="center"><a onclick="$('formInserir').submit();" style="cursor: pointer">Salvar</a></div></td>
+        		      <td width="35%"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF" align="center"><a href="{linkVoltar}">Voltar</a></div></td>
+      		        </tr>
+      		    </table></td>
+   		      </tr>
+        	</table>
+        </form>

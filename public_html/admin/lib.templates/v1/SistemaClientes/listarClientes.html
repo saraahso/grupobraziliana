@@ -1,0 +1,67 @@
+		
+		<script>
+			
+			function deletar(id){
+				
+				var aS = new SexyAlert;
+				aS.confirm("Deseja realmente cancelar este cliente?", {onComplete: function(v){
+					
+					if(v) document.location.href = '{linkDeletar.Cliente}deletar='+id;
+					
+			    }, textBoxBtnOk: 'Sim', textBoxBtnCancel: 'Nao'});
+				
+			}
+			
+		</script>
+        
+        {botoes}
+        <div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF; float: right" align="center"><a href="{linkCadastrar.Cliente}">Cadastrar</a></div>
+        {botoes}
+        <form action="" method="post" id="formLista" enctype="application/x-www-form-urlencoded" onsubmit="if($('busca').value != ''){ document.location.href = '?p=SistemaClientes&a=listarClientes&busca='+$('busca').value; return false; }">
+        <table style="margin: 20px;" cellpadding="0" cellspacing="2" width="910">
+        	<tr class="texto">
+           		<td colspan="3"></td>
+           		<td width="167">Total de registros: {total.ListaClientes}</td>
+   		  </tr>
+            <tr class="texto">
+              
+              <td width="53">Busca:</td>
+              <td width="157"><input type="text" name="busca" id="busca" /></td>
+              <td width="311"><input type="submit" name="botao" id="botao" value="Busca" /></td>
+              <td>&nbsp;</td>
+              
+            </tr>
+            <tr class="texto">
+              <td colspan="4">&nbsp;</td>
+            </tr>
+            <tr class="texto">
+              <td colspan="4">Pag. {repetir->Paginacao}{condicao->atual.Paginacao}<a href="{linkVisualizar.Paginacao}" style="color: #333;">{numero.Paginacao}</a> | {else:condicao->atual.Paginacao}<strong style="color: #FF0000;">{numero.Paginacao}</strong> | {condicao->atual.Paginacao}{repetir->Paginacao}</td>
+            </tr>
+          {repetir->Clientes}
+          <tr class="texto" style="background-color: {bgColorEmpresa}">
+             <td colspan="4">
+             <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="2%" align="center"></td>
+            <td width="10%" align="center">{id.Cliente}</td>
+            <td width="27%" height="25">{nome.Cliente}</td>
+            <td width="18%">{telefone.Cliente}</td>
+            <td width="21%">{email.Cliente}</td>
+            <td width="11%" align="center"><a href="{linkAlterar.Cliente}" style="color: #000">Alterar</a></td>
+                <td width="11%" align="center"><a style="color: #000; cursor: pointer;" onclick="deletar('{id.Cliente}');">Deletar</a></td></tr>
+            </table>
+             </td>
+          </tr>
+          
+          {repetir->Clientes}
+          
+          <tr class="texto">
+            <td colspan="4">&nbsp;</td>
+          </tr>
+          <tr class="texto">
+            <td colspan="4"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF; float: right" align="center"><a style="cursor:pointer" onclick="history.back();">Voltar</a></div></td>
+          </tr>
+          
+        </table>
+        </form>
+        

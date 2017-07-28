@@ -1,0 +1,27 @@
+<div class="row sellers">
+    <div class="col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="/">Página Principal</a></li>
+            <li class="active">
+                Vendedores
+            </li>
+        </ol>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 seller" ng-repeat="seller in $root.sellers">
+        <div class="image">
+            <img ng-if="seller.imagem != ''" data-original="{{$root.backURL}}/lib.data/geral/textos/{{seller.imagem.imagem | resizeImage:200:164}}" src="/images/trans.png" class="lazy" />
+        </div>
+        <div class="name">
+            {{seller.nome}}
+        </div>
+        <div class="email">
+            {{seller.email}}
+        </div>
+        <div class="default">
+            Skype: {{seller.skype}}
+        </div>
+        <div class="default telefone">
+            {{seller.telefone}}
+        </div>
+    </div>
+</div>

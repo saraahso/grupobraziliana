@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>Relatório Pedidos</title>
+<link href="lib.css/estilo.css" rel="stylesheet" type="text/css">
+<link href="{caminhoURL}lib.js/Externos/css/SexyAlert.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+body{
+	background: #fff url(lib.imgs/bg.png) no-repeat top right fixed;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	text-align: center;
+}
+td {
+	font-size: 12px;
+}
+p {
+	display: inline-block;
+	margin: 0px;
+	height: 30px;
+	line-height: 30px;
+}
+-->
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<div align="center">
+	<div style="width: 800px; margin: 15px auto; text-align: left;">
+        {repetir->Pedidos}
+        <h4>Pedido N° {id.Pedido}</h4>
+
+        <div style="width: 100%; height: auto !important; clear: both; min-height: 25px;" align="left">
+            <div style="width: 136px; float: left;">Data: <span style="color: #090">{data.Pedido}</span></div>
+            <div style="width: 374px; float: left;">Pagamento: <span style="color: #090">{tipoPagamento.Pedido}</span></div>
+            <div style="width: 265px; float: left;">Status: <span style="color: #090">{status.Pedido}</span></div>
+        </div>
+        {repetir->Itens.Pedido}
+        <div style="width: 100%; height: auto !important; clear: both; min-height: 25px;" align="left">
+            <div style="width: 136px; height: 1px; float: left;"></div>
+            <div style="width: 374px; float: left;">Produto: <span>{nome.Item.Pedido}</span></div>
+            <div style="width: 112px; float: left;">Quantidade: <span style="color: #090">{quantidade.Item.Pedido}</span></div>
+            <div style="width: 153px; float: left;">Preço Unit.: <span style="color: #090">{valor.Item.Pedido}</span></div>
+        </div>
+		{repetir->Itens.Pedido}
+        <div style="width: 100%; border-top: 1px dotted #999; clear: both; margin-bottom: 15px;"></div>
+		<div style="width: 100%; height: auto !important; clear: both; min-height: 25px;" align="left">
+            <div style="width: 255px; float: left;">Valor do Pedido: <span style="color: #090">{valor.Pedido}</span></div>
+            <div style="width: 255px; float: left;">Frete: <span style="color: #090">{valor.Endereco.Pedido} {tipo.Endereco.Pedido}</span></div>
+            <div style="width: 265px; float: left;">Total: <span style="color: #090">{total}</span></div>
+        </div>
+        <div style="width: 100%; border-top: 1px dotted #999; clear: both; margin-bottom: 15px;"></div>
+        <div style="width: 100%; height: auto !important; clear: both; min-height: 25px;" align="left">
+            <div style="width: 255px; float: left;">Observações:</div>
+        </div>
+        <div style="width: 100%; height: auto !important; clear: both; min-height: 25px;" align="left">
+            <div style="width: 100%; float: left;"><span style="color: #090">{observacoes.Pedido}</span></div>
+        </div>
+        <div style="width: 100%; height: auto !important; clear: both; min-height: 25px;" align="left">
+            <div style="width: 100%; float: left;">Endereço:</div>
+        </div>
+        <div style="width: 100%; height: auto !important; clear: both; min-height: 25px;" align="left">
+            <div style="width: 100%; float: left;"><span style="color: #090">{logradouro.Endereco.Pedido}, {numero.Endereco.Pedido} {complemento.Endereco.Pedido}<br />{bairro.Endereco.Pedido} - {cidade.Endereco.Pedido} - {estado.Endereco.Pedido}<br />{cep.Endereco.Pedido}</span></div>
+        </div>
+        <div style="width: 100%; height: 1px; border-bottom: 1px solid #090; clear: both"></div>
+        {repetir->Pedidos}
+	</div>
+</div>
+</body>
+</html>

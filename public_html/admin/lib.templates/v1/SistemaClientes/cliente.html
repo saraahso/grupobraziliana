@@ -1,0 +1,526 @@
+         
+         {javaScript}
+
+            new FormCheck("formInserir");
+            
+            var mascara = new ForMoo({
+                form: "formInserir",
+                tips:true, 	
+                    tipsTrans:1,		
+                foc:true 	/*	focus ativado  */
+            });	
+            
+            mascara.maskIt("cpf","999.999.999-99","Formato: 999.999.999-99");
+            mascara.maskIt("dataNasc","99/99/9999","Formato: 99/99/9999");
+            mascara.maskIt("cnpj","99.999.999/9999-99","Formato: 99.999.999/9999-99");
+            mascara.maskIt("cep","99999-999","Formato: 99999-999");
+            mascara.maskIt("telefone","(99) 9999-9999","Formato: (99) 9999-9999");
+            
+            {condicao->POST}
+            $('r_{pessoa}').checked = true;
+            $('tbl_{pessoa}').style.display = '';
+            {condicao->POST}
+            
+            $('sexo').value = '{sexo}';
+            
+            if('{atacadista}' == '1')
+            	$('atacadista').checked = true;
+            
+            
+            function esconderTabelas(){
+            	
+                $('tabela_infoGerais').style.display = 'none';
+                $('infoGerais').className = 'botaoPlanilha';
+                $('tabela_enderecos').style.display = 'none';
+                $('enderecos').className = 'botaoPlanilha';
+                $('tabela_telefones').style.display = 'none';
+                $('telefones').className = 'botaoPlanilha';
+                $('tabela_emails').style.display = 'none';
+                $('emails').className = 'botaoPlanilha';
+                $('tabela_compras').style.display = 'none';
+                $('compras').className = 'botaoPlanilha';
+                
+            }
+            
+            $('infoGerais').addEvent('click', function(){
+            	
+                esconderTabelas();
+                $('tabela_'+this.id).style.display = '';
+                $(this.id).className = 'botaoPlanilhaSelecionado';
+                
+            });
+            
+            $('enderecos').addEvent('click', function(){
+            	
+                esconderTabelas();
+                $('tabela_'+this.id).style.display = '';
+                $(this.id).className = 'botaoPlanilhaSelecionado';
+                
+            });
+            
+            $('telefones').addEvent('click', function(){
+            	
+                esconderTabelas();
+                $('tabela_'+this.id).style.display = '';
+                $(this.id).className = 'botaoPlanilhaSelecionado';
+                
+            });
+            
+            $('emails').addEvent('click', function(){
+            	
+                esconderTabelas();
+                $('tabela_'+this.id).style.display = '';
+                $(this.id).className = 'botaoPlanilhaSelecionado';
+                
+            });
+            
+            $('compras').addEvent('click', function(){
+            	
+                esconderTabelas();
+                $('tabela_'+this.id).style.display = '';
+                $(this.id).className = 'botaoPlanilhaSelecionado';
+                
+            });
+            
+            function carregarEstados(pais){
+            	
+                var se = estado;
+                total 	= se.length;
+                
+                for(i = 0; i < total; i++)
+                    se.remove(0);
+                                
+                se.add(new Option('Carregando...'));
+                	
+                var req = new Request({  
+                       
+                        method: 'get',  
+                        url: "?p=SistemaClientes&a=alterarCliente&pais="+pais+"&json",  
+                        data: { 'do' : '1' },  
+                        onComplete: function(response) { 
+                           
+                            if(response != ''){
+                            	
+                                var json = JSON.decode(''+response+'');
+                                se.remove(0);
+                                
+                                se.add(new Option('Selecione'));
+                                se.add(new Option(''));
+                                
+                                for(i = 0; i < json.length; i++){
+                                    
+                                    op = new Option(json[i].nome, json[i].id);
+                                    se.add(op);
+                                    
+                                }
+                            
+                            }
+                            
+                            
+                        }
+                         
+                }).send();
+            
+            }
+            
+            $('pais').addEvent('change', function(){ carregarEstados($('pais').value); });
+            
+            function carregarCidades(estado){
+            	
+                var se = cidade;
+                total 	= se.length;
+                
+                for(i = 0; i < total; i++)
+                    se.remove(0);
+                                
+                se.add(new Option('Carregando...'));
+                	
+                var req = new Request({  
+                       
+                        method: 'get',  
+                        url: "?p=SistemaClientes&a=alterarCliente&estado="+estado+"&json",  
+                        data: { 'do' : '1' },  
+                        onComplete: function(response) { 
+                           
+                            if(response != ''){
+                            	
+                                var json = JSON.decode(''+response+'');
+                                
+                                se.remove(0);
+                                
+                                se.add(new Option('Selecione'));
+                                se.add(new Option(''));
+                                
+                                for(i = 0; i < json.length; i++){
+                                    
+                                    op = new Option(json[i].nome, json[i].id);
+                                    se.add(op);
+                                    
+                                }
+                            
+                            }
+                            
+                            
+                        }
+                         
+                }).send();
+            
+            }
+            
+            $('estado').addEvent('change', function(){ carregarCidades($('estado').value); });
+            
+            {condicao->alterar.Cliente}
+            $('enderecos').style.display = 'none';
+            $('telefones').style.display = 'none';
+            {condicao->alterar.Cliente}
+            $('emails').style.display = 'none';
+            
+         {javaScript}
+         
+         <script>
+		 
+		 function deletarEndereco(end){
+			 
+			 var aL = new SexyAlert;
+			 aL.confirm("Deseja realmente deletar este endere&ccedil;o?", {onComplete: function(v){
+					
+					if(v) document.location.href = '{linkDeletar.Cliente}endereco='+end;
+					
+			    }, textBoxBtnOk: 'Sim', textBoxBtnCancel: 'Nao'});
+			 
+		 }
+		 
+		 function deletarTelefone(tel){
+			 
+			 var aL = new SexyAlert;
+			 aL.confirm("Deseja realmente deletar este telefone?", {onComplete: function(v){
+					
+					if(v) document.location.href = '{linkDeletar.Cliente}telefone='+tel;
+					
+			    }, textBoxBtnOk: 'Sim', textBoxBtnCancel: 'Nao'});
+			 
+		 }
+		 
+		 function deletarEmails(e){
+			 
+			 var aL = new SexyAlert;
+			 aL.confirm("Deseja realmente deletar este e-mail?", {onComplete: function(v){
+					
+					if(v) document.location.href = '{linkDeletar.Cliente}email='+e;
+					
+			    }, textBoxBtnOk: 'Sim', textBoxBtnCancel: 'Nao'});
+			 
+		 }
+		 
+		 </script>
+                              
+		<form enctype="multipart/form-data" action="" method="post" id="formInserir" name="formInserir" style="padding: 20px">
+           
+            <div class="botaoPlanilhaSelecionado" id="infoGerais">Info. Gerais</div>
+            <div class="botaoPlanilha" id="enderecos">Endere&ccedil;os</div>
+            <div class="botaoPlanilha" id="telefones">Telefones</div>
+            <div class="botaoPlanilha" id="emails">Emails</div>
+            <div class="botaoPlanilha" id="compras">Compras</div>
+           
+            <table cellpadding="2" cellspacing="0" width="910" style="clear: both" id="tabela_infoGerais">
+        		<tr class="texto">
+            		<td width="147" bgcolor="#e5e5e5">Nome:</td>
+            		<td width="443" bgcolor="#e5e5e5"><input name="nome" type="text" id="nome" value="{nome}" size="63" class="validate['required']"></td>
+            	</tr>
+        		<tr class="texto">
+        		  <td>Pessoa:</td>
+        		  <td><table width="200" border="0" cellspacing="0" cellpadding="0">
+        		    <tr>
+        		      <td width="24"><input type="radio" name="pessoa" id="r_fisica" value="fisica" onclick="if(this.checked){ $('tbl_fisica').style.display = ''; $('tbl_juridica').style.display = 'none'; }" class="validate['required']" /></td>
+        		      <td width="63">F&iacute;sica</td>
+        		      <td width="26"><input type="radio" name="pessoa" id="r_juridica" value="juridica" onclick="if(this.checked){ $('tbl_fisica').style.display = 'none'; $('tbl_juridica').style.display = ''; }" /></td>
+        		      <td width="87">Jur&iacute;dica</td>
+      		      </tr>
+      		    </table></td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td bgcolor="#E5E5E5">&nbsp;</td>
+        		  <td bgcolor="#E5E5E5">&nbsp;</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td>Usu&aacute;rio:</td>
+        		  <td><input name="usuario" type="text" id="usuario" value="{usuario}" size="63"/></td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td bgcolor="#E5E5E5">Senha:</td>
+        		  <td bgcolor="#E5E5E5"><input name="senha" type="text" id="senha" value="{senha}" size="63" class="validate['required']" /></td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td>&nbsp;</td>
+        		  <td>&nbsp;</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td bgcolor="#E5E5E5">Atacadista:</td>
+        		  <td bgcolor="#E5E5E5"><input name="atacadista" type="checkbox" id="atacadista" value="1" /></td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td>&nbsp;</td>
+        		  <td>&nbsp;</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td bgcolor="#E5E5E5">Origem Cadastro:</td>
+        		  <td bgcolor="#E5E5E5">{origemCadastro}</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td>&nbsp;</td>
+        		  <td>&nbsp;</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td bgcolor="#E5E5E5">E-mail:</td>
+        		  <td bgcolor="#E5E5E5"><input name="emailPrimario" type="text" id="emailPrimario" value="{email}" size="63"/></td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td>Imagem:</td>
+        		  <td><input type="file" name="imagem" id="imagem" /></td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td bgcolor="#E5E5E5">&nbsp;</td>
+        		  <td bgcolor="#E5E5E5">{imagem}</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td colspan="2">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0" style="display: none;" id="tbl_fisica">
+        		    <tr>
+        		      <td width="25%">RG:</td>
+        		      <td width="75%"><input name="rg" type="text" id="rg" value="{rg}" size="63" /></td>
+      		        </tr>
+        		    <tr>
+        		      <td bgcolor="#E5E5E5">CPF:</td>
+        		      <td bgcolor="#E5E5E5"><input name="cpf" type="text" id="cpf" value="{cpf}" size="63" maxlength="14" /></td>
+      		      </tr>
+        		    <tr>
+        		      <td>Sexo:</td>
+        		      <td><select name="sexo" id="sexo">
+        		        <option value="Masculino" selected="selected">Masculino</option>
+        		        <option value="Feminino">Feminino</option>
+      		          </select></td>
+      		      </tr>
+        		    <tr>
+        		      <td bgcolor="#E5E5E5">Data de Nascimento:</td>
+        		      <td bgcolor="#E5E5E5"><input name="dataNasc" type="text" id="dataNasc" value="{dataNasc}" size="63" /></td>
+      		      </tr>
+      		      </table>
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0" style="display: none;" id="tbl_juridica">
+                    <tr>
+                      <td width="25%">Raz&atilde;o Social:</td>
+                      <td width="75%"><input name="razaoSocial" type="text" id="razaoSocial" value="{razaoSocial}" size="63" /></td>
+                  </tr>
+                    <tr>
+                      <td bgcolor="#E5E5E5">CNPJ:</td>
+                      <td bgcolor="#E5E5E5"><input name="cnpj" type="text" id="cnpj" value="{cnpj}" size="63" maxlength="18" /></td>
+                  </tr>
+                </table>
+                  </td>
+       		  </tr>
+        		<tr class="texto">
+        		  <td colspan="2">&nbsp;</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td colspan="2" style="height: 5px;"></td>
+       		  </tr>
+        	
+        	</table>
+            
+            <table width="910" border="0" cellspacing="0" cellpadding="0" id="tabela_enderecos" style="display: none; clear: both;">
+              <tr>
+                <td bgcolor="#e5e5e5" class="texto">CEP:</td>
+                <td colspan="3" bgcolor="#e5e5e5"><input type="text" name="cep" id="cep" /></td>
+              </tr>
+              <tr>
+                <td class="texto">&nbsp;</td>
+                <td colspan="3">&nbsp;</td>
+              </tr>
+              <tr>
+                <td width="142" bgcolor="#e5e5e5" class="texto">Logradouro:</td>
+                <td bgcolor="#e5e5e5"><input type="text" name="logradouro" id="logradouro" /></td>
+                <td bgcolor="#e5e5e5" class="texto">N&ordm;.:</td>
+                <td bgcolor="#e5e5e5"><input name="numero" type="text" id="numero" size="5" maxlength="5" /></td>
+              </tr>
+              <tr>
+                <td class="texto">Complemento:</td>
+                <td colspan="3"><input type="text" name="complemento" id="complemento" /></td>
+              </tr>
+              <tr>
+                <td bgcolor="#E5E5E5" class="texto">Bairro:</td>
+                <td colspan="3" bgcolor="#E5E5E5"><input type="text" name="bairro" id="bairro" /></td>
+              </tr>
+              <tr>
+                <td class="texto">Pais:</td>
+                <td width="157"><select name="pais" id="pais">
+                  <option value="">Selecione</option>
+                  {repetir->Pais}
+                  <option value="{id.Pais}" {selected.Pais}>{nome.Pais}</option>
+                  {repetir->Pais}
+                </select></td>
+                <td width="37" class="texto">UF:</td>
+                <td width="574"><select name="estado" id="estado">
+                  <option value="">--</option>
+                  {repetir->Estado}
+                  <option value="{id.Estado}" {selected.Estado}>{uf.Estado}</option>
+                  {repetir->Estado}
+                </select></td>
+              </tr>
+              <tr>
+                <td bgcolor="#E5E5E5" class="texto">Cidade:</td>
+                <td colspan="3" bgcolor="#E5E5E5"><select name="cidade" id="cidade">
+                  <option value="">Selecione</option>
+                  {repetir->Cidade}
+                  <option value="{id.Cidade}" {selected.Cidade}>{nome.Cidade}</option>
+                  {repetir->Cidade}
+                </select></td>
+              </tr>
+              <tr>
+                <td colspan="4">&nbsp;</td>
+              </tr>
+              <tr>
+                <td colspan="4"><table width="400" border="0" cellspacing="1" cellpadding="0" style="border: none;">
+                  {repetir->Enderecos.Cliente}
+                  <tr onmouseover="this.style.backgroundColor = '#999999';" onmouseout="this.style.backgroundColor = '';">
+                    <td width="308" class="texto">{logradouro.Endereco.Cliente}, {numero.Endereco.Cliente} {complemento.Endereco.Cliente} - {bairro.Endereco.Cliente} - {cidade.Endereco.Cliente} - {estado.Endereco.Cliente} - CEP: {cep.Endereco.Cliente}</td>
+                    <td width="42" class="texto"><a style="cursor: pointer;" onclick="deletarEndereco('{id.Endereco.Cliente}');">Excluir</a></td>
+                  </tr>
+                  {repetir->Enderecos.Cliente}
+                </table></td>
+              </tr>
+              <tr>
+                <td colspan="4">&nbsp;</td>
+              </tr>
+        </table>
+            
+            <table width="910" border="0" cellspacing="0" cellpadding="0" id="tabela_telefones" style="display: none; clear: both;">
+              <tr>
+                <td width="113" bgcolor="#e5e5e5" class="texto">Descri&ccedil;&atilde;o:</td>
+                <td width="587" bgcolor="#e5e5e5"><input name="descricaoT" type="text" id="descricaoT" maxlength="255" /></td>
+              </tr>
+              <tr>
+                <td class="texto">Telefone:</td>
+                <td><input name="telefone" type="text" id="telefone" maxlength="14" /></td>
+              </tr>
+              <tr>
+                <td bgcolor="#E5E5E5" class="texto">Ramal:</td>
+                <td bgcolor="#E5E5E5"><input name="ramal" type="text" id="ramal" maxlength="5" /></td>
+              </tr>
+              <tr>
+                <td colspan="2">&nbsp;</td>
+              </tr>
+              <tr>
+                <td colspan="2"><table width="400" border="0" cellspacing="1" cellpadding="0" style="border: none;">
+                  {repetir->Telefones.Cliente}
+                  <tr onmouseover="this.style.backgroundColor = '#999999';" onmouseout="this.style.backgroundColor = '';">
+                    <td width="308" class="texto">({ddd.Telefone.Cliente}) {numero.Telefone.Cliente} {ramal.Telefone.Cliente}</td>
+                    <td width="42" class="texto"><a style="cursor: pointer;" onclick="deletarTelefone('{id.Telefone.Cliente}');">Excluir</a></td>
+                  </tr>
+                  {repetir->Telefones.Cliente}
+                </table></td>
+              </tr>
+              <tr>
+                <td colspan="2">&nbsp;</td>
+              </tr>
+            </table>
+            
+            <table width="910" border="0" cellspacing="0" cellpadding="0" id="tabela_emails" style="display: none; clear: both;">
+              <tr>
+                <td width="113" bgcolor="#e5e5e5" class="texto">Descri&ccedil;&atilde;o:</td>
+                <td width="587" bgcolor="#e5e5e5"><input name="descricaoE" type="text" id="descricaoE" maxlength="255" /></td>
+              </tr>
+              <tr>
+                <td class="texto">E-mail:</td>
+                <td><input name="email" type="text" id="email" maxlength="100" /></td>
+              </tr>
+              <tr>
+                <td colspan="2">&nbsp;</td>
+              </tr>
+              <tr>
+                <td colspan="2"><table width="400" border="0" cellspacing="1" cellpadding="0" style="border: none;">
+                  {repetir->Emails.Cliente}
+                  <tr onmouseover="this.style.backgroundColor = '#999999';" onmouseout="this.style.backgroundColor = '';">
+                    <td width="308" class="texto">{email.Email.Cliente}</td>
+                    <td width="42" class="texto"><a style="cursor: pointer;" onclick="deletarEmails('{id.Email.Cliente}');">Excluir</a></td>
+                  </tr>
+                  {repetir->Emails.Cliente}
+                </table></td>
+              </tr>
+              <tr>
+                <td colspan="2">&nbsp;</td>
+              </tr>
+  </table>
+  
+  			<table width="910" border="0" cellspacing="0" cellpadding="0" id="tabela_compras" style="display: none; clear: both;">
+              <tr>
+                <td bgcolor="#E5E5E5">&nbsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+              </tr>
+              {repetir->Pedidos}
+              <tr>
+                <td bgcolor="#E5E5E5">
+                	<span>Pedido: {id.Pedido}</span><br />
+                	<span>Data: {data.Pedido}</span><br />
+                    <span>Status: <span style="color: #03F">{status.Pedido}</span></span><br />
+                    <span>Frete: {moeda} {valor.Endereco.Pedido} ({tipo.Endereco.Pedido})</span><br />
+                    <span>Total: {moeda} {total.Pedido}</span>                    
+                </td>
+              </tr>
+              <tr>
+                <td>
+                {repetir->Itens.Pedido}
+                <table width="100%" border="0" cellspacing="3" cellpadding="0" onmouseover="this.style.backgroundColor = '#E5E5E5';" onmouseout="this.style.backgroundColor = '';">
+                  <tr>
+                    <td rowspan="3" align="center" style="height: 150px; width: 250px;">{imagem.Item.Pedido}</td>
+                    <td rowspan="3" width="50%">
+                    <span class="style6"><span class="style16">{nome.Item.Pedido} {unidade.Item.Pedido} {tipoUnidade.Item.Pedido}</span><br />
+           		    <span class="style7">{moeda} {valor.Item.Pedido}</span><br />
+                    <span>Quantidade: {quantidade.Item.Pedido}</span><br />
+                    </span>
+                    
+                    </td>
+                    <td align="center"></td>
+                  </tr>
+                  <tr>
+                    <td align="center"></td>
+                  </tr>
+                  
+                  <tr>
+                    <td align="center"></td>
+                  </tr>
+                </table>
+                {repetir->Itens.Pedido}
+                </td>
+              </tr>
+              {repetir->Pedidos}
+              <tr>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+            
+			<table width="910" border="0" cellpadding="0" cellspacing="0">
+        		<tr class="texto">
+               		<td colspan="4"><div style="width: 100%; border-top-color: #999; border-top-style: dotted; border-top-width: medium;"></div></td>
+      			</tr>
+              	<tr class="texto">
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+              	</tr>
+              	<tr class="texto">
+        		  	<td>&nbsp;</td>
+        		  	<td width="179">&nbsp;</td>
+        		  	<td width="58">&nbsp;</td>
+        		 	<td width="428"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        		<tr>
+        		    <td width="27%">&nbsp;</td>
+        		    <td width="38%"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF" align="center"><input type="submit" value="Salvar" style="cursor: pointer; background: none; border: none; margin: 0px; padding: 0px; color: #FFF"></div></td>
+        		    <td width="35%"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF" align="center"><a href="{linkVoltar}">Voltar</a></div></td>
+      		    </tr>
+      		</table></td>
+   		 </tr>
+  </table>
+          
+</form>

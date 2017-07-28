@@ -1,0 +1,22 @@
+<div class="row brands-page">
+  <div class="col-xs-12">
+    <ol class="breadcrumb">
+      <li><a href="/">Página Principal</a></li>
+      <li class="active">
+        Marcas
+      </li>
+    </ol>
+  </div>
+  <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 brand" ng-repeat="brand in $root.brands"
+       ng-if="brand.imagem != ''">
+    <a href="{{brand.enderecourl}}" target="_blank">
+      <div class="image">
+        <img data-original="{{$root.productBrandsURL}}{{brand.imagem | resizeImage:150:100}}"
+             src="/images/trans.png" class="lazy"/>
+      </div>
+      <p class="name">
+        {{brand.nome}}
+      </p>
+    </a>
+  </div>
+</div>

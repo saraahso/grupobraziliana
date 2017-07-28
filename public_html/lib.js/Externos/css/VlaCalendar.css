@@ -1,0 +1,187 @@
+  /***************/
+ /* vlaCalendar */
+/***************/
+
+/* Picker */
+
+.vlaCalendarPicker {
+	position: absolute;
+	z-index: 999;
+	
+	margin-top: -5px;
+	margin-left: -2px;
+	
+	display: none;
+}
+
+.vlaCalendarPicker .pickerBackground {
+	background: transparent url('VlaCalendar/calendar_background.png') no-repeat top center;
+	padding: 16px;
+	height: 130px;
+	width: 166px;
+	overflow: hidden;
+}
+
+/* Background for IE6 - code does not validate as it is a hack */
+.vlaCalendarPicker .pickerBackground {
+	background-image: url('VlaCalendar/calendar_background.gif');
+}
+
+/* Main calendar */
+
+.vlaCalendar, .vlaCalendar table {
+	font-family: calibri, arial !important;
+	color: black;
+	font-size: 12px !important;
+}
+
+.vlaCalendar {
+	display: block;
+	width: 164px;
+}
+
+.vlaCalendar td {
+	text-align: center;
+}
+
+.vlaCalendar .container, .vlaCalendar .container div {
+	width: 164px;
+	height: 130px;
+	text-align: left;
+	position: absolute;
+	overflow: hidden;
+}
+
+.vlaCalendar span.indication {
+	display: block;
+	text-align: center;
+}
+
+.vlaCalendar table {
+	margin-top: 8px;
+	text-align: right;
+	border-collapse: collapse;
+	/*background-color: white; /* <- IE ugly text in transition fix  */
+}
+
+.vlaCalendar .picker td {
+	cursor: pointer;
+}
+
+/* Label & arrows */
+
+.vlaCalendar .label:hover {
+	color: #0066cc;
+	cursor: pointer;
+}
+.vlaCalendar .noHover:hover {
+	color: black;
+	cursor: default;
+}
+
+.vlaCalendar .arrowLeft, .vlaCalendar .arrowRight {
+	background: transparent url('VlaCalendar/arrowleft.gif') no-repeat center;
+	height: 12px;
+	width: 10px;
+	cursor: pointer;
+}
+.vlaCalendar .arrowLeft {
+	margin-left: 5px;
+	float: left;
+}
+.vlaCalendar .arrowLeft:hover {
+	background-image: url('VlaCalendar/arrowleft_hover.gif');
+}
+.vlaCalendar .arrowRight {
+	margin-right: 5px;
+	float: right;
+	background-image: url('VlaCalendar/arrowright.gif');
+}
+.vlaCalendar .arrowRight:hover {
+	background-image: url('VlaCalendar/arrowright_hover.gif');
+}
+
+/* Month */
+
+.vlaCalendar .month th {
+	text-align: center;
+	font-weight: normal;
+	width: 24px;
+	padding-bottom: 1px;
+	border-bottom: 1px solid #f5f5f5;
+}
+
+.vlaCalendar .month td {
+	padding-right: 3px;
+	height: 15px;
+}
+
+.vlaCalendar .month tr.firstRow td {
+	padding-top: 2px;
+}
+
+.vlaCalendar .month td:hover {
+	background: url('VlaCalendar/day_hover.gif') bottom no-repeat;
+	color: #0066cc;
+}
+
+.vlaCalendar .month td.selected {
+	background: url('VlaCalendar/day_selected.gif') bottom no-repeat;
+	color: #0066cc;
+}
+.vlaCalendar .month td.selected:hover {
+	background-image: url('VlaCalendar/day_selected_hover.gif');
+}
+
+.vlaCalendar .month td.outsideDay {
+	color: #666;
+}
+.vlaCalendar .month td.outsideDay:hover {
+	color: #666;
+}
+
+/* Year & decade */
+
+.vlaCalendar .year {
+	margin-left: 2px;
+}
+
+.vlaCalendar .year td {
+	width: 40px;
+	height: 35px;
+	text-align: center;
+	cursor: pointer;
+}
+.vlaCalendar .year td:hover {
+	background: url('VlaCalendar/month_hover.gif') center no-repeat;
+	color: #0066cc;
+}
+
+.vlaCalendar .year td.selected {
+	background: url('VlaCalendar/month_selected.gif') center no-repeat;
+}
+.vlaCalendar .year td.selected:hover {
+	background-image: url('VlaCalendar/month_selected_hover.gif');
+}
+
+.vlaCalendar .year td.current {
+	background: url('VlaCalendar/month_current.gif') center no-repeat;
+	color: #0066cc;
+}
+.vlaCalendar .year td.current:hover {
+	background-image: url('VlaCalendar/month_current_hover.gif');
+}
+
+.vlaCalendar .year td.selectedcurrent {
+	background: url('VlaCalendar/month_selectedcurrent.gif') center no-repeat;
+}
+.vlaCalendar .year td.selectedcurrent:hover {
+	background-image: url('VlaCalendar/month_selectedcurrent_hover.gif');
+}
+
+.vlaCalendar .year td.outsideYear {
+	color: #666;
+}
+.vlaCalendar .year td.outsideYear:hover {
+	color: #666;
+}

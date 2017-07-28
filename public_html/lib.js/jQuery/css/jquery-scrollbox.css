@@ -1,0 +1,20 @@
+@charset "utf-8";
+.scroll-img {
+  width: 996px;
+  height: 186px;
+  overflow: hidden;
+  font-size: 0;
+}
+.scroll-img ul {
+  width: 1992px;
+  height: 600px;
+  margin: 0;
+  padding: 0;
+}
+.scroll-img ul li {
+	float: left;
+ 	margin: 0 0 0 1px;
+}
+.scroll-img ul li img  {
+	width: 248px;
+}

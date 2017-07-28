@@ -1,0 +1,296 @@
+         
+         {javaScript}
+
+            new FormCheck("formInserir");
+            
+            var mascara = new ForMoo({
+                form: "formInserir",
+                tips:true, 	
+                    tipsTrans:1,		
+                foc:true 	/*	focus ativado  */
+            });	
+            
+            mascara.maskIt("dataInicio","99/99/9999 99:99:99","Formato: 99/99/9999 99:99:99");
+            mascara.maskIt("dataFim","99/99/9999 99:99:99","Formato: 99/99/9999 99:99:99");
+            
+            if('{ativo}' == '1') 	$('ativo').checked = true;
+            $('tipo').value = '{tipo}';
+            
+            function esconderTabelas(){
+            	
+                $('tabela_infoGerais').style.display = 'none';
+                $('infoGerais').className = 'botaoPlanilha';
+                $('tabela_categorias').style.display = 'none';
+                $('categorias').className = 'botaoPlanilha';
+                
+            }
+            
+            $('infoGerais').addEvent('click', function(){
+            	
+                esconderTabelas();
+                $('tabela_'+this.id).style.display = '';
+                $(this.id).className = 'botaoPlanilhaSelecionado';
+                
+            });
+            
+            $('categorias').addEvent('click', function(){
+            	
+                esconderTabelas();
+                $('tabela_'+this.id).style.display = '';
+                $(this.id).className = 'botaoPlanilhaSelecionado';
+                
+            });
+            
+            carregarCategorias($('categoria'));
+            
+            function carregarCategorias(se){
+            	
+                total 	= se.length;
+                
+                for(i = 0; i < total; i++)
+                    se.remove(0);
+                                
+                se.add(new Option('Carregando...'));
+                	
+                var req = new Request({  
+                       
+                        method: 'get',  
+                        url: "?p=SistemaUtilidades&a=listarBannerCategorias&json",  
+                        data: { 'do' : '1' },  
+                        onComplete: function(response) { 
+                           
+                            if(response != ''){
+                            	
+                                var json = JSON.decode(''+response+'');
+                                
+                                se.remove(0);
+                                
+                                se.add(new Option('Selecione'));
+                                se.add(new Option(''));
+                                
+                                for(i = 0; i < json.length; i++){
+                                    
+                                    op = new Option(json[i].nome, json[i].id);
+                                    se.add(op);
+                                    
+                                }
+                            
+                            }
+                            
+                            
+                        }
+                         
+                }).send();
+                
+            }
+            
+            {condicao->alterar.Banner}
+            $('categorias').style.display = 'none';
+            {condicao->alterar.Banner}
+            
+         {javaScript}
+                
+                
+		<script>
+
+			function addCategoria(id, nome){
+				
+				if(id != '' && id != 0){
+				
+					var tab = new Tabela($("tabela_categoriasSelecionadas"));
+					li 		= tab.novaLinha();
+					
+					cel1	= li.novaCelula(0);
+					cel1.conteudo(nome);
+					
+					cel2	= li.novaCelula(1);
+					cel2.conteudo('<a style="cursor: pointer" onclick="delCategoria(this.parentNode.parentNode.rowIndex);">Deletar</a><input type="hidden" name="categoriasSelecionadas[]" value="'+id+'" />');
+				
+				}
+				
+			}
+			
+			function delCategoria(index){
+				
+				var tab = new Tabela($("tabela_categoriasSelecionadas"));
+				tab.removerLinha(tab.pegarLinha(index));
+				
+			}
+			
+		 </script>
+                
+		<form enctype="multipart/form-data" action="" method="post" id="formInserir" name="formInserir" style="padding: 20px">
+            
+            <div class="botaoPlanilhaSelecionado" id="infoGerais">Info. Gerais</div>
+            <div class="botaoPlanilha" id="categorias">Categorias</div>
+            
+            <table cellpadding="2" cellspacing="0" width="910" style="clear: both" id="tabela_infoGerais">
+       		  <tr class="texto">
+            		<td width="122" bgcolor="#e5e5e5">Titulo:</td>
+            		<td colspan="3" bgcolor="#e5e5e5"><input name="titulo" type="text" id="titulo" value="{titulo}" size="63" class="validate['required']"></td>
+            	</tr>
+                {repetir->titulo.Banners.Idiomas}
+  <tr class="texto">
+            		<td width="122" bgcolor="#e5e5e5">Titulo: </td>
+            		<td colspan="3" bgcolor="#e5e5e5"><input name="ititulo[{id.Idioma}]" type="text" id="inome{id.Idioma}]" value="{titulo.Banner.Idioma}" size="63" class="validate['required']">
+	  ({nome.Idioma}) </td>
+            	</tr>
+                {repetir->titulo.Banners.Idiomas}
+	    <tr class="texto">
+        		  <td>Endere&ccedil;o URL:</td>
+        		  <td colspan="3"><input name="enderecoURL" type="text" id="enderecoURL" value="{enderecoURL}" size="63"></td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td bgcolor="#E5E5E5">Clicks:</td>
+        		  <td colspan="3" bgcolor="#E5E5E5">{clicks}</td>
+       		  </tr>
+              <tr class="texto">
+   	              <td>Tipo:</td>
+   	              <td colspan="3"><select name="tipo" id="tipo">
+   	                <option value="Imagem" selected="selected">Imagem</option>
+   	                <option value="Flash">Flash</option>
+                  </select></td>
+              </tr>
+              <tr class="texto">
+       	          <td bgcolor="#E5E5E5">&nbsp;</td>
+       	          <td colspan="3" bgcolor="#E5E5E5">&nbsp;</td>
+   	          </tr>
+   	          <tr class="texto">
+   	            <td>Data Inicio:</td>
+   	            <td colspan="3"><input name="dataInicio" type="text" id="dataInicio" value="{dataInicio}" size="27" /></td>
+              </tr>
+   	          <tr class="texto">
+   	            <td bgcolor="#E5E5E5">Data Fim:</td>
+   	            <td colspan="3" bgcolor="#E5E5E5"><input name="dataFim" type="text" id="dataFim" value="{dataFim}" size="27" /></td>
+              </tr>
+   	          <tr class="texto">
+   	            <td>Ativo:</td>
+   	            <td colspan="3"><input name="ativo" type="checkbox" id="ativo" value="1" /></td>
+              </tr>
+   	          <tr class="texto">
+   	            <td>&nbsp;</td>
+   	            <td colspan="3">&nbsp;</td>
+              </tr>
+            <tr class="texto">
+        	      <td bgcolor="#E5E5E5">Imagem:</td>
+        	      <td colspan="3" bgcolor="#E5E5E5"><input type="file" name="imagem" id="imagem" /></td>
+      	      </tr>
+       	      <tr class="texto">
+       	        <td>&nbsp;</td>
+       	        <td colspan="3">{imagem}</td>
+   	          </tr>
+       	      <tr class="texto">
+       	        <td bgcolor="#E5E5E5">Flash:</td>
+       	        <td colspan="3" bgcolor="#E5E5E5"><input type="file" name="flash" id="flash" /></td>
+   	          </tr>
+       	      <tr class="texto">
+       	        <td>&nbsp;</td>
+       	        <td colspan="3"><object id="FlashID" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="{largura}" height="{altura}">
+       	          <param name="movie" value="{url.Flash}" />
+       	          <param name="quality" value="high" />
+       	          <param name="wmode" value="opaque" />
+       	          <param name="swfversion" value="6.0.65.0" />
+       	          <!-- This param tag prompts users with Flash Player 6.0 r65 and higher to download the latest version of Flash Player. Delete it if you donⴠwant users to see the prompt. -->
+       	          <param name="expressinstall" value="{caminhoURL}lib.js/Utils/flash/expressInstall.swf" />
+       	          <!-- Next object tag is for non-IE browsers. So hide it from IE using IECC. -->
+       	          <!--[if !IE]>-->
+       	          <object type="application/x-shockwave-flash" data="{url.Flash}" width="{largura}" height="{altura}">
+       	            <!--<![endif]-->
+       	            <param name="quality" value="high" />
+       	            <param name="wmode" value="opaque" />
+       	            <param name="swfversion" value="6.0.65.0" />
+       	            <param name="expressinstall" value="{caminhoURL}lib.js/Utils/flash/expressInstall.swf" />
+       	            <!-- The browser displays the following alternative content for users with Flash Player 6.0 and older. -->
+       	            <div>
+       	              <h4>Content on this page requires a newer version of Adobe Flash Player.</h4>
+       	              <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" width="112" height="33" /></a></p>
+   	                </div>
+       	            <!--[if !IE]>-->
+   	              </object>
+       	          <!--<![endif]-->
+   	            </object></td>
+   	          </tr>
+       	      <tr class="texto">
+       	        <td bgcolor="#E5E5E5">Largura:</td>
+       	        <td colspan="3" bgcolor="#E5E5E5"><input name="largura" type="text" id="largura" value="{largura}" size="27" />
+       	          (necess&aacute;rio apenas para flash)</td>
+   	          </tr>
+       	      <tr class="texto">
+       	        <td>Altura:</td>
+       	        <td colspan="3"><input name="altura" type="text" id="altura" value="{altura}" size="27" />
+   	            (necess&aacute;rio apenas para flash)</td>
+   	          </tr>
+       	      <tr class="texto">
+       	        <td>&nbsp;</td>
+       	        <td colspan="3">&nbsp;</td>
+   	          </tr>
+        		
+        		<tr class="texto">
+        		  <td colspan="4" style="height: 5px;"></td>
+       		  </tr>
+        	</table>
+            
+            <table width="910" border="0" cellspacing="0" cellpadding="0" id="tabela_categorias" style="display: none; clear: both;">
+              <tr>
+                <td width="121" bgcolor="#e5e5e5">Categoria:</td>
+                <td width="789" bgcolor="#e5e5e5"><select name="categoria" id="categoria">
+                </select></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td><div class="botaoGeral" onclick="addCategoria($('categoria').value, $('categoria').options[$('categoria').selectedIndex].text);">Adicionar</div></td>
+              </tr>
+              <tr>
+                <td colspan="2">&nbsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>
+                <table width="500" border="0" cellspacing="3" cellpadding="3" id="tabela_categoriasSelecionadas">
+					{repetir->BannerCategorias.Banner}
+<tr>
+                    	<td>{titulo.BannerCategoria.Banner}</td>
+                        <td><a style="cursor: pointer" onclick="delCategoria(this.parentNode.parentNode.rowIndex);">Deletar</a><input type="hidden" name="categoriasSelecionadas[]" value="{id.BannerCategoria.Banner}" /></td>
+                    </tr>
+                    {repetir->BannerCategorias.Banner}
+                </table>
+                </td>
+              </tr>
+            </table>
+                        
+            <table width="910" border="0" cellpadding="0" cellspacing="0">
+                <tr class="texto">
+                <td colspan="4"><div style="width: 100%; border-top-color: #999; border-top-style: dotted; border-top-width: medium;"></div></td>
+              </tr>
+              <tr class="texto">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr class="texto">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr class="texto">
+        		  <td>&nbsp;</td>
+        		  <td width="179">&nbsp;</td>
+        		  <td width="58">&nbsp;</td>
+        		  <td width="428"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        		    <tr>
+        		      <td width="27%">&nbsp;</td>
+        		      <td width="38%"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF" align="center"><input type="submit" value="Salvar" style="cursor: pointer; background: none; border: none; margin: 0px; padding: 0px; color: #FFF"></div></td>
+        		      <td width="35%"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF" align="center"><a href="{linkVoltar}">Voltar</a></div></td>
+      		        </tr>
+      		    </table></td>
+   		      </tr>
+          </table>
+            
+        </form>
+<script type="text/javascript">
+<!--
+swfobject.registerObject("FlashID");
+//-->
+        </script>

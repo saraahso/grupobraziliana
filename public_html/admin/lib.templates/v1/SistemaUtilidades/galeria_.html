@@ -1,0 +1,267 @@
+         
+         {javaScript}
+
+            new FormCheck("formInserir");
+            
+            var mascara = new ForMoo({
+                form: "formInserir",
+                tips:true, 	
+                    tipsTrans:1,		
+                foc:true 	/*	focus ativado  */
+            });	
+            
+            mascara.maskIt("data","99/99/9999","Formato: 99/99/9999");
+
+            
+            function esconderTabelas(){
+            	
+                $('tabela_infoGerais').style.display = 'none';
+                $('infoGerais').className = 'botaoPlanilha';
+                $('tabela_imagens').style.display = 'none';
+                $('imagens').className = 'botaoPlanilha';
+                
+            }
+            
+            $('infoGerais').addEvent('click', function(){
+            	
+                esconderTabelas();
+                $('tabela_'+this.id).style.display = '';
+                $(this.id).className = 'botaoPlanilhaSelecionado';
+                
+            });
+            
+            $('imagens').addEvent('click', function(){
+            	
+                esconderTabelas();
+                $('tabela_'+this.id).style.display = '';
+                $(this.id).className = 'botaoPlanilhaSelecionado';
+                
+            });
+            
+            imagem = new Upload("upload", "aparecer", {classe: "texto1", imagemBegin: "{caminhoURL}lib.js/Net/css/Upload/linha.jpg", imagemEnd: "{caminhoURL}lib.js/Net/css/Upload/linhav.jpg"});
+            imagem.url = '{uploadCaminhoURL}';
+            imagem.final = function(){
+                
+                al = new SexyAlert;
+                al.alert("Imagem(s) enviada(s) com sucesso!", {onComplete: function(){
+                	$('formInserir').submit();
+                }});
+                
+            }
+            
+            {condicao->alterar.Galeria}
+            $('imagens').style.display = 'none';
+            {condicao->alterar.Galeria}
+            
+            $('tipo').value = '{tipo}';
+            
+         {javaScript}
+                
+                
+		<script>
+			var imagem;
+		 	tinyMCE.init({
+                mode : "textareas",
+                theme : "advanced",
+				
+				plugins : "safari,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount",
+		
+				theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect,|,forecolor,backcolor"
+		
+            });	
+			
+			function deletar(id){
+				
+				var aS = new SexyAlert;
+				aS.confirm("Deseja realmente deletar esta imagem?", {onComplete: function(v){
+					
+					if(v) document.location.href = '{linkDeletar.Imagem.Galeria}imagem='+id;
+					
+			    }, textBoxBtnOk: 'Sim', textBoxBtnCancel: 'Não'});
+				
+			}
+			
+		 </script>
+                
+		<form enctype="multipart/form-data" action="" method="post" id="formInserir" name="formInserir" style="padding: 20px">
+            
+            <div class="botaoPlanilhaSelecionado" id="infoGerais">Info. Gerais</div>
+            <div class="botaoPlanilha" id="imagens">Imagens</div>
+            
+            <table cellpadding="2" cellspacing="0" width="910" style="clear: both" id="tabela_infoGerais">
+       		  <tr class="texto">
+            		<td width="122" bgcolor="#e5e5e5">Titulo:</td>
+            		<td colspan="3" bgcolor="#e5e5e5"><input name="titulo" type="text" id="titulo" value="{titulo}" size="63" class="validate['required']"></td>
+            	</tr>
+                {repetir->titulo.Galerias.Idiomas}
+                <tr class="texto">
+            		<td width="122" bgcolor="#e5e5e5">Titulo: </td>
+            		<td colspan="3" bgcolor="#e5e5e5"><input name="ititulo[{id.Idioma}]" type="text" id="inome{id.Idioma}]" value="{titulo.Galeria.Idioma}" size="63" class="validate['required']"> 
+            		({nome.Idioma})</td>
+            	</tr>
+                {repetir->titulo.Galerias.Idiomas}
+        		<tr class="texto">
+        		  <td>URL:</td>
+        		  <td colspan="3"><input name="url" type="text" id="url" value="{url}" size="63" class="validate['required']">
+        		    (url amigavel)</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td bgcolor="#E5E5E5">Data:</td>
+        		  <td colspan="3" bgcolor="#E5E5E5"><input name="data" type="text" id="data" value="{data}" size="27" maxlength="10"></td>
+       		  </tr>
+              <tr class="texto">
+   	              <td>Local:</td>
+   	              <td colspan="3"><input name="local" type="text" id="local" value="{local}" size="27" /></td>
+              </tr>
+              <tr class="texto">
+       	          <td bgcolor="#E5E5E5">&nbsp;</td>
+       	          <td colspan="3" bgcolor="#E5E5E5">&nbsp;</td>
+   	          </tr>
+   	          <tr class="texto">
+   	            <td>Tipo:</td>
+   	            <td colspan="3"><select name="tipo" id="tipo">
+   	              <option value="Fotos" selected="selected">Fotos</option>
+   	              <option value="Video">Video</option>
+                </select></td>
+              </tr>
+   	          <tr class="texto">
+   	            <td bgcolor="#E5E5E5">&nbsp;</td>
+   	            <td colspan="3" bgcolor="#E5E5E5">&nbsp;</td>
+              </tr>
+       	      <tr class="texto">
+       	        <td>URL Video:</td>
+       	        <td colspan="3"><input name="video" type="text" id="video" value="{video}" size="63" /></td>
+   	          </tr>
+       	      <tr class="texto">
+       	        <td bgcolor="#E5E5E5">&nbsp;</td>
+       	        <td colspan="3" bgcolor="#E5E5E5">&nbsp;</td>
+   	          </tr>
+       	      <tr class="texto">
+        		  <td>Descri&ccedil;&atilde;o:</td>
+        		  <td colspan="3">&nbsp;</td>
+       		  </tr>
+        		<tr class="texto">
+        		  <td colspan="4"><textarea name="descricao" id="descricao" style="width: 100%" rows="10">{descricao}</textarea></td>
+      		  </tr>
+              {repetir->descricao.Galerias.Idiomas}
+        	  <tr class="texto">
+        		  <td>Descri&ccedil;&atilde;o:</td>
+        		  <td colspan="3">({nome.Idioma})</td>
+       		  </tr>
+        		<tr class="texto">
+        		  <td colspan="4"><textarea name="idescricao[{id.Idioma}]" id="idescricao[{id.Idioma}]" style="width: 100%" rows="10">{descricao.Galeria.Idioma}</textarea></td>
+      		  </tr>
+              {repetir->descricao.Galerias.Idiomas}
+        		<tr class="texto">
+        		  <td colspan="4">&nbsp;</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td colspan="4">&nbsp;</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td colspan="4" style="height: 5px;"></td>
+       		  </tr>
+        	</table>
+            
+            <table width="910" border="0" cellspacing="0" cellpadding="0" id="tabela_imagens" style="display: none; clear: both;">
+              <tr>
+                <td bgcolor="#E5E5E5">&nbsp;</td>
+              </tr>
+              <tr>
+                <td><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="130" height="25" id="upload">
+                  <param name="movie" value="{caminhoURL}lib.js/Net/flash/up.swf" />
+                  <param name="quality" value="high" />
+                  <param name="wmode" value="opaque" />
+                  <param name="allowScriptAccess" value="always" />
+                  <param name="swfversion" value="9.0.45.0" />
+                  <!-- This param tag prompts users with Flash Player 6.0 r65 and higher to download the latest version of Flash Player. Delete it if you don’t want users to see the prompt. -->
+                  <param name="expressinstall" value="{caminhoURL}lib.js/Utils/flash/uexpressInstall.swf" />
+                  <param name="flashVars" value="classe=imagem" />
+                  <!-- Next object tag is for non-IE browsers. So hide it from IE using IECC. -->
+                  <!--[if !IE]>-->
+                  <object type="application/x-shockwave-flash" id="upload2" data="{caminhoURL}lib.js/Net/flash/up.swf" width="130" height="25">
+                    <!--<![endif]-->
+                    <param name="quality" value="high" />
+                    <param name="wmode" value="opaque" />
+                    <param name="allowScriptAccess" value="always" />
+                    <param name="swfversion" value="9.0.45.0" />
+                    <param name="expressinstall" value="{caminhoURL}lib.js/Utils/flash/uexpressInstall.swf" />
+                    <param name="flashVars" value="classe=imagem" />
+                    <!-- The browser displays the following alternative content for users with Flash Player 6.0 and older. -->
+                    <div>
+                      <h4>Content on this page requires a newer version of Adobe Flash Player.</h4>
+                      <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a></p>
+                    </div>
+                    <!--[if !IE]>-->
+                  </object>
+                  <!--<![endif]-->
+                </object></td>
+              </tr>
+              <tr>
+                <td bgcolor="#E5E5E5">&nbsp;</td>
+              </tr>
+              <tr>
+                <td id="aparecer">&nbsp;</td>
+              </tr>
+              <tr>
+                <td bgcolor="#E5E5E5">&nbsp;</td>
+              </tr>
+              <tr>
+                <td>
+                {repetir->Imagens.Galeria}
+                <table width="200" border="0" cellspacing="3" cellpadding="0" style="float: left">
+                  <tr>
+                    <td align="center" style="height: 150px">{imagem.Imagem.Galeria}</td>
+                  </tr>
+                  <tr>
+                    <td align="center"><div class="botaoGeral" style="float: none" onclick="deletar('{id.Imagem.Galeria}');">Remover</div></td>
+                  </tr>
+                  {condicao->principal.Imagem.Galeria}
+                  <tr>
+                    <td align="center"><div class="botaoGeral" style="float: none"><a href="{linkPrincipal.Imagem.Galeria}">Principal</a></div></td>{condicao->principal.Imagem.Galeria}
+                  </tr>
+                </table>
+                {repetir->Imagens.Galeria}
+                </td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+            
+            <table width="910" border="0" cellpadding="0" cellspacing="0">
+                <tr class="texto">
+                <td colspan="4"><div style="width: 100%; border-top-color: #999; border-top-style: dotted; border-top-width: medium;"></div></td>
+              </tr>
+              <tr class="texto">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr class="texto">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr class="texto">
+        		  <td>&nbsp;</td>
+        		  <td width="179">&nbsp;</td>
+        		  <td width="58">&nbsp;</td>
+        		  <td width="428"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        		    <tr>
+        		      <td width="27%">&nbsp;</td>
+        		      <td width="38%"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF" align="center"><input type="submit" value="Salvar" style="cursor: pointer; background: none; border: none; margin: 0px; padding: 0px; color: #FFF"></div></td>
+        		      <td width="35%"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF" align="center"><a href="{linkVoltar}">Voltar</a></div></td>
+      		        </tr>
+      		    </table></td>
+   		      </tr>
+          </table>
+            
+        </form>
+		<script type="text/javascript">
+<!--
+swfobject.registerObject("upload");
+//-->
+        </script>

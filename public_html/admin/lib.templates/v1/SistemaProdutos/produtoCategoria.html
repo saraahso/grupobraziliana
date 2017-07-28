@@ -1,0 +1,166 @@
+         
+         {javaScript}
+			
+            if('{disponivel}' == '1') $('disponivel').checked = true;
+            if('{visaoUnica}' == '1') $('visaoUnica').checked = true;
+            if('{home}' == '1') $('home').checked = true;
+            if('{cor}' !== '') $('cor').value = '{cor}';
+            
+            new FormCheck("formInserir");
+            
+            CKEDITOR.replace('descricaoPequena', {filebrowserImageUploadUrl: '{caminhoURL}/lib.js/Utils/ckeditor/upload/upload.php'}); CKEDITOR.replace('descricao', {filebrowserImageUploadUrl: '{caminhoURL}/lib.js/Utils/ckeditor/upload/upload.php'});
+            
+         {javaScript}
+                
+		<form enctype="multipart/form-data" action="" method="post" id="formInserir" name="formInserir" style="padding: 20px">
+            <table cellpadding="2" cellspacing="0" width="910">
+        		<tr class="texto">
+            		<td width="83" bgcolor="#e5e5e5">Nome:</td>
+            		<td width="817" colspan="3" bgcolor="#e5e5e5"><input name="nome" type="text" id="nome" value="{nome}" size="63" class="validate['required']"></td>
+            	</tr>
+                {repetir->nome.ProdutoCategorias.Idiomas}
+                <tr class="texto">
+            		<td width="83" bgcolor="#e5e5e5">Nome: </td>
+            		<td colspan="3" bgcolor="#e5e5e5"><input name="inome[{id.Idioma}]" type="text" id="inome{id.Idioma}]" value="{nome.ProdutoCategoria.Idioma}" size="63"> 
+            		({nome.Idioma})</td>
+            	</tr>
+                {repetir->nome.ProdutoCategorias.Idiomas}
+        		<tr class="texto">
+        		  <td>URL:</td>
+        		  <td colspan="3"><input name="url" type="text" id="url" value="{url}" disabled size="63">
+        		    (url amigavel)</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td bgcolor="#E5E5E5">Ordem:</td>
+        		  <td colspan="3" bgcolor="#E5E5E5"><input name="ordem" type="text" id="ordem" value="{ordem}" size="27" /></td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td>&nbsp;</td>
+        		  <td colspan="3">&nbsp;</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td bgcolor="#E5E5E5">SubReferência:</td>
+        		  <td colspan="3" bgcolor="#E5E5E5"><input name="subreferencia" type="text" id="subreferencia" value="{subreferencia}" size="27" /></td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td>&nbsp;</td>
+        		  <td colspan="3">&nbsp;</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td bgcolor="#E5E5E5">Disponível:</td>
+        		  <td colspan="3" bgcolor="#E5E5E5"><input name="disponivel" type="checkbox" id="disponivel" value="1" /></td>
+       		  </tr>
+        		<tr class="texto">
+        		  <td>Visão Única:</td>
+        		  <td colspan="3"><input name="visaoUnica" type="checkbox" id="visaoUnica" value="1" />
+        		    <label for="visaoUnica">(Torna a categoria como a única visível no menu do site quando selecionada)</label></td>
+       		  </tr>
+        		<tr class="texto">
+        		  <td bgcolor="#E5E5E5">Home:</td>
+        		  <td colspan="3" bgcolor="#E5E5E5"><input name="home" type="checkbox" id="home" value="1" /></td>
+       		  </tr>
+        		<tr class="texto">
+        		  <td></td>
+        		  <td colspan="3"></td>
+       		  </tr>
+        		<tr class="texto">
+        		  <td>Cor:</td>
+        		  <td colspan="3">
+        		      <select name="cor" id="cor">
+        		          <option value="blue-dark">Azul Escuro</option>
+        		          <option value="blue-light">Azul Claro</option>
+        		          <option value="red">Vermelho</option>
+        		          <option value="pink">Rosa</option>
+        		          <option value="green-dark">Verde Escuro</option>
+        		          <option value="green-light">Verde Claro</option>
+        		          <option value="yellow">Amarelo</option>
+        		          <option value="orange">Laranja</option>
+        		          <option value="black">Preto</option>
+        		          <option value="gray">Cinza</option>
+        		      </select>
+        		  </td>
+       		  </tr>
+        		<tr class="texto">
+        		  <td></td>
+        		  <td colspan="3"></td>
+       		  </tr>
+              <tr bgcolor="#E5E5E5" class="fonte1">
+        		  <td colspan="4">Descri&ccedil;&atilde;o Pequena:</td>
+       		  </tr>
+        	  <tr bgcolor="#E5E5E5" class="fonte1">
+        		  <td colspan="4"><textarea name="descricaoPequena" id="descricaoPequena" style="width: 100%" rows="5">{descricaoPequena}</textarea></td>
+      		  </tr>
+              {repetir->descricaoPequena.ProdutoCategorias.Idiomas}
+        	  <tr class="fonte1">
+        		  <td colspan="4" bgcolor="#E5E5E5">Descrição Pequena: ({nome.Idioma})</td>
+       		  </tr>
+        	  <tr class="fonte1">
+        		  <td colspan="4" bgcolor="#E5E5E5"><textarea name="idescricaoPequena[{id.Idioma}]" id="idescricaoPequena{id.Idioma}" style="width: 100%" rows="5">{descricaoPequena.ProdutoCategoria.Idioma}</textarea></td>
+      		  </tr>
+              {repetir->descricaoPequena.ProdutoCategorias.Idiomas}
+        	  <tr class="texto">
+        		  <td>Descri&ccedil;&atilde;o:</td>
+        		  <td colspan="3">&nbsp;</td>
+       		  </tr>
+        		<tr class="texto">
+        		  <td colspan="4"><textarea name="descricao" id="descricao" style="width: 100%" rows="10">{descricao}</textarea></td>
+      		  </tr>
+              {repetir->descricao.ProdutoCategorias.Idiomas}
+        	  <tr class="texto">
+        		  <td>Descri&ccedil;&atilde;o:</td>
+        		  <td colspan="3">({nome.Idioma})</td>
+       		  </tr>
+        		<tr class="texto">
+        		  <td colspan="4"><textarea name="idescricao[{id.Idioma}]" id="idescricao{id.Idioma}" style="width: 100%" rows="10">{descricao.ProdutoCategoria.Idioma}</textarea><script>window.addEvent("domready", function(){ CKEDITOR.replace('idescricaoPequena{id.Idioma}', {filebrowserImageUploadUrl: '{caminhoURL}/lib.js/Utils/ckeditor/upload/upload.php'}); CKEDITOR.replace('idescricao{id.Idioma}', {filebrowserImageUploadUrl: '{caminhoURL}/lib.js/Utils/ckeditor/upload/upload.php'}); });</script></td>
+      		  </tr>
+              {repetir->descricao.ProdutoCategorias.Idiomas}
+        		<tr class="texto">
+        		  <td colspan="4">&nbsp;</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td bgcolor="#E5E5E5">Imagem:</td>
+        		  <td colspan="3" bgcolor="#E5E5E5"><input type="file" name="imagem" id="imagem" /></td>
+       		  </tr>
+        		<tr class="texto">
+        		  <td bgcolor="#E5E5E5"></td>
+        		  <td colspan="3" bgcolor="#E5E5E5">{imagem}</td>
+       		  </tr>
+        		<tr class="texto">
+        		  <td colspan="4">&nbsp;</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td colspan="4" style="height: 5px;"></td>
+       		  </tr>
+        	
+        	</table>
+            
+            <table width="910" border="0" cellpadding="0" cellspacing="0">
+                <tr class="texto">
+                <td colspan="4"><div style="width: 100%; border-top-color: #999; border-top-style: dotted; border-top-width: medium;"></div></td>
+              </tr>
+              <tr class="texto">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr class="texto">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr class="texto">
+        		  <td>&nbsp;</td>
+        		  <td width="179">&nbsp;</td>
+        		  <td width="58">&nbsp;</td>
+        		  <td width="428"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        		    <tr>
+        		      <td width="27%">&nbsp;</td>
+        		      <td width="38%"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF" align="center"><input type="submit" value="Salvar" style="cursor: pointer; background: none; border: none; margin: 0px; padding: 0px; color: #FFF"></div></td>
+        		      <td width="35%"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF" align="center"><a href="{linkVoltar}">Voltar</a></div></td>
+      		        </tr>
+      		    </table></td>
+   		      </tr>
+          </table>
+        </form>

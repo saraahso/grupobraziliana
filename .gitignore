@@ -1,0 +1,12 @@
+node_modules
+dist
+.tmp
+bower_components
+vendor/*
+.idea
+.idea/*
+.ftppass
+.DS_Store
+.vagrant
+composer.lock
+auth.json

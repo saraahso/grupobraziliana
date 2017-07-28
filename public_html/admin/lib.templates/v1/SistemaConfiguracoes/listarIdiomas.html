@@ -1,0 +1,55 @@
+		
+        <script>
+			
+			function deletar(id){
+				
+				var aS = new SexyAlert;
+				aS.confirm("Deseja realmente deletar este idioma?", {onComplete: function(v){
+					
+					if(v) document.location.href = '{linkDeletar.Idioma}deletar='+id;
+					
+			    }, textBoxBtnOk: 'Sim', textBoxBtnCancel: 'Não'});
+				
+			}
+			
+		</script>
+        
+        {condicaoBotoes}
+        {botoes}
+        <div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF; float: right" align="center"><a href="{linkCadastrarIdioma}">Cadastrar Idioma</a></div>
+        {botoes}
+        {condicaoBotoes}
+        
+       <table style="margin: 20px;" cellpadding="0" cellspacing="2" width="910">
+        	<tr class="texto">
+           		<td>Idiomas cadastrados:                </td>
+       		</tr>
+          <tr class="texto">
+        	  <td>&nbsp;</td>
+       	  </tr>
+          
+          {repetirIdiomas}
+          <tr class="texto" style="background-color: #FFF">
+           <td>
+             <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="0%" align="center"></td>
+            <td width="5%" align="center"><img src="lib.imgs/seta.png" width="15" height="12" /></td>
+            <td width="63%" height="25">{nomeIdioma}</td>
+            <td width="11%" align="center"><a href="{linkVisualizar.Traducoes.Idioma}" style="color: #000">Tradu&ccedil;&otilde;es</a></td>
+            <td width="10%" align="center"><a href="{linkAlterarIdioma}" style="color: #000">Alterar</a></td>
+                <td width="11%" align="center"><a style="cursor:pointer" onclick="deletar('{idIdioma}');">Remover</a></td></tr>
+            </table>
+             </td>
+          </tr>
+          {repetirIdiomas}
+          
+          <tr class="texto">
+            <td>&nbsp;</td>
+          </tr>
+          <tr class="texto">
+            <td><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF; float: right" align="center"><a href="{linkVoltar.Idioma}">Voltar</a></div></td>
+          </tr>
+          
+        </table>
+        

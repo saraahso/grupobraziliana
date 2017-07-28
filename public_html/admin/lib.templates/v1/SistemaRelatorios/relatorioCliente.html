@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>Relatório Clientes</title>
+<link href="lib.css/estilo.css" rel="stylesheet" type="text/css">
+<link href="{caminhoURL}lib.js/Externos/css/SexyAlert.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+body{
+	background: #fff url(lib.imgs/bg.png) no-repeat top right fixed;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	text-align: center;
+}
+td {
+	font-size: 12px;
+}
+p {
+	display: inline-block;
+	margin: 0px;
+	height: 30px;
+	line-height: 30px;
+}
+-->
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<div align="center">
+	<div style="width: 800px; margin: 15px auto; text-align: left;">
+        {repetir->Clientes}
+        <h4>Cod. Cliente: {id.Cliente}</h4>
+
+        <div style="width: 100%; height: auto !important; clear: both; min-height: 25px;" align="left">
+            <div style="width: 330px; float: left;">Nome: <span style="color: #090">{nome.Cliente}</span></div>
+            <div style="width: 170px; float: left;">Data Nascimento: <span style="color: #090">{dataNascimento.Cliente}</span></div>
+            <div style="width: 265px; float: left;">CPF/CNPJ: <span style="color: #090">{cpf.Cliente}</span></div>
+        </div>
+        <div style="width: 100%; height: auto !important; clear: both; min-height: 25px;" align="left">
+            <div style="width: 136px; height: 1px; float: left;">Telefone: <span style="color: #090">{telefone.Telefone.Cliente}</span></div>
+            <div style="width: 274px; float: left;">Email: <span style="color: #090">{email.Email.Cliente}</span></div>
+            <div style="width: 212px; float: left;">Valor Total de Compras: <span style="color: #090">{moeda} {valorCompras.Cliente}</span></div>
+            <div style="width: 153px; float: left;"></div>
+        </div>
+        <div style="width: 100%; border-top: 1px dotted #999; clear: both; margin-bottom: 15px;"></div>
+        <div style="width: 100%; height: auto !important; clear: both; min-height: 25px;" align="left">
+            <div style="width: 100%; float: left;">Endereço:</div>
+        </div>
+        <div style="width: 100%; height: auto !important; clear: both; min-height: 25px;" align="left">
+            <div style="width: 100%; float: left;"><span style="color: #090">{logradouro.Endereco.Cliente}, {numero.Endereco.Cliente} {complemento.Endereco.Cliente}<br />{bairro.Endereco.Cliente} - {cidade.Endereco.Cliente} - {estado.Endereco.Cliente}<br />{cep.Endereco.Cliente}</span></div>
+        </div>
+        <div style="width: 100%; height: 1px; border-bottom: 1px solid #090; clear: both"></div>
+        {repetir->Clientes}
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,96 @@
+		
+		<script>
+			
+			function deletar(id){
+				
+				var aS = new SexyAlert;
+				aS.confirm("Deseja realmente deletar este produto?", {onComplete: function(v){
+					
+					if(v) document.location.href = '{linkDeletar.Produto}deletar='+id;
+					
+			    }, textBoxBtnOk: 'Sim', textBoxBtnCancel: 'Não'});
+				
+			}
+			
+		</script>
+        
+        {condicaoBotoes}
+        {botoes}
+        <div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF; float: right" align="center"><a href="{linkCadastrar.Produto}">Cadastrar</a></div>
+        {botoes}
+        {condicaoBotoes}
+        <form action="" method="post" id="formLista" enctype="application/x-www-form-urlencoded" onsubmit="if($('busca').value != ''){ document.location.href = '?p=SistemaProdutos&a=listarProdutos&busca='+$('busca').value; return false; }">
+        <table style="margin: 20px;" cellpadding="0" cellspacing="2" width="910">
+        	<tr class="texto">
+           		<td colspan="3"></td>
+           		<td width="167">Total de registros: {total.ListaProdutos}</td>
+   		  </tr>
+            <tr class="texto">
+              
+              <td width="53">Busca:</td>
+              <td width="157"><input type="text" name="busca" id="busca" /></td>
+              <td width="311"><input type="submit" name="botao" id="botao" value="Busca" /></td>
+              <td>&nbsp;</td>
+              
+            </tr>
+            <tr class="texto">
+              <td colspan="4">&nbsp;</td>
+            </tr>
+            <tr class="texto">
+              <td colspan="4">Pag. {repetir->Paginacao}{condicao->atual.Paginacao}<a href="{linkVisualizar.Paginacao}" style="color: #333;">{numero.Paginacao}</a> | {else:condicao->atual.Paginacao}<strong style="color: #FF0000;">{numero.Paginacao}</strong> | {condicao->atual.Paginacao}{repetir->Paginacao}</td>
+            </tr>
+          <tr class="texto">
+        	  <td colspan="4"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="0%" align="center"></td>
+            <td width="15%" align="center"></td>
+            <td width="53%" height="25"></td>
+            <td width="11%" align="center">Disponível</td>
+            <td width="11%" align="center">Home</td>
+            <td width="8%" align="center"></td>
+                <td width="13%" align="center"></td></tr>
+            </table></td>
+       	  </tr>
+          {repetir->Produtos}
+          {condicao->Variacao}
+          <tr class="texto" style="background-color: {bgColorEmpresa}">
+             <td colspan="4">
+             <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr onmouseover="this.style.backgroundColor = bgMouseOver;" onmouseout="this.style.backgroundColor = '';">
+                <td width="0%" align="center"></td>
+            <td width="15%" align="center" valign="top">{codigo.Produto}</td>
+            <td width="53%" height="25" valign="top">{nome.Produto}</td>
+            <td width="11%" align="center" valign="top" bgcolor="{bg.Disponivel.Produto}" style="color: #FFF; text-align: center"><label for="desabilitar{id.Produto}" style="width: 100%; height: 100%; float: left; cursor: pointer"><input type="checkbox" name="desabilitar[{id.Produto}]" id="desabilitar{id.Produto}" value="{id.Produto}" {disponivel.Produto} /></label></td>
+            <td width="11%" align="center" valign="top" bgcolor="{bg.Destaque.Produto}" style="color: #FFF; text-align: center"></td>
+            <td width="8%" align="center" valign="top"><a href="{linkAlterar.Produto}" style="color: #000">Alterar</a></td>
+               <td width="13%" align="center" valign="top"><a style="color: #000; cursor: pointer;" onclick="deletar('{id.Produto}');">Remover</a></td></tr>
+            </table>
+             </td>
+          </tr>
+          {else:condicao->Variacao}
+          <tr class="texto" style="background-color: {bgColorEmpresa}">
+             <td colspan="4">
+             <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr onmouseover="this.style.backgroundColor = bgMouseOver;" onmouseout="this.style.backgroundColor = '';">
+                <td width="0%" align="center"></td>
+            <td width="15%" align="center" valign="top">{codigo.Produto}</td>
+            <td width="53%" height="25" valign="top">{nome.Produto}</td>
+            <td width="11%" align="center" valign="top" bgcolor="{bg.Disponivel.Produto}" style="color: #FFF; text-align: center"><label for="desabilitar{id.Produto}" style="width: 100%; height: 100%; float: left; cursor: pointer"><input type="checkbox" name="desabilitar[{id.Produto}]" id="desabilitar{id.Produto}" value="{id.Produto}" {disponivel.Produto} /></label></td>
+            <td width="11%" align="center" valign="top" bgcolor="{bg.Destaque.Produto}" style="color: #FFF; text-align: center"><label for="destacar{id.Produto}" style="width: 100%; height: 100%; float: left; cursor: pointer"><input type="checkbox" name="destacar[{id.Produto}]" id="destacar{id.Produto}" value="{id.Produto}" {destaque.Produto} /></label></td>
+            <td width="8%" align="center" valign="top"><a href="{linkAlterar.Produto}" style="color: #000">Alterar</a></td>
+               <td width="13%" align="center" valign="top"><a style="color: #000; cursor: pointer;" onclick="deletar('{id.Produto}');">Remover</a></td></tr>
+            </table>
+             </td>
+          </tr>
+          {condicao->Variacao}
+          {repetir->Produtos}
+          
+          <tr class="texto">
+            <td colspan="4">&nbsp;</td>
+          </tr>
+          <tr class="texto">
+            <td colspan="4"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF; float: right" align="center"><a style="cursor:pointer" onclick="history.back();">Voltar</a></div><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF; float: right" align="center"><a style="cursor:pointer" onclick="$('busca').value = ''; $('formLista').submit();">Salvar</a></div></td>
+          </tr>
+          
+        </table>
+        </form>

@@ -1,0 +1,459 @@
+         
+         {javaScript}
+
+            new FormCheck("formInserir");
+            
+            var mascara = new ForMoo({
+                form: "formInserir",
+                tips:true, 	
+                    tipsTrans:1,		
+                foc:true 	/*	focus ativado  */
+            });	
+            
+            mascara.maskIt("dataInicio", "99/99/9999 99:99","Formato: 99/99/9999 99:99");
+            mascara.maskIt("dataFim", "99/99/9999 99:99","Formato: 99/99/9999 99:99");
+            mascara.maskIt("validadeInicio", "99/99/9999 99:99","Formato: 99/99/9999 99:99");
+            mascara.maskIt("validadeFim", "99/99/9999 99:99","Formato: 99/99/9999 99:99");
+            
+            function esconderTabelas(){
+            	
+                $('tabela_infoGerais').style.display = 'none';
+                $('infoGerais').className = 'botaoPlanilha';
+                $('tabela_categorias').style.display = 'none';
+                $('categorias').className = 'botaoPlanilha';
+                $('tabela_imagens').style.display = 'none';
+                $('imagens').className = 'botaoPlanilha';
+                
+            }
+            
+            $('infoGerais').addEvent('click', function(){
+            	
+                esconderTabelas();
+                $('tabela_'+this.id).style.display = '';
+                $(this.id).className = 'botaoPlanilhaSelecionado';
+                
+            });
+            
+            $('categorias').addEvent('click', function(){
+            	
+                esconderTabelas();
+                $('tabela_'+this.id).style.display = '';
+                $(this.id).className = 'botaoPlanilhaSelecionado';
+                
+            });
+            
+            $('imagens').addEvent('click', function(){
+            	
+                esconderTabelas();
+                $('tabela_'+this.id).style.display = '';
+                $(this.id).className = 'botaoPlanilhaSelecionado';
+                
+            });
+            
+            $('categoria').addEvent('change', function(){
+                
+                carregarCategorias(this);
+                
+            });
+            
+            carregarCategorias($('categoria'));
+            
+            function carregarCategorias(se){
+            	
+                total 	= se.length;
+                id		= se.value;
+                
+                if(se.selectedIndex > -1)
+                	filhos = se.options[se.selectedIndex].lang;
+                else
+                	filhos = 1;
+                
+                if(filhos > 0 || filhos == ''){
+                	
+                    for(i = 0; i < total; i++)
+                    	se.remove(0);
+                                    
+                	se.add(new Option('Carregando...'));
+                	
+                    var req = new Request({  
+                           
+                            method: 'get',  
+                            url: "{adminCaminhoURL}?p=SistemaProdutos&a=listarProdutoCategorias&json&categoria="+id,  
+                            data: { 'do' : '1' },  
+                            onComplete: function(response) { 
+                               
+                                if(response != ''){
+                                
+                                    var json = JSON.decode(''+response+'');
+                                    
+                                    se.remove(0);
+                                    
+                                    se.add(new Option('Selecione'));
+                                    se.add(new Option(''));
+                                    //alert(response);
+                                    for(i = 0; i < json.length; i++){
+                                        
+                                        op = new Option(json[i].nome, json[i].id);
+                                        se.add(op);
+                                        se.options[i+2].lang = json[i].filhos;
+                                        
+                                    }
+                                
+                                }
+                                
+                                
+                            }
+                             
+                    }).send();
+                    
+                    
+                }
+                
+            }
+            
+            imagem = new Upload("upload", "aparecer", {classe: "texto1", imagemBegin: "{caminhoURL}lib.js/Net/css/Upload/linha.jpg", imagemEnd: "{caminhoURL}lib.js/Net/css/Upload/linhav.jpg"});
+            imagem.url = '{uploadCaminhoURL}';
+            imagem.final = function(){
+                
+                al = new SexyAlert;
+                al.alert("Imagem(s) enviada(s) com sucesso!", {onComplete: function(){
+                	$('formInserir').submit();
+                }});
+                
+            }
+            
+            {condicao->alterar.OfertaColetiva}
+            $('categorias').style.display = 'none';
+            $('imagens').style.display = 'none';
+            {condicao->alterar.OfertaColetiva}
+            
+            $('empresa').value = '{empresa}';
+            
+         {javaScript}
+                
+                
+		<script>
+			var imagem;
+			
+			function addCategoria(id, nome){
+				
+				if(id != '' && id != 0){
+				
+					var tab = new Tabela($("tabela_categoriasSelecionadas"));
+					li 		= tab.novaLinha();
+					
+					cel1	= li.novaCelula(0);
+					cel1.conteudo(nome);
+					
+					cel2	= li.novaCelula(1);
+					cel2.conteudo('<a style="cursor: pointer" onclick="delCategoria(this.parentNode.parentNode.rowIndex);">Deletar</a><input type="hidden" name="categoriasSelecionadas[]" value="'+id+'" />');
+				
+				}
+				
+			}
+			
+			function delCategoria(index){
+				
+				var tab = new Tabela($("tabela_categoriasSelecionadas"));
+				tab.removerLinha(tab.pegarLinha(index));
+				
+			}
+			
+			function deletar(id){
+				
+				var aS = new SexyAlert;
+				aS.confirm("Deseja realmente deletar esta imagem?", {onComplete: function(v){
+					
+					if(v) document.location.href = '{linkDeletar.Imagem.OfertaColetiva}imagem='+id;
+					
+			    }, textBoxBtnOk: 'Sim', textBoxBtnCancel: 'Não'});
+				
+			}
+			
+		 </script>
+                
+		<form enctype="multipart/form-data" action="" method="post" id="formInserir" name="formInserir" style="padding: 20px">
+            
+            <div class="botaoPlanilhaSelecionado" id="infoGerais">Info. Gerais</div>
+            <div class="botaoPlanilha" id="categorias">Categorias</div>
+            <div class="botaoPlanilha" id="imagens">Imagens</div>
+            
+            <table cellpadding="2" cellspacing="0" width="910" style="clear: both" id="tabela_infoGerais">
+       		  <tr class="texto">
+            		<td width="122" bgcolor="#e5e5e5">Titulo:</td>
+            		<td colspan="3" bgcolor="#e5e5e5"><input name="titulo" type="text" id="titulo" value="{titulo}" size="63" class="validate['required']"></td>
+            	</tr>
+                {repetir->titulo.OfertasColetivas.Idiomas}
+            <tr class="texto">
+            		<td width="122" bgcolor="#e5e5e5">Titulo: </td>
+            		<td colspan="3" bgcolor="#e5e5e5"><input name="ititulo[{id.Idioma}]" type="text" id="inome{id.Idioma}]" value="{titulo.OfertaColetiva.Idioma}" size="63" class="validate['required']"> 
+       		    ({nome.Idioma})</td>
+            	</tr>
+                {repetir->titulo.OfertasColetivas.Idiomas}
+   		        <tr class="texto">
+            		<td width="122">Sub-Titulo:</td>
+           		  <td colspan="3"><input name="subTitulo" type="text" id="subTitulo" value="{subTitulo}" size="63" class="validate['required']"></td>
+           	  </tr>
+                {repetir->subTitulo.OfertasColetivas.Idiomas}
+            <tr class="texto">
+            		<td width="122">Sub-Titulo: </td>
+            		<td colspan="3"><input name="isubTitulo[{id.Idioma}]" type="text" id="inome{id.Idioma}]" value="{subTitulo.OfertaColetiva.Idioma}" size="63" class="validate['required']"> 
+   		      ({nome.Idioma})</td>
+           	  </tr>
+                {repetir->subTitulo.OfertasColetivas.Idiomas}
+	            <tr class="texto">
+	              <td bgcolor="#E5E5E5">&nbsp;</td>
+	              <td colspan="3" bgcolor="#E5E5E5">&nbsp;</td>
+              </tr>
+              <tr class="texto">
+        		  <td>Empresa:</td>
+        		  <td colspan="3"><select name="empresa" id="empresa">
+   		      <option value="">Selecione</option>
+                    {repetir->EmpresasOfertaColetiva}
+                    <option value="{id.EmpresaOfertaColetiva}">{nome.EmpresaOfertaColetiva}</option>
+                    {repetir->EmpresasOfertaColetiva}
+      		      </select></td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td bgcolor="#E5E5E5">&nbsp;</td>
+        		  <td colspan="3" bgcolor="#E5E5E5">&nbsp;</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td>URL:</td>
+        		  <td colspan="3"><input name="url" type="text" id="url" value="{url}" size="63" class="validate['required']">
+        		    (url amigavel)</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td bgcolor="#E5E5E5">&nbsp;</td>
+        		  <td colspan="3" bgcolor="#E5E5E5">&nbsp;</td>
+       		  </tr>
+              <tr class="texto">
+   	              <td>Valor Original:</td>
+   	              <td colspan="3"><input name="valorOriginal" type="text" id="valorOriginal" value="{valorOriginal}" size="27" /></td>
+              </tr>
+              <tr class="texto">
+       	          <td bgcolor="#E5E5E5">Desconto:</td>
+       	          <td colspan="3" bgcolor="#E5E5E5"><input name="desconto" type="text" id="desconto" value="{desconto}" size="27" />
+       	          %</td>
+   	          </tr>
+   	          <tr class="texto">
+   	            <td>Economia:</td>
+   	            <td colspan="3"><input name="economia" type="text" id="economia" value="{economia}" size="27" /></td>
+              </tr>
+   	          <tr class="texto">
+   	            <td bgcolor="#E5E5E5">Valor:</td>
+   	            <td colspan="3" bgcolor="#E5E5E5"><input name="valor" type="text" id="valor" value="{valor}" size="27" /></td>
+              </tr>
+   	          <tr class="texto">
+   	            <td>Quantidade:</td>
+   	            <td colspan="3"><input name="quantidade" type="text" id="quantidade" value="{quantidade}" size="27" /></td>
+              </tr>
+   	          <tr class="texto">
+        	      <td bgcolor="#E5E5E5">Compras minima:</td>
+        	      <td colspan="3" bgcolor="#E5E5E5"><input name="comprasMinima" type="text" id="comprasMinima" value="{comprasMinima}" size="27" /></td>
+      	      </tr>
+       	      <tr class="texto">
+       	        <td>Compras m&aacute;xima:</td>
+       	        <td colspan="3"><input name="comprasMaxima" type="text" id="comprasMaxima" value="{comprasMaxima}" size="27" /></td>
+   	          </tr>
+       	      <tr class="texto">
+       	        <td bgcolor="#E5E5E5">Compras efetuadas:</td>
+       	        <td colspan="3" bgcolor="#E5E5E5">{comprasEfetuadas}</td>
+   	          </tr>
+       	      <tr class="texto">
+       	        <td>&nbsp;</td>
+       	        <td colspan="3">&nbsp;</td>
+   	          </tr>
+       	      <tr class="texto">
+       	        <td bgcolor="#E5E5E5">Data Inicio:</td>
+       	        <td colspan="3" bgcolor="#E5E5E5"><input name="dataInicio" type="text" id="dataInicio" value="{dataInicio}" size="27" maxlength="16" /></td>
+   	          </tr>
+       	      <tr class="texto">
+       	        <td>Data Fim:</td>
+       	        <td colspan="3"><input name="dataFim" type="text" id="dataFim" value="{dataFim}" size="27" maxlength="16" /></td>
+   	          </tr>
+               <tr class="texto">
+       	        <td bgcolor="#E5E5E5">Validade Inicio:</td>
+       	        <td colspan="3" bgcolor="#E5E5E5"><input name="validadeInicio" type="text" id="validadeInicio" value="{validadeInicio}" size="27" maxlength="16" /></td>
+   	          </tr>
+       	      <tr class="texto">
+       	        <td>Validade Fim:</td>
+       	        <td colspan="3"><input name="validadeFim" type="text" id="validadeFim" value="{validadeFim}" size="27" maxlength="16" /></td>
+   	          </tr>
+       	      <tr class="texto">
+       	        <td bgcolor="#E5E5E5">&nbsp;</td>
+       	        <td colspan="3" bgcolor="#E5E5E5">&nbsp;</td>
+   	          </tr>
+       	      <tr class="texto">
+        		  <td>Destaques:</td>
+        		  <td colspan="3">&nbsp;</td>
+       		  </tr>
+        		<tr class="texto">
+        		  <td colspan="4"><textarea name="destaques" id="destaques" style="width: 100%" rows="10">{destaques}</textarea></td>
+      		  </tr>
+              {repetir->destaques.OfertasColetivas.Idiomas}
+        	  <tr class="texto">
+        		  <td>Destaques:</td>
+        		  <td colspan="3">({nome.Idioma})</td>
+       		  </tr>
+        		<tr class="texto">
+        		  <td colspan="4"><textarea name="idestaques[{id.Idioma}]" id="idestaques[{id.Idioma}]" style="width: 100%" rows="10">{destaques.OfertaColetiva.Idioma}</textarea></td>
+      		  </tr>
+              {repetir->destaques.OfertasColetivas.Idiomas}
+        		<tr class="texto">
+        		  <td colspan="4" bgcolor="#E5E5E5">&nbsp;</td>
+      		  </tr>
+              <tr class="texto">
+        		  <td>Regulamento:</td>
+        		  <td colspan="3">&nbsp;</td>
+       		  </tr>
+        		<tr class="texto">
+        		  <td colspan="4"><textarea name="regulamento" id="regulamento" style="width: 100%" rows="10">{regulamento}</textarea></td>
+      		  </tr>
+              {repetir->regulamento.OfertasColetivas.Idiomas}
+        	  <tr class="texto">
+        		  <td>Regulamento</td>
+        		  <td colspan="3">({nome.Idioma})</td>
+       		  </tr>
+        		<tr class="texto">
+        		  <td colspan="4"><textarea name="iregulamento[{id.Idioma}]" id="iregulamento[{id.Idioma}]" style="width: 100%" rows="10">{regulamento.OfertaColetiva.Idioma}</textarea></td>
+      		  </tr>
+              {repetir->regulamento.OfertasColetivas.Idiomas}
+        		<tr class="texto">
+        		  <td colspan="4">&nbsp;</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td colspan="4" style="height: 5px;"></td>
+       		  </tr>
+        	</table>
+            
+            <table width="910" border="0" cellspacing="0" cellpadding="0" id="tabela_categorias" style="display: none; clear: both;">
+              <tr>
+                <td width="121" bgcolor="#e5e5e5">Categoria:</td>
+                <td width="789" bgcolor="#e5e5e5"><select name="categoria" id="categoria">
+                </select></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td><div class="botaoGeral" onclick="addCategoria($('categoria').value, $('categoria').options[$('categoria').selectedIndex].text);">Adicionar</div></td>
+              </tr>
+              <tr>
+                <td colspan="2">&nbsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>
+                <table width="500" border="0" cellspacing="3" cellpadding="3" id="tabela_categoriasSelecionadas">
+					{repetir->ProdutoCategorias.OfertaColetiva}
+<tr>
+                    	<td>{navegador.ProdutoCategoria.OfertaColetiva}</td>
+                        <td><a style="cursor: pointer" onclick="delCategoria(this.parentNode.parentNode.rowIndex);">Deletar</a><input type="hidden" name="categoriasSelecionadas[]" value="{id.ProdutoCategoria.OfertaColetiva}" /></td>
+                    </tr>
+                    {repetir->ProdutoCategorias.OfertaColetiva}
+                </table>
+                </td>
+              </tr>
+            </table>
+            
+            <table width="910" border="0" cellspacing="0" cellpadding="0" id="tabela_imagens" style="display: none; clear: both;">
+              <tr>
+                <td bgcolor="#E5E5E5">&nbsp;</td>
+              </tr>
+              <tr>
+                <td><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="130" height="25" id="upload">
+                  <param name="movie" value="{caminhoURL}lib.js/Net/flash/up.swf" />
+                  <param name="quality" value="high" />
+                  <param name="wmode" value="opaque" />
+                  <param name="allowScriptAccess" value="always" />
+                  <param name="swfversion" value="9.0.45.0" />
+                  <!-- This param tag prompts users with Flash Player 6.0 r65 and higher to download the latest version of Flash Player. Delete it if you don’t want users to see the prompt. -->
+                  <param name="expressinstall" value="{caminhoURL}lib.js/Utils/flash/uexpressInstall.swf" />
+                  <param name="flashVars" value="classe=imagem" />
+                  <!-- Next object tag is for non-IE browsers. So hide it from IE using IECC. -->
+                  <!--[if !IE]>-->
+                  <object type="application/x-shockwave-flash" id="upload2" data="{caminhoURL}lib.js/Net/flash/up.swf" width="130" height="25">
+                    <!--<![endif]-->
+                    <param name="quality" value="high" />
+                    <param name="wmode" value="opaque" />
+                    <param name="allowScriptAccess" value="always" />
+                    <param name="swfversion" value="9.0.45.0" />
+                    <param name="expressinstall" value="{caminhoURL}lib.js/Utils/flash/uexpressInstall.swf" />
+                    <param name="flashVars" value="classe=imagem" />
+                    <!-- The browser displays the following alternative content for users with Flash Player 6.0 and older. -->
+                    <div>
+                      <h4>Content on this page requires a newer version of Adobe Flash Player.</h4>
+                      <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a></p>
+                    </div>
+                    <!--[if !IE]>-->
+                  </object>
+                  <!--<![endif]-->
+                </object></td>
+              </tr>
+              <tr>
+                <td bgcolor="#E5E5E5">&nbsp;</td>
+              </tr>
+              <tr>
+                <td id="aparecer">&nbsp;</td>
+              </tr>
+              <tr>
+                <td bgcolor="#E5E5E5">&nbsp;</td>
+              </tr>
+              <tr>
+                <td>
+                {repetir->Imagens.OfertaColetiva}
+                <table width="200" border="0" cellspacing="3" cellpadding="0" style="float: left">
+                  <tr>
+                    <td align="center" style="height: 150px">{imagem.Imagem.OfertaColetiva}</td>
+                  </tr>
+                  <tr>
+                    <td align="center"><div class="botaoGeral" style="float: none" onclick="deletar('{id.Imagem.OfertaColetiva}');">Remover</div></td>
+                  </tr>
+                  {condicao->principal.Imagem.OfertaColetiva}
+                  <tr>
+                    <td align="center"><div class="botaoGeral" style="float: none"><a href="{linkPrincipal.Imagem.OfertaColetiva}">Principal</a></div></td>{condicao->principal.Imagem.OfertaColetiva}
+                  </tr>
+                </table>
+                {repetir->Imagens.OfertaColetiva}
+                </td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+            
+            <table width="910" border="0" cellpadding="0" cellspacing="0">
+                <tr class="texto">
+                <td colspan="4"><div style="width: 100%; border-top-color: #999; border-top-style: dotted; border-top-width: medium;"></div></td>
+              </tr>
+              <tr class="texto">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr class="texto">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr class="texto">
+        		  <td>&nbsp;</td>
+        		  <td width="179">&nbsp;</td>
+        		  <td width="58">&nbsp;</td>
+        		  <td width="428"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        		    <tr>
+        		      <td width="27%">&nbsp;</td>
+        		      <td width="38%"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF" align="center"><input type="submit" value="Salvar" style="cursor: pointer; background: none; border: none; margin: 0px; padding: 0px; color: #FFF"></div></td>
+        		      <td width="35%"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF" align="center"><a href="{linkVoltar}">Voltar</a></div></td>
+      		        </tr>
+      		    </table></td>
+   		      </tr>
+          </table>
+            
+        </form>
+		<script type="text/javascript">
+<!--
+swfobject.registerObject("upload");
+//-->
+        </script>

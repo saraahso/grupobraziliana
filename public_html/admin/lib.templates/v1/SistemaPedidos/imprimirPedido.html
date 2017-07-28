@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Impress&atilde;o</title>
+<style type="text/css">
+<!--
+html, body {
+	width: 100%;
+}
+body,td,th {
+	color: #333;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+}
+body {
+	background-color: #FFF;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style>
+
+
+</head>
+
+<body onload="window.print();">
+<table width="500" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">Pedido {nomeEmpresa} N.&ordm;: <strong>{id.Pedido}</strong></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">Data: <strong>{data.Pedido}</strong></td>
+  </tr>
+  <tr>
+    <td colspan="2">Forma de Pagamento: <strong>{tipoPagamento.Pedido}</strong></td>
+  </tr>
+  <tr>
+    <td colspan="2"><hr /></td>
+  </tr>
+  <tr>
+    <td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td colspan="2">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td height="27"><span class="style7">Nome:</span></td>
+                      <td><span class="style7">E-mail:</span></td>
+                      <td><span class="style7">Data nascimento:</span></td>
+                    </tr>
+                    <tr>
+                      <td><font color="#FF0000">{nome.Cliente.Pedido}</font></td>
+                      <td><font color="#FF0000">{email.Cliente.Pedido}</font></td>
+                      <td><font color="#FF0000">{dataNasc.Cliente.Pedido}</font></td>
+                    </tr>
+                    <tr>
+                      <td height="26"><span class="style7">Endere&ccedil;o:</span></td>
+                      <td><span class="style7">N&uacute;mero:</span></td>
+                      <td><span class="style7">Cep:</span></td>
+                    </tr>
+                    <tr>
+                      <td><font color="#FF0000">{endereco.Cliente.Pedido}</font></td>
+                      <td><font color="#FF0000">{numero.Cliente.Pedido}</font></td>
+                      <td><font color="#FF0000">{cep.Cliente.Pedido}</font></td>
+                    </tr>
+                    <tr>
+                      <td height="27"><span class="style7">Bairro:</span></td>
+                      <td><span class="style7">Cidade:</span></td>
+                      <td><span class="style7">Estado:</span></td>
+                    </tr>
+                    <tr>
+                      <td><font color="#FF0000">{bairro.Cliente.Pedido}</font></td>
+                      <td><font color="#FF0000">{cidade.Cliente.Pedido}</font></td>
+                      <td><font color="#FF0000">{estado.Cliente.Pedido}</font></td>
+                    </tr>
+                    <tr>
+                      <td height="26"><span class="style7">RG:</span></td>
+                      <td><span class="style7">Telefone:</span></td>
+                      <td><span class="style7">Celular:</span></td>
+                    </tr>
+                    <tr>
+                      <td><font color="#FF0000">{rg.Cliente.Pedido}</font></td>
+                      <td><font color="#FF0000">{telefone.Telefone.Cliente.Pedido}</font></td>
+                      <td><font color="#FF0000">{celular.Telefone.Cliente.Pedido}</font></td>
+                    </tr>
+                    <tr>
+                      <td height="26"><span class="style7">CPF/CNPJ:</span></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td><font color="#FF0000">{cpf.Cliente.Pedido}{cnpj.Cliente.Pedido}</font></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">&nbsp;</td>
+              </tr>
+            </table></td>
+  </tr>
+  <tr>
+    <td colspan="2"><hr /></td>
+  </tr>
+  <tr>
+    <td colspan="2"><strong>Itens:</strong></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>Descri&ccedil;&atilde;o</td>
+        <td width="27%">Qtda.</td>
+        <td width="18%" align="right">Total</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      {repetir->Itens.Pedido}
+      <tr>
+        <td width="55%"><strong>{nome.Item.Pedido}</strong></td>
+        <td><strong>{quantidade.Item.Pedido}</strong></td>
+        <td align="right"><strong>{subTotal.Item.Pedido}</strong></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      {repetir->Itens.Pedido}
+    </table></td>
+  </tr>
+  <tr>
+    <td width="374" align="right">&nbsp;</td>
+    <td width="216" align="right">&nbsp;</td>
+  </tr>
+  {condicao->ExisteFrete}
+  <tr>
+    <td align="right">Frete:</td>
+    <td align="right"><strong>{moeda} {frete} - {tipo.Frete}</strong></td>
+  </tr>
+  {condicao->ExisteFrete}
+  <tr>
+    <td align="right">Total:</td>
+    <td align="right"><strong>{moeda}  {total}</strong></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2"><hr /></td>
+  </tr>
+  <tr>
+    <td colspan="2"><strong>Endere&ccedil;o para Entrega:</strong></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">{logradouro.Endereco.Pedido}, {numero.Endereco.Pedido} - {bairro.Endereco.Pedido} - {cidade.Endereco.Pedido} - {estado.Endereco.Pedido}</td>
+  </tr>
+  <tr>
+    <td colspan="2">Cep: {cep.Endereco.Pedido}</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,54 @@
+		<script>
+			
+			function deletar(id){
+				
+				var aS = new SexyAlert;
+				aS.confirm("Deseja realmente deletar este vendedor", {onComplete: function(v){
+					
+					if(v) document.location.href = '{linkDeletar.Vendedores}deletar='+id;
+					
+			    }, textBoxBtnOk: 'Sim', textBoxBtnCancel: 'Nao'});
+				
+			}
+			
+		</script>
+        
+        {condicaoBotoes}
+        {botoes}
+         <div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF; float: right" align="center"><a href="{linkCadastrar.Vendedores}">Cadastrar</a></div>
+        {botoes}
+        {condicaoBotoes}
+        
+        <table style="margin: 20px;" cellpadding="0" cellspacing="2" width="910">
+        	<tr class="style14">
+           		<td>Abaixo est&aacute; a lista:                </td>
+       		</tr>
+          <tr class="style14">
+        	  <td>&nbsp;</td>
+       	  </tr>
+          {repetir->Vendedores}
+          <tr class="style14" style="background-color: {bgColorEmpresa}">
+             <td>
+             <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="0%" align="center"></td>
+            <td width="15%" align="center">{id.Vendedores}</td>
+            <td width="53%" height="25">{titulo.Vendedores}</td>
+            <td width="11%" align="center">&nbsp;</td>
+            <td width="8%" align="center"><a href="{linkAlterar.Vendedores}" style="color: #000">Alterar</a></td>
+                <td width="13%" align="center"><a style="color: #000; cursor: pointer;" onclick="deletar('{id.Vendedores}');">Remover</a></td></tr>
+            </table>
+             </td>
+          </tr>
+          
+          {repetir->Vendedores}
+          
+          <tr class="style14">
+            <td>&nbsp;</td>
+          </tr>
+          <tr class="style14">
+            <td><a href="{link.Voltar}">Voltar</a></td>
+          </tr>
+          
+        </table>
+        

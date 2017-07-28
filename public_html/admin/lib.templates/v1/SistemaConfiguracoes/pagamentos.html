@@ -1,0 +1,130 @@
+		
+        {javaScript}
+        $('tipoSite').value 					= '{tipoSite}';
+        $('tipoPedido').value 					= '{tipoPedido}';
+        $('tipoPedidoProdutosTodoSite').value 	= '{tipoPedidoProdutosTodoSite}';
+        $('ativoDesconto').value 				= '{ativoDesconto}';
+        $('ativoPagSeguro').value 				= '{ativoPagSeguro}';
+        $('ativoDeposito').value 				= '{ativoDeposito}';
+        $('ativoFretePagSeguro').value 			= '{ativoFretePagSeguro}';
+        {javaScript}
+        
+        <form enctype="multipart/form-data" action="" method="post" id="formInserir">
+            <table style="margin: 20px;" cellpadding="2" cellspacing="0" width="910">
+        		<tr class="texto">
+        		  <td bgcolor="#E5E5E5">Tipo site:</td>
+        		  <td colspan="3" bgcolor="#E5E5E5"><select name="tipoSite" id="tipoSite">
+        		    <option value="1" selected="selected">Vitrine Virtual</option>
+        		    <option value="2">E-commerce</option>
+                  </select></td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td>Tipo pedido:</td>
+        		  <td colspan="3"><select name="tipoPedido" id="tipoPedido">
+        		    <option selected="selected">Selecione</option>
+        		    <option value="1">Pedido sem Pagamento</option>
+                  </select></td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td bgcolor="#E5E5E5">Tipo pedido para todo o site:</td>
+        		  <td colspan="3" bgcolor="#E5E5E5"><select name="tipoPedidoProdutosTodoSite" id="tipoPedidoProdutosTodoSite">
+        		    <option selected="selected">Selecione</option>
+        		    <option value="1">Orçamento</option>
+                  </select></td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td>&nbsp;</td>
+        		  <td colspan="3">&nbsp;</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td bgcolor="#E5E5E5">Ativar Desconto:</td>
+        		  <td colspan="3" bgcolor="#E5E5E5"><select name="ativoDesconto" id="ativoDesconto">
+        		    <option value="0" selected="selected">Não</option>
+        		    <option value="1">Sim</option>
+      		    </select></td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td>Código do Desconto:</td>
+        		  <td colspan="3"><input name="codigoDesconto" type="text" id="codigoDesconto" value="{codigoDesconto}" /></td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td bgcolor="#E5E5E5">Desconto:</td>
+        		  <td colspan="3" bgcolor="#E5E5E5"><input name="porcentagemDesconto" type="text" id="porcentagemDesconto" value="{porcentagemDesconto}" />
+       		      %</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td>&nbsp;</td>
+        		  <td colspan="3">&nbsp;</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td width="192" bgcolor="#E5E5E5">Ativar PagSeguro:</td>
+        		  <td colspan="3" bgcolor="#E5E5E5"><select name="ativoPagSeguro" id="ativoPagSeguro">
+        		    <option value="0" selected="selected">Não</option>
+        		    <option value="1">Sim</option>
+                  </select></td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td>E-mail PagSeguro:</td>
+        		  <td colspan="3"><input name="emailPagSeguro" type="text" id="emailPagSeguro" value="{emailPagSeguro}" /></td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td bgcolor="#E5E5E5">TOKEN PagSeguro:</td>
+        		  <td colspan="3" bgcolor="#E5E5E5"><input name="tokenPagSeguro" type="text" id="tokenPagSeguro" value="{tokenPagSeguro}" /></td>
+      		  </tr>
+              <tr class="texto">
+                  <td>URL Retorno PagSeguro:</td>
+                  <td colspan="3">http://{caminhoURL}retornoPagSeguro.php</td>
+              </tr>
+              <tr class="texto">
+                <td bgcolor="#E5E5E5">Ativar Frete PagSeguro:</td>
+                <td colspan="3" bgcolor="#E5E5E5"><select name="ativoFretePagSeguro" id="ativoFretePagSeguro">
+                  <option value="0" selected="selected">Não</option>
+                  <option value="1">Sim</option>
+                </select></td>
+              </tr>
+              <tr class="texto">
+                <td>&nbsp;</td>
+                <td colspan="3">&nbsp;</td>
+              </tr>
+              <tr class="texto">
+                  <td bgcolor="#E5E5E5">Ativar Depósito:</td>
+                  <td colspan="3" bgcolor="#E5E5E5"><select name="ativoDeposito" id="ativoDeposito">
+                    <option value="0" selected="selected">Não</option>
+                    <option value="1">Sim</option>
+                </select></td>
+              </tr>
+              <tr class="texto">
+                <td>Informações para depósito:</td>
+                <td colspan="3">&nbsp;</td>
+              </tr>
+              <tr class="texto">
+                <td colspan="4"><textarea name="textoDeposito" id="textoDeposito" style="width: 100%;" rows="8">{textoDeposito}</textarea></td>
+              </tr>
+              <tr class="texto">
+                  <td>&nbsp;</td>
+                  <td colspan="3">&nbsp;</td>
+              </tr>
+        		<tr class="texto">
+        		  <td colspan="4" style="height: 5px;"></td>
+       		  </tr>
+        		<tr class="texto">
+        		  <td colspan="4"><div style="width: 100%; border-top-color: #999; border-top-style: dotted; border-top-width: medium;"></div></td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td>&nbsp;</td>
+        		  <td colspan="3">&nbsp;</td>
+      		  </tr>
+        		<tr class="texto">
+        		  <td>&nbsp;</td>
+        		  <td width="108">&nbsp;</td>
+        		  <td width="71">&nbsp;</td>
+        		  <td width="521"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        		    <tr>
+        		      <td width="27%">&nbsp;</td>
+        		      <td width="38%"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF" align="center"><a onclick="$('formInserir').submit();" style="cursor: pointer">Salvar</a></div></td>
+        		      <td width="35%"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF" align="center"><a href="{linkVoltar}">Voltar</a></div></td>
+      		        </tr>
+      		    </table></td>
+   		      </tr>
+        	</table>
+        </form>

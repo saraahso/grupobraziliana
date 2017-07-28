@@ -1,0 +1,342 @@
+<style type="text/css">
+<!--
+.style17 {font-family: "Trebuchet MS"; font-size: 10px; color: #333333; }
+.style19 {font-family: "Trebuchet MS"; font-size: 10px; color: #333333; }
+.style6 {font-family: "Trebuchet MS"; font-size: 10px; color: #333333; font-weight: bold; }
+.style7 {font-family: "Trebuchet MS"; font-size: 14px; color: #333333; font-weight: bold; }
+.style9 {	color: #FFFFFF;
+	font-size: 10px;
+}
+.{	BORDER-RIGHT: #FFFFFF 1px dashed; 
+	BORDER-TOP: #FFFFFF 1px dashed; 
+	FONT-SIZE: 11px; 
+	BORDER-LEFT: #FFFFFF 1px dashed; 
+	COLOR: #ff6600; 
+	BORDER-BOTTOM: #992c0f 1px dashed; 
+	FONT-FAMILY: Tahoma, Arial; 
+	BACKGROUND-COLOR: #f7f7f7;	
+}
+.style11 {font-family: "Trebuchet MS"; font-size: 14px; color: #992c0f; font-weight: bold; }
+-->
+</style>
+         
+         {javaScript}
+            
+            $('statusPedido').value = "{status.Pedido}";
+            $('tipoPagamento').value = '{tipoPagamento.Pedido}';
+            if($('tipoFrete')){ 
+            	$('tipoFrete').value = '{tipo.Frete}';
+            }else{	
+            	$('botao-frete').style.display = 'none';
+            }
+            
+            function esconderTabelas(){
+            	
+                $('tabela_infoGerais').style.display = 'none';
+                $('infoGerais').className = 'botaoPlanilha';
+                $('tabela_categorias').style.display = 'none';
+                $('categorias').className = 'botaoPlanilha';
+                
+            }
+            
+            $('infoGerais').addEvent('click', function(){
+            	
+                esconderTabelas();
+                $('tabela_'+this.id).style.display = '';
+                $(this.id).className = 'botaoPlanilhaSelecionado';
+                
+            });
+            
+            $('categorias').addEvent('click', function(){
+            	
+                esconderTabelas();
+                $('tabela_'+this.id).style.display = '';
+                $(this.id).className = 'botaoPlanilhaSelecionado';
+                
+            });
+            
+            {condicao->alterar.Pedido}
+            $('categorias').style.display = 'none';
+            {condicao->alterar.Pedido}
+            
+         {javaScript}
+                
+                
+		<form enctype="multipart/form-data" action="" method="post" id="formInserir" name="formInserir" style="padding: 20px">
+            
+            <div class="botaoPlanilhaSelecionado" id="infoGerais">Info. Gerais</div>
+            <div class="botaoPlanilha" id="categorias">Cliente</div>
+            
+            <table cellpadding="2" cellspacing="0" width="910" style="clear: both" id="tabela_infoGerais">
+       		  
+                <tr class="texto">
+            		<td><table width="100%" cellpadding="0" cellspacing="0">
+            		  <tr>
+            		    <td colspan="2" align="right" bgcolor="#E5E5E5"><strong>Tipo de Pagamento:</strong></td>
+            		    <td colspan="2" align="right" bgcolor="#E5E5E5"><select name="tipoPagamento" id="tipoPagamento">
+            		      <option>PagSeguro</option>
+            		      <option>Depósito Bancário</option>
+            		      <option selected="selected">Pedido Enviado por E-mail</option>
+                        </select></td>
+          		    </tr>
+            		  <tr>
+            		    <td colspan="2" align="right" bgcolor="#E5E5E5"><strong>Status do pedido:</strong> </td>
+            		    <td width="196" colspan="2" align="right" bgcolor="#E5E5E5"><select name="statusPedido" id="statusPedido">
+            		      <option value="0">Cancelado</option>
+            		      <option value="1">Aberto</option>
+            		      <option value="4">Produto Enviado</option>
+            		      <option value="2">Aguardando Pagamento</option>
+            		      <option value="3">Pagamento Concluído</option>
+            		      <option value="5">Pagamento em Análise</option>
+            		      <option value="6">Aguardando Contato</option>
+          		        </select></td>
+          		    </tr>
+            		  <tr>
+            		    <td align="left" colspan="2">Pedido   de N.&ordm;:<strong> {id.Pedido}</strong></td>
+            		    <td align="right" colspan="2">Data do pedido:<strong> {data.Pedido}</strong></td>
+          		    </tr>
+            		  <tr>
+            		    <td colspan="4"><table cellspacing="0" cellpadding="0" width="100%" border="0">
+            		      <tbody>
+            		        <tr>
+            		          <td height="5" class="style6"></td>
+          		          </tr>
+            		        <tr>
+            		          <td height="1" bgcolor="#815B34" class="style6"></td>
+          		          </tr>
+            		        <tr>
+            		          <td height="5" class="style6"></td>
+          		          </tr>
+          		        </tbody>
+          		      </table></td>
+          		    </tr>
+            		  <tr>
+            		    <td colspan="4"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+            		      <tr>
+            		        <td height="22" colspan="4" align="right" class="style6">{condicao->AdicionarProduto}<div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF" align="center"><input type="button" value="Adicionar Produto" onclick="document.location.href = '?p=SistemaPedidos&a=listarProdutos&pedido={id.Pedido}';" style="cursor: pointer; background: none; border: none; margin: 0px; padding: 0px; color: #FFF" />
+          		          </div>{condicao->AdicionarProduto}</td>
+           		          </tr>
+            		      <tr>
+            		        <td width="61%" height="22" bgcolor="#E5E5E5" class="style6"><span class="style7"><strong>Produtos</strong></span></td>
+            		        <td width="10%" align="center" bgcolor="#E5E5E5" class="style6"><span class="style7"><strong>Quantidade:</strong></span></td>
+            		        <td width="14%" align="center" bgcolor="#E5E5E5" class="style6"><span class="style7"><strong>Preço Unit.:</strong></span></td>
+            		        <td width="15%" align="center" bgcolor="#E5E5E5" class="style6"><span class="style7"><strong>Deletar:</strong></span></td>
+          		          </tr>
+            		      {repetir->Itens.Pedido}
+            		      <tr>
+            		        <td class="style9"><table width="550" border="0" cellspacing="0" cellpadding="0">
+            		          <tr>
+            		            <td width="169" valign="top"><div style="margin: 5px;"><a href="{linkAlterar.Item.Pedido}" title="{nome.Item.Pedido}" target="_blank">{imagem.Item.Pedido}</a></div></td>
+            		            <td width="502" valign="top"><span class="style6"><span class="style16">{nome.Item.Pedido} {unidade.Item.Pedido} {tipoUnidade.Item.Pedido}</span><br />
+            		              Codigo: {codigo.Item.Pedido}
+<br />
+           		                <span class="style7">{moeda} {valor.Item.Pedido}</span></span></td>
+          		            </tr>
+          		          </table></td>
+            		        <td align="center" class="style20"><input name="quantidade[{id.Item.Pedido}]" type="text" id="quantidade[{id.Item.Pedido}]" value="{quantidade.Item.Pedido}" size="5" /></td>
+            		        <td align="center" class="style20"><input name="valor[{id.Item.Pedido}]" type="text" id="valor[{id.Item.Pedido}]" value="{valor.Item.Pedido}" size="10" /></td>
+            		        <td align="center" class="style20"><span style="color: #FFF; text-align: center">
+            		          <input type="checkbox" name="selecionado[{id.Item.Pedido}]" id="selecionado{id.Item.Pedido}" value="{id.Item.Pedido}" />
+            		        </span></td>
+          		          </tr>
+            		      <tr>
+            		        <td colspan="4" style="height: 5px;"></td>
+          		        </tr>
+            		      <tr>
+            		        <td colspan="4" style="background-color: #333; height: 1px;"></td>
+          		        </tr>
+            		      <tr>
+            		        <td colspan="4" style="height: 5px;"></td>
+          		        </tr>
+            		      {repetir->Itens.Pedido}
+          		      </table></td>
+          		    </tr>
+            		  <tr>
+            		    <td height="35" colspan="4" valign="middle">Informa&ccedil;&otilde;es sobre seu pedido: </td>
+          		    </tr>
+            		  <tr>
+            		    <td width="271" bgcolor="#E5E5E5">Valor Total:<strong> {moeda} {total.Pedido}</strong></td>
+            		    <td width="437" bgcolor="#E5E5E5">{condicao->ExisteFrete}Taxa de Entrega:<strong> {moeda} 
+            		        <input type="text" name="frete" value="{frete}" size="10" /> - <select name="tipoFrete" id="tipoFrete">
+                        	<option value="pac">PAC</option>
+                            <option value="sedex">SEDEX</option>
+                        </select>
+            		    </strong>{condicao->ExisteFrete}</td>
+            		    <td width="196" bgcolor="#E5E5E5">Valor: <strong>{moeda} {total}</strong></td>
+          		    </tr>
+            		  <tr>
+            		    <td height="26">&nbsp;</td>
+            		    <td height="26" align="center"><div id="botao-frete" style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF" align="center">
+            		      <input type="button" value="Salvar Frete" onclick="$('formInserir').action = '?p=SistemaPedidos&a=alterarPedido&pedido={id.Pedido}&tipo=frete'; $('formInserir').submit();" style="cursor: pointer; background: none; border: none; margin: 0px; padding: 0px; color: #FFF" />
+          		      </div></td>
+            		    <td height="26">&nbsp;</td>
+            		    <td height="26">&nbsp;</td>
+          		      </tr>
+            		  <tr>
+            		    <td height="26" colspan="4"><table cellspacing="0" cellpadding="0" width="100%" border="0">
+            		      <tbody>
+            		        <tr>
+            		          <td height="5" class="style6"></td>
+          		          </tr>
+            		        <tr>
+            		          <td height="1" bgcolor="#815B34" class="style6"></td>
+          		          </tr>
+            		        <tr>
+            		          <td height="5" class="style6"></td>
+          		          </tr>
+          		        </tbody>
+          		      </table></td>
+          		    </tr>
+            		  <tr>
+            		    <td height="21" colspan="4" bgcolor="#f0f0f0" style="color: #333"><p><strong>Observa&ccedil;&otilde;es:</strong><br />
+            		      <textarea name="observacoes" style="width: 95%; height: 100px;">{observacoes.Pedido}</textarea></p>
+                          
+                          <p>
+                            <strong>Endereço:</strong><br />
+                            <table width="100%" border="0" cellspacing="2" cellpadding="0">
+                <tr>
+                  <td align="right">{traduzir->CEP}:</td>
+                  <td width="84%" colspan="2" align="left"><input name="CEP" type="text" class="validate['required']" id="CEP" value="{cep.Endereco.Pedido}" maxlength="8" /></td>
+                </tr>
+                <tr>
+                  <td width="16%" align="right">{traduzir->Estado}*:</td>
+                  <td colspan="2" align="left"><input name="Estado" type="text" class="validate['required']" id="Estado" value="{estado.Endereco.Pedido}" maxlength="2" /></td>
+                </tr>
+                <tr>
+                  <td align="right">{traduzir->Cidade}*:</td>
+                  <td colspan="2" align="left"><input name="Cidade" type="text" class="validate['required']" id="Cidade" value="{cidade.Endereco.Pedido}" /></td>
+                </tr>
+                <tr>
+                  <td align="right">{traduzir->Endereço}*:</td>
+                  <td colspan="2" align="left"><input name="Logradouro" type="text" class="validate['required']" id="Logradouro" value="{logradouro.Endereco.Pedido}" /></td>
+                </tr>
+                <tr>
+                  <td align="right">{traduzir->Número}*:</td>
+                  <td colspan="2" align="left"><input name="Numero" type="text" class="validate['required']" id="Numero" value="{numero.Endereco.Pedido}" /></td>
+                </tr>
+                <tr>
+                  <td align="right">{traduzir->Complemento}:</td>
+                  <td colspan="2" align="left"><input name="Complemento" type="text" id="Complemento" value="{complemento.Endereco.Pedido}" /></td>
+                </tr>
+                <tr>
+                  <td align="right">{traduzir->Bairro}*:</td>
+                  <td colspan="2" align="left"><input name="Bairro" type="text" class="validate['required']" id="Bairro" value="{bairro.Endereco.Pedido}" /></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td colspan="2" align="left">* {traduzir->Campos obrigatórios}.</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td colspan="2" align="left"></td>
+                </tr>
+              </table></p>
+                          
+                          </td>
+          		    </tr>
+            		  <tr>
+            		    <td height="21" colspan="4" align="right" bgcolor="#f0f0f0">&nbsp;</td>
+          		    </tr>
+          		  </table></td>
+           		</tr>
+                
+        		<tr class="texto">
+        		  <td style="height: 5px;"></td>
+       		  </tr>
+        	</table>
+            
+            <table width="910" border="0" cellspacing="0" cellpadding="0" id="tabela_categorias" style="display: none; clear: both;">
+              <tr>
+                <td colspan="2">
+                  <table width="83%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td height="27"><span class="style7">Nome:</span></td>
+                      <td><span class="style7">E-mail:</span></td>
+                      <td><span class="style7">Data nascimento:</span></td>
+                    </tr>
+                    <tr>
+                      <td><font color="#FF0000">{nome.Cliente.Pedido}</font></td>
+                      <td><font color="#FF0000">{email.Cliente.Pedido}</font></td>
+                      <td><font color="#FF0000">{dataNasc.Cliente.Pedido}</font></td>
+                    </tr>
+                    <tr>
+                      <td height="26"><span class="style7">Endere&ccedil;o:</span></td>
+                      <td><span class="style7">N&uacute;mero:</span></td>
+                      <td><span class="style7">Cep:</span></td>
+                    </tr>
+                    <tr>
+                      <td><font color="#FF0000">{endereco.Cliente.Pedido}</font></td>
+                      <td><font color="#FF0000">{numero.Cliente.Pedido}</font></td>
+                      <td><font color="#FF0000">{cep.Cliente.Pedido}</font></td>
+                    </tr>
+                    <tr>
+                      <td height="27"><span class="style7">Bairro:</span></td>
+                      <td><span class="style7">Cidade:</span></td>
+                      <td><span class="style7">Estado:</span></td>
+                    </tr>
+                    <tr>
+                      <td><font color="#FF0000">{bairro.Cliente.Pedido}</font></td>
+                      <td><font color="#FF0000">{cidade.Cliente.Pedido}</font></td>
+                      <td><font color="#FF0000">{estado.Cliente.Pedido}</font></td>
+                    </tr>
+                    <tr>
+                      <td height="26"><span class="style7">RG:</span></td>
+                      <td><span class="style7">Telefone:</span></td>
+                      <td><span class="style7">Celular:</span></td>
+                    </tr>
+                    <tr>
+                      <td><font color="#FF0000">{rg.Cliente.Pedido}</font></td>
+                      <td><font color="#FF0000">{telefone.Telefone.Cliente.Pedido}</font></td>
+                      <td><font color="#FF0000">{celular.Telefone.Cliente.Pedido}</font></td>
+                    </tr>
+                    <tr>
+                      <td height="26"><span class="style7">CPF/CNPJ:</span></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td><font color="#FF0000">{cpf.Cliente.Pedido}{cnpj.Cliente.Pedido}</font></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">&nbsp;</td>
+              </tr>
+            </table>
+            
+            <table width="910" border="0" cellpadding="0" cellspacing="0">
+                <tr class="texto">
+                <td colspan="4"><div style="width: 100%; border-top-color: #999; border-top-style: dotted; border-top-width: medium;"></div></td>
+              </tr>
+              <tr class="texto">
+                <td>&nbsp;</td>
+                <td width="179">&nbsp;</td>
+                <td width="58">&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr class="texto">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr class="texto">
+        		  <td height="29" colspan="3"><a href="{linkImprimir}" target="_blank"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF" align="center">
+        		    <input type="button" value="Imprimir" style="cursor: pointer; background: none; border: none; margin: 0px; padding: 0px; color: #FFF" />
+      		    </div></a></td>
+        		  <td width="428"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        		    <tr>
+        		      <td width="27%"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF" align="center">
+        		        <input type="submit" value="Enviar Cobrança" onclick="$('formInserir').action = '?p=SistemaPedidos&a=alterarPedido&pedido={id.Pedido}&tipo=enviarcobranca'; $('formInserir').submit();" style="cursor: pointer; background: none; border: none; margin: 0px; padding: 0px; color: #FFF" />
+      		        </div></td>
+        		      <td width="38%"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF" align="center"><input type="submit" value="Salvar" style="cursor: pointer; background: none; border: none; margin: 0px; padding: 0px; color: #FFF"></div></td>
+        		      <td width="35%"><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF" align="center"><a href="{linkVoltar}">Voltar</a></div></td>
+      		        </tr>
+      		    </table></td>
+   		      </tr>
+          </table>
+            
+        </form>

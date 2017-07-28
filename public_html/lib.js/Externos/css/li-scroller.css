@@ -1,0 +1,21 @@
+.tickercontainer { 
+	width: 875px; 
+	height: 80px; 
+	margin: 0 auto; 
+	padding: 0;
+	overflow: hidden;
+}
+.tickercontainer .mask {
+	position: relative;
+	left: 0px;
+	top: 0px;
+	width: 875px;
+	height: 80px; 
+	overflow: hidden;
+}
+#marcas {
+	position: relative;
+	padding: 0;
+	height: 80px;
+	list-style:none;
+}

@@ -1,0 +1,205 @@
+		<style>
+		.cadastro input[type='text'], .cadastro input[type='password'], .cadastro textarea{
+			width: 100%;
+			height: 30px;
+			margin: 5px 0 5px 0;
+			border: 1px solid #dddee2;
+			border-radius: 2px;
+			background: url(../lib.img/fundo-busca.jpg) repeat-x #FFF;
+			padding: 0 1% 0 1%; 
+		}
+		.cadastro input[type='text']:focus, .cadastro input[type='password']:focus, .cadastro textarea:focus, .cadastro input[type='text']:hover, .cadastro input[type='password']:hover, .cadastro textarea:hover{
+			border: 1px solid #ed9547; 
+		}
+		
+		.carrinho {
+			border-collapse:separate;
+			border-spacing:0 10px;
+		}
+		.carrinho a {
+			color: #ed9547;
+		}
+		.carrinho input[type='text'], .carrinho input[type='password']{
+			width: 100%;
+			height: 30px;
+			margin: 5px 0 5px 0;
+			border: 1px solid #dddee2;
+			border-radius: 2px;
+			background: url(../lib.img/fundo-busca.jpg) repeat-x;
+			padding: 0 1% 0 1%; 
+		}
+		.carrinho input[type='text']:focus, .carrinho input[type='password']:focus, .carrinho input[type='text']:hover, .carrinho input[type='password']:hover{
+			border: 1px solid #ed9547; 
+		}
+		.carrinho .pedido-item {
+			background: url(../lib.img/fundo-busca.jpg) repeat-x #FFF;
+		}
+		.carrinho .pedido-item-esquerda {
+			border: 1px solid #dddee2;
+			border-right: none;
+			border-radius: 5px 0 0 5px;
+		}
+		.carrinho .pedido-item-meio {
+			border: 1px solid #dddee2;
+			border-right: none;
+			border-left: none;
+		}
+		.carrinho .pedido-item-direita {
+			border: 1px solid #dddee2;
+			border-left: none;
+			border-radius: 0 5px 5px 0;
+		}
+		.carrinho .pedido-item .descricao {
+			float: left;
+		}
+		.carrinho .pedido-item .descricao img {
+			float: left;
+			margin: 10px;
+		}
+		.carrinho .pedido-item .descricao p {
+			float: left;
+			margin: 10px 0 0 0;
+		}
+		
+		#formPedido {
+			clear: both;
+		}
+		
+		</style>		 
+        
+          <table width="100%" border="0" align="right" cellpadding="0" cellspacing="5" class="cadastro" style="display: ">
+            <tr>
+              <td><p><p class="secao"><a>{traduzir->Endereço de entrega}</a></p>
+              </p></td>
+              <td width="2%"><p class="secao">&nbsp;</p></td>
+              <td width="50%"><span class="secao"><a>{traduzir->Dados do Pedido}</a></span></td>
+            </tr>
+            <tr>
+              <td width="48%" valign="top">
+              <p>{traduzir->CEP}: {cep.Endereco.Pedido}</p>
+              <p>{traduzir->Estado}: {estado.Endereco.Pedido}</p>
+              <p>{traduzir->Cidade}: {cidade.Endereco.Pedido}</p>
+              <p>{traduzir->Endereço}: {logradouro.Endereco.Pedido}</p>
+              <p>{traduzir->Número}: {numero.Endereco.Pedido}</p>
+              <p>{traduzir->Complemento}: {complemento.Endereco.Pedido}</p>
+              <p>{traduzir->Bairro}: {bairro.Endereco.Pedido}</p>
+              </td>
+              <td>&nbsp;</td>
+              <td valign="top">
+              <h3>{traduzir->Forma de Pagamento}: {tipoPagamento.Pedido}</h3>
+              
+              <table align="center" border="0" cellpadding="5" cellspacing="0" width="100%" class="carrinho">
+
+					<tr class="pedido-item">
+                        <td class="pedido-item-esquerda">
+                            
+                        </td>
+                        <td align="center" class="pedido-item-meio">
+                            <h1><a>{status.Pedido}</a></h1>
+                        </td>
+                      <td align="center" class="pedido-item-direita">
+                            
+                      </td>
+                    </tr>
+                    {condicao->RecuperarPedido}
+                    <tr>
+                        <td align="center" colspan="3"><a href="{linkFinalizar.Pedido}">{traduzir->Recuperar Pedido}</a></td>
+                    </tr>
+                    {condicao->RecuperarPedido}
+                    {condicao->EfetivarPagamento}
+                    <tr>
+                        <td align="center" colspan="3"><a href="{linkFinalizar.Pedido}">{traduzir->Efetivar Pagamento}</a></td>
+                    </tr>
+                    {condicao->EfetivarPagamento}
+                    {condicao->DepositoPagamento}
+                    <tr>
+                        <td align="left" colspan="3"><div style="color: #000; font-weight: bold; font-size: 14px;">{textoDeposito}</div></td>
+                    </tr>
+                    {condicao->DepositoPagamento}
+              </table>
+              
+              </td>
+            </tr>
+          </table>
+        <hr />
+       
+         <table align="center" border="0" cellpadding="5" cellspacing="0" width="100%" class="carrinho">
+            <thead style="font-weight: bold">
+                <tr>
+                    <td width="349">{traduzir->Produto}</td>
+                    <td width="92" align="center">{traduzir->Quantidade}</td>
+                    <td width="80" align="center">{traduzir->Valor Unitário}</td>
+                    <td width="100"></td>
+                </tr>
+            </thead>
+            <tbody>
+                {repetir->PedidoItens}
+                <tr class="pedido-item">
+                    <td class="pedido-item-esquerda">
+                        <div class="descricao">
+                            {imagem.PedidoItem}
+                            <p>
+                                {nome.PedidoItem}
+                          	</p>
+                      </div>
+                    </td>
+                  <td align="center" class="pedido-item-meio">
+                        {quantidade.PedidoItem}
+                    </td>
+                    <td align="right" class="pedido-item-meio">
+                        {valor.PedidoItem}
+                    </td>
+                  <td align="center" class="pedido-item-direita">
+                        
+                  </td>
+                </tr>
+                {repetir->PedidoItens}
+            </tbody>
+            <tbody>
+                {condicao->ExisteFrete}
+                <tr>
+                    <td></td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td width="349"></td>
+                    <td align="center"><strong>{traduzir->Frete}: </strong></td>
+                    <td align="right" id="precocep"><strong>{valor.Endereco.Cliente}</strong> {tipo.Endereco.Pedido}</td>
+                    <td>&nbsp;</td>
+          </tr>
+                
+                {condicao->ExistePrazo}
+                <tr>
+                    <td style="border-bottom: thin solid #CCC;"></td>
+                    <td align="center" style="border-bottom: thin solid #CCC; font-weight: bold">{traduzir->Prazo de Entrega}: </td>
+                    <td align="right" style="border-bottom: thin solid #CCC;">{prazo.Endereco.Pedido} {traduzir->dia}(s)</td>
+                    <td align="center" style="border-bottom: thin solid #CCC;">&nbsp;</td>
+                </tr>
+                {condicao->ExistePrazo}
+                {condicao->ExisteFrete}
+                {condicao->Desconto}
+                <tr>
+                  <td style=""></td>
+                  <td align="center" style=" font-weight: bold">{traduzir->Desconto}:</td>
+                  <td align="right" style="">{desconto}</td>
+                  <td align="center" style="">&nbsp;</td>
+                </tr>
+                {condicao->Desconto}
+                <tr>
+                    <td style="border-bottom: thin solid #CCC;"></td>
+                  <td align="center" style="border-bottom: thin solid #CCC; font-weight: bold">{traduzir->Valor Total}:</td>
+                    <td align="right" style="border-bottom: thin solid #CCC;">{total}</td>
+                    <td align="center" style="border-bottom: thin solid #CCC;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="4">{traduzir->Observações}:</td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="cadastro">{observacoes}</td>
+                </tr>
+            </tbody>
+            
+        </table>
+            

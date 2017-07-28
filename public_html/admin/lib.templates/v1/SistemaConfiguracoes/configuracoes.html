@@ -1,0 +1,122 @@
+
+       <table style="margin: 20px;" cellpadding="0" cellspacing="2" width="910">
+        	<tr class="texto">
+           		<td>Op&ccedil;&otilde;es:                </td>
+       		</tr>
+          <tr class="texto">
+        	  <td>&nbsp;</td>
+       	  </tr>
+          <tr class="texto" style="background-color: #FFF">
+           <td>
+             <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="0%" align="center"></td>
+            <td width="5%" align="center"><img src="lib.imgs/pastaFechada.gif" width="15" height="12" /></td>
+            <td width="63%" height="25">Idiomas</td>
+            <td width="11%" align="center">&nbsp;</td>
+            <td width="8%" align="center"><a href="{linkIdiomas}" style="color: #000">Visualizar</a></td>
+                <td width="13%" align="center">&nbsp;</td></tr>
+              <tr>
+                <td align="center"></td>
+                <td align="center"><img src="lib.imgs/pastaFechada.gif" width="15" height="12" /></td>
+                <td height="25">Marca d'Agua</td>
+                <td align="center">&nbsp;</td>
+                <td align="center"><a href="{linkMarcadAgua}" style="color: #000">Visualizar</a></td>
+                <td align="center">&nbsp;</td>
+              </tr>
+              <tr>
+                <td align="center"></td>
+                <td align="center"><img src="lib.imgs/pastaFechada.gif" width="15" height="12" /></td>
+                <td height="25">Produtos</td>
+                <td align="center">&nbsp;</td>
+                <td align="center"><a href="{linkProdutos}" style="color: #000">Visualizar</a></td>
+                <td align="center">&nbsp;</td>
+              </tr>
+              <tr>
+                <td align="center"></td>
+                <td align="center"><img src="lib.imgs/pastaFechada.gif" width="15" height="12" /></td>
+                <td height="25">Frete</td>
+                <td align="center">&nbsp;</td>
+                <td align="center"><a href="{linkFrete}" style="color: #000">Visualizar</a></td>
+                <td align="center">&nbsp;</td>
+              </tr>
+              <tr>
+                <td align="center"></td>
+                <td align="center"><img src="lib.imgs/pastaFechada.gif" width="15" height="12" /></td>
+                <td height="25">Pagamentos</td>
+                <td align="center">&nbsp;</td>
+                <td align="center"><a href="{linkPagamentos}" style="color: #000">Visualizar</a></td>
+                <td align="center">&nbsp;</td>
+              </tr>
+              {condicao->1.Nivel}
+              <tr>
+                <td align="center"></td>
+                <td align="center"><img src="lib.imgs/pastaFechada.gif" width="15" height="12" /></td>
+                <td height="25">Usuários</td>
+                <td align="center">&nbsp;</td>
+                <td align="center"><a href="{linkUsuarios}" style="color: #000">Visualizar</a></td>
+                <td align="center">&nbsp;</td>
+              </tr>
+              <tr>
+                <td align="center"></td>
+                <td align="center">&nbsp;</td>
+                <td height="25">&nbsp;</td>
+                <td align="center">&nbsp;</td>
+                <td align="center">&nbsp;</td>
+                <td align="center">&nbsp;</td>
+              </tr>
+              <tr>
+                <td align="center"></td>
+                <td align="center"><img src="lib.imgs/pastaFechada.gif" width="15" height="12" /></td>
+                <td height="25">Sincronização de Marcas</td>
+                <td align="center">&nbsp;</td>
+                <td align="center"><a href="{caminhoURL}sincronizar-marcas.php" target="_blank" style="color: #000">Sincronizar</a></td>
+                <td align="center">&nbsp;</td>
+              </tr>
+              <tr>
+                <td align="center"></td>
+                <td align="center"><img src="lib.imgs/pastaFechada.gif" width="15" height="12" /></td>
+                <td height="25">Sincronização de Produtos</td>
+                <td align="center">&nbsp;</td>
+                <td align="center"><a href="{caminhoURL}sincronizar-produtos.php" target="_blank" style="color: #000">Sincronizar</a></td>
+                <td align="center">&nbsp;</td>
+              </tr>
+              <tr>
+                <td align="center"></td>
+                <td align="center"><img src="lib.imgs/pastaFechada.gif" width="15" height="12" /></td>
+                <td height="25">Sincronização de Imagens</td>
+                <td align="center">&nbsp;</td>
+                <td align="center"><a href="{caminhoURL}sincronizar-imagens.php" target="_blank" style="color: #000">Sincronizar</a></td>
+                <td align="center">&nbsp;</td>
+              </tr>
+
+             <tr>
+                 <td align="center"></td>
+                 <td align="center"><img src="lib.imgs/pastaFechada.gif" width="15" height="12" /></td>
+                 <td height="25">Limpar Cache de Imagens</td>
+                 <td align="center">&nbsp;</td>
+                 <td align="center"><a href="{caminhoURL}clearImageCache.php" target="_blank" style="color: #000">Limpar</a></td>
+                 <td align="center">&nbsp;</td>
+             </tr>
+
+                 <tr>
+                     <td align="center"></td>
+                     <td align="center"><img src="lib.imgs/pastaFechada.gif" width="15" height="12" /></td>
+                     <td height="25">Limpar Cache do Site</td>
+                     <td align="center">&nbsp;</td>
+                     <td align="center"><a href="{caminhoURL}application/site/clear-cache" target="_blank" style="color: #000">Limpar</a></td>
+                     <td align="center">&nbsp;</td>
+                 </tr>
+              {condicao->1.Nivel}
+             </table>
+             </td>
+          </tr>
+          <tr class="texto">
+            <td>&nbsp;</td>
+          </tr>
+          <tr class="texto" style="background-color: {bgColorEmpresa}">
+            <td><div style="background-image: url(lib.imgs/fundoBotao.png); width:128px; height: 19px; padding-top: 5px; margin-right: 5px; color: #FFF; float: right" align="center"><a style="cursor:pointer" onclick="history.back();">Voltar</a></div></td>
+          </tr>
+          
+        </table>
+        

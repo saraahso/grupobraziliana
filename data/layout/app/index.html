@@ -1,0 +1,206 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>Teste Grupo Braziliana</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/">
+
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="/bower_components/owl-carousel/owl-carousel/owl.carousel.css" />
+    <link rel="stylesheet" href="/bower_components/owl-carousel/owl-carousel/owl.theme.css" />
+    <link rel="stylesheet" href="/bower_components/angular-block-ui/dist/angular-block-ui.css" />
+    <link rel="stylesheet" href="/bower_components/slider-revolution/src/css/settings.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    
+      
+
+    <link rel="stylesheet" href="styles/magiczoomplus.css" />
+    
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/owl-brands.css">
+    <!-- endbuild -->
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="/bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+
+  </head>
+  <body>
+    <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+
+    <header class="container-fluid">
+      <div class="container">
+        <div class="col-xs-12 col-sm-6 col-md-3 logo-box">
+          <a href="/"><img src="images/trans.png" /></a>
+        </div>
+        <div class="hidden-xs hidden-sm col-md-6 search-box">
+          <form action="" method="post" ng-submit="$root.$state.go('search', {busca: angular.element('#search').val()});" onsubmit="window.history.pushState('', '', '/search/'+angular.element('#search').val()); angular.element('#search').val(''); return false;">
+            <div class="input-group">
+              <input type="text" class="form-control" name="search" id="search" placeholder="O que você está procurando?" />
+              <div class="input-group-btn">
+                <button type="submit" class="btn btn-primary"><span class="
+glyphicon glyphicon-search"></span></button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3 social-box">
+          
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3 grid-box">
+          <div class="grid">
+            <!--<p class="lista-precos"><a href="">Lista de Preços</a></p>-->
+            <p class="lista-precos">COTAÇÃO DO DIA</p>
+            <p class="cotacao">{{$root.cambio.real | moeda:'R$ '}}</p>
+          </div>
+        </div>
+        <div class="col-xs-12 visible-xs-inline-block visible-sm-inline-block search-box">
+          <form action="" method="post" ng-submit="$root.$state.go('search', {busca: angular.element('#search-xs').val()});" onsubmit="window.history.pushState('', '', '/search/'+angular.element('#search-xs').val()); angular.element('#search-xs').val(''); return false;">
+            <div class="input-group">
+              <input type="text" class="form-control" name="search" id="search-xs" placeholder="O que você está procurando?" />
+              <div class="input-group-btn">
+                <button type="submit" class="btn btn-primary"><span class="
+glyphicon glyphicon-search"></span></button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="hidden-xs col-sm-12 col-md-12 menu-box">
+          <ul class="row menu">
+            <li class="col-sm-2"><div><a href="/empresa">A Empresa</a></div></li>
+            <li class="col-sm-3"><div><a href="/vendedores">Vendedores</a></div></li>
+            <li class="col-sm-2"><div><a href="/marcas">Marcas</a></div></li>
+            <li class="col-sm-3"><div><a href="/localizacao">Localização</a></div></li>
+            <li class="col-sm-2"><div><a href="/contato">Contato</a></div></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+   
+
+    <main class="container" block-ui="blockui-main">
+      <div class="row">
+        <div class="container" ui-view></div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container-fluid search-bar">
+        <div class="container-fluid rights" style="background:#FFF; color: #006495;"><span class="glyphicon glyphicon-exclamation-sign" style="top:23px;font-size: 26px;"></span><h4>NÃO REALIZAMOS ENTREGA NO BRASIL</h4></div>
+          
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3">
+              <form action="" method="post" ng-submit="$root.$state.go('search', {busca: angular.element('#search-footer').val()});" onsubmit="window.history.pushState('', '', '/search/'+angular.element('#search-footer').val()); angular.element('#search-footer').val(''); return false;">
+                <div class="input-group">
+                  <input type="text" class="form-control" name="search" id="search-footer" placeholder="O que você está procurando?" />
+                  <div class="input-group-btn">
+                    <button type="submit" class="btn btn-primary"><span class="
+glyphicon glyphicon-search"></span></button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="col-md-6 news">
+              <form action="" method="post" ng-submit="$root.addNewsletter();" onsubmit="return false;">
+                <div class="input-group">
+                  <input type="text" class="form-control" name="email" id="email-news" placeholder="Digite seu e-mail para promoções." />
+                  <div class="input-group-btn">
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                  </div>
+                </div>
+                <div class="alert alert-{{$root.newsletter.typeMessage}}" ng-if="$root.newsletter.message !== ''">
+                  {{$root.newsletter.message}}
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid info-bar">
+        <div class="container">
+          <div class="col-xs-6 col-sm-6 col-md-3 links">
+            <div class="title">
+              Links Úteis
+            </div>
+            <ul>
+              <li><a href="/empresa">A Empresa</a></li>
+              <li><a href="/vendedores">Vendedores</a></li>
+              <li><a href="/marcas">Marcas</a></li>
+              <li><a href="/localizacao">Localização</a></li>
+              <li><a href="/contato">Contato</a></li>
+            </ul>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-3 links">
+            <div class="title">
+              Links Úteis
+            </div>
+            <ul>
+              <li><a href="">Facebook</a></li>
+              <li><a href="">RMA</a></li>
+              <li><a href="">Cotação do dia</a></li>
+              <li><a href="">Casas de Câmbio</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid rights">
+        <h4>&copy; Todos os direitos reservados</h4>
+      </div>
+    </footer>
+    
+    <script async src="scripts/magiczoomplus.js"></script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/owl-carousel/owl-carousel/owl.carousel.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="/bower_components/angular-route/angular-route.js"></script>
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="/bower_components/angular-block-ui/dist/angular-block-ui.js"></script>
+    <script src="/bower_components/slider-revolution/src/js/jquery.themepunch.revolution.js"></script>
+    <script src="/bower_components/jquery_lazyload/jquery.lazyload.js"></script>
+    <script src="/bower_components/jquery_lazyload/jquery.scrollstop.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <script defer src="/bower_components/slider-revolution/src/js/jquery.themepunch.plugins.min.js"></script>
+
+    <!-- build:js(.) scripts/plugins.js -->
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/alert.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/modal.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/transition.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/button.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/popover.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/carousel.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
+    <!-- endbuild -->
+
+
+    <!-- build:js scripts/main.js -->
+    <script src="scripts/Application.js"></script>
+    <script src="scripts/shared/filters.js"></script>
+    <script src="scripts/shared/directives.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+    
+  </body>
+</html>
