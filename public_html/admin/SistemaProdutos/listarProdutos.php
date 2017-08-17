@@ -60,7 +60,7 @@ $total = $lP->getTotal();
 $max = ceil($total/$num);
 $lP->setParametros($primeiro)->setParametros($num+$primeiro, 'limite');
 
-while($p = $lP->listar("ASC", ListaProdutos::NOME)){
+while($p = $lP->listar("DESC")){
 	  
 	  	if(!empty($_POST['desabilitar']) || !empty($_POST['destacar'])){
 		
