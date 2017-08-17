@@ -4,12 +4,14 @@
  * to the application root now.
  */
 chdir(dirname(__DIR__));
+
 //header('Access-Control-Allow-Origin: *');
 //header('Access-Control-Allow-Methods: POST,GET');
 //header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
 //header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
 date_default_timezone_set('America/Sao_Paulo');
-ini_set('display_errors', 'Off');
+ini_set('display_errors',	'Off');
+ini_set("log_errors",   	'On');
 error_reporting(E_ALL & ~E_DEPRECATED);
 
 // Decline static file requests back to the PHP built-in webserver

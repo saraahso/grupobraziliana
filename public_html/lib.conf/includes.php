@@ -3,8 +3,15 @@
 ini_set("session.bug_compat_42", "off");
 ini_set("session.bug_compat_warn", "off");
 ini_set("memory_limit", "1024M");
+
+//header('Access-Control-Allow-Origin: *');
+//header('Access-Control-Allow-Methods: POST,GET');
+//header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+//header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
 date_default_timezone_set('America/Sao_Paulo');
-error_reporting(E_ERROR | E_PARSE);
+ini_set('display_errors',	'Off');
+ini_set("log_errors",   	'On');
+error_reporting(E_ALL & ~E_DEPRECATED);
 
 session_start();
 
