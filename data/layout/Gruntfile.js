@@ -380,7 +380,7 @@ module.exports = function (grunt) {
       index: {
         files: [{
           src: '<%= config.dist %>/index.html',
-          dest: '<%= config.dist %>/teste.phtml'
+          dest: '<%= config.dist %>/index.phtml'
         }]
       }
     },
@@ -436,7 +436,7 @@ module.exports = function (grunt) {
           port: 21,
           authKey: 'key1'
         },
-        src: ['dist/teste.phtml'],
+        src: ['dist/index.phtml'],
         dest: '/module/Application/view/layout'
       }
     },

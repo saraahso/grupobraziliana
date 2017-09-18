@@ -5,7 +5,7 @@
 			function($stateProvider, $locationProvider, $urlRouterProvider) {
 
 				$locationProvider.hashPrefix("!");
-				//$locationProvider.html5Mode(true);
+				$locationProvider.html5Mode(true);
 				$urlRouterProvider.otherwise('/');
 
 				var routes = {
@@ -240,11 +240,11 @@
 		.run(['$rootScope', '$state', '$document', 'blockUI', '$window', '$location', '$interval', '$http', '$filter', function($rootScope, $state, $document, blockUI, $window, $location, $interval, $http, $filter) {
 
 			$rootScope.frontURL 						= document.location.origin + "/";
-      //$rootScope.backURL        	 	  = $rootScope.frontURL;
+      $rootScope.backURL        	 	  = $rootScope.frontURL;
       //$rootScope.backURL        			= 'http://10.211.55.39/';
-			$rootScope.backURL          		= 'https://brasilianas-jhonnybail.c9users.io/';
+			//$rootScope.backURL          		= 'https://brasilianas-jhonnybail.c9users.io/';
 			//$rootScope.backURL							= 'https://grupobraziliana.com.br/';
-			$rootScope.productImagesURL 		= 'http://www.grupobraziliana.com.br' + "/lib.data/produtos/";
+			$rootScope.productImagesURL 		= $rootScope.backURL + "/lib.data/produtos/";
 			$rootScope.productCategoriesURL = $rootScope.backURL + "/lib.data/produtos/categorias/";
 			$rootScope.productBrandsURL 		= $rootScope.backURL + "/lib.data/produtos/marcas/";
 			$rootScope.slidesURL 						= $rootScope.backURL + "/lib.data/utilidades/publicidades/slides/";
