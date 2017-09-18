@@ -230,23 +230,24 @@ class Produto extends AbstractEntity
      */
     private $tipopedido;
 	
-		/**
-		 * @var \Doctrine\Common\Collections\ArrayCollection
-		 *
-		 * @ORM\ManyToMany(targetEntity="Categoria")
-		 * @ORM\JoinTable(name="tta_relacionamento_produtos_categorias",
-		 *      joinColumns={@ORM\JoinColumn(name="produto", referencedColumnName="id")},
-		 *      inverseJoinColumns={@ORM\JoinColumn(name="categoria", referencedColumnName="id")}
-		 *      )
-		 */
-		protected $categorias;
-	
-		/**
-		 * @var \Doctrine\Common\Collections\ArrayCollection
-		 *
-		 * @ORM\OneToMany(targetEntity="Imagem", mappedBy="produto")
-		 */
-		protected $imagens;
+	/**
+	 * @var \Doctrine\Common\Collections\ArrayCollection
+	 *
+	 * @ORM\ManyToMany(targetEntity="Categoria")
+	 * @ORM\JoinTable(name="tta_relacionamento_produtos_categorias",
+	 *      joinColumns={@ORM\JoinColumn(name="produto", referencedColumnName="id")},
+	 *      inverseJoinColumns={@ORM\JoinColumn(name="categoria", referencedColumnName="id")}
+	 *      )
+	 */
+	protected $categorias;
+
+	/**
+	 * @var \Doctrine\Common\Collections\ArrayCollection
+	 *
+	 * @ORM\OneToMany(targetEntity="Imagem", mappedBy="produto")
+	 * @ORM\OrderBy({"destaque"="ASC"})
+	 */
+	protected $imagens;
 
     /**
      * @return int

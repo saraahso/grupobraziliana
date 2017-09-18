@@ -54,6 +54,7 @@ class Produto extends Objeto {
 	public		$frete;
 	public		$tipoPedido;
 	public		$palavrasChaves;
+	public		$manual;
 	
 	public function __construct($id = ''){
 		
@@ -87,6 +88,7 @@ class Produto extends Objeto {
 		$this->frete			= 0;
 		$this->tipoPedido		= 0;
 		$this->palavrasChaves = '';
+		$this->manual			= '';
 		
 		$this->configCategorias(false);
 		

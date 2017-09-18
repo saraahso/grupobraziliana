@@ -1,97 +1,264 @@
-<div class="row product-detail">
-  <div class="col-xs-12">
-    <ol class="breadcrumb">
-      <li><a href="/">Página Principal</a></li>
+<div class="row">
+	<div class="breadcrumb">
+		<ul class="no-bullet">
       <li ng-repeat="categoria in breadcrumb" ng-class="{'active': categoria.id == $root.produto.categorias[0].id}" ng-if="categoria.id > 0">
-        <a href="/c/{{categoria.id}}-{{categoria.url.url}}">{{categoria.nome}}</a>
+        > <a ui-sref="category({idcategoria: categoria.id + '-' + categoria.url.url})">{{categoria.nome}}</a>
       </li>
-      <li class="active">{{$root.produto.nome}}</li>
-    </ol>
-  </div>
-  <div class="col-xs-12 col-sm-6">
-    <div class="row">
-      <div class="col-xs-12 image-main" ng-hide="imagens.lista.length <= 0">
-        <a href="{{$root.productImagesURL}}{{imagens.destaque.imagem}}" class="MagicZoom"
-           data-options="zoom-position:inner; variableZoom: true; cssClass: white-bg" id="imagem"><img
-          src="{{$root.productImagesURL}}{{imagens.destaque.imagem | resizeImage:600:600}}"/></a>
-      </div>
-      <div class="col-xs-12 image-main" ng-show="imagens.lista.length <= 0">
-        <img src="/images/no-image.gif"/></a>
-      </div>
-    </div>
-    <div class="row hidden-xs gallery-thumbs" ng-hide="imagens.lista.length <= 1">
+		</ul>
+	</div>
+</div>
 
-      <a data-zoom-id="imagem" href="{{$root.productImagesURL}}{{imagem.imagem}}"
-         data-image="{{$root.productImagesURL}}{{imagem.imagem | resizeImage:600:600}}"
-         ng-repeat="imagem in imagens.lista">
-        <img src="{{$root.productImagesURL}}{{imagem.imagem | resizeImage:100:100}}"/>
-      </a>
+<div class="row">
+	<div class="title-holder">
+		<h1>{{produto.nome}}</h1>
+	</div>
+</div>
 
-    </div>
-  </div>
-  <div class="col-xs-12 col-sm-6">
-    <h3>{{$root.produto.nome}}</h3>
+<div class="row">
+	<div class="produtcs-detail">
+		<!-- Fotos do produtos -->
+		<div class="products-photos">
+			<div class="main-photo">
+				<img ng-src="{{imagens.destaque.imagem.medium}}" alt="">
+			</div>
 
-    <p>
-      <span>Marca: <strong>{{$root.produto.marca.nome}}</strong></span>
-      <span>Referência: <strong>{{$root.produto.codigo}}</strong></span>
-    </p>
+			<div class="mini-photos" ng-if="imagens.lista.length > 0">
+				<ul class="no-bullet cycle-slideshow" 
+			    data-cycle-fx="scrollHorz"
+			    data-cycle-timeout="0"
+			    data-cycle-slides="> li"
+			    data-cycle-pager=".mini-photos #pager"
+			    >
+				<li class="group" ng-repeat="grupo in imagens.lista">
+					<ul class="no-bullet">
+						<li ng-repeat="imagem in grupo"><a class="fancybox" href="{{imagem.imagem.real}}"><img ng-src="{{imagem.imagem.thumb}}" alt=""></a></li>
+					</ul>
+				</li>
 
-    <div ng-if="$root.produto.valorreal >  && $root.produto.disponivel">
-      <div class="col-xs-6 col-sm-4 us">
-        {{$root.produto.valorreal | moeda:"U$"}}
-      </div>
-      <div class="col-xs-6 col-sm-4 rs">
-        {{($root.produto.valorreal*$root.cambio['real']) | moeda:"R$"}}
-      </div>
-    </div>
-    <div ng-if="$root.produto.valorvenda > 0 && $root.produto.disponivel">
-      <div class="col-xs-6 us-sub">
-        {{$root.produto.valorreal | moeda:"U$"}}
-      </div>
-      <div class="col-xs-6 rs-sub">
-        {{($root.produto.valorreal*$root.cambio['real']) | moeda:"R$"}}
-      </div>
-      <div class="col-xs-6 us">
-        {{$root.produto.valorvenda | moeda:"U$"}}
-      </div>
-      <div class="col-xs-6 rs">
-        {{($root.produto.valorvenda*$root.cambio['real']) | moeda:"R$"}}
-      </div>
-    </div>
-    <div ng-if="$root.produto.valorreal > 0 && $root.produto.disponivel">
-      <div class="col-xs-12 consult" style="color: #2da710">
-        Disponível
-      </div>
-    </div>
-    <div ng-if="$root.produto.valorreal <= 0 && $root.produto.disponivel">
-      <div class="col-xs-12 consult">
-        Consulte
-      </div>
-    </div>
-    <div ng-if="!$root.produto.disponivel">
-      <div class="col-xs-12 consult" style="color: #ff3728">
-        Indisponível
-      </div>
-    </div>
-  </div>
-  <div class="col-xs-12 detail" ng-hide="$root.produto.descricao == '' && $root.produto.palavraschaves == ''">
-    <div class="row">
-      <div class="col-xs-12 col-sm-3 col-md-2" ng-hide="$root.produto.descricao == '' && $root.produto.palavraschaves == ''">
-        <a href="#descricao">Descrição</a>
-      </div>
-    </div>
-    <div class="row">
-      <hr/>
-    </div>
-    <div class="row" ng-hide="$root.produto.descricao == ''" ng-bind-html="$root.produto.descricao">
+				</ul>
+				<div class="pager" id="pager" ng-if="imagens.lista.length > 1"></div>
+			</div>
+		</div>
 
-    </div>
-    <div class="row" ng-hide="$root.produto.descricao != '' && $root.produto.palavraschaves == ''" ng-bind-html="$root.produto.palavraschaves">
+		<!-- Detalhes -->
+		<div class="product-detail">
+			<div class="price">
+				<span ng-if="produto.valorreal > 0">{{produto.valorreal | moeda:"U$ "}}</span>
+				<small ng-if="produto.valorreal > 0 && $root.cambio > 0">Câmbio: 1 U$ = ({{$root.cambio | moeda}}) - Preço em {{$root.cambio * produto.valorreal | moeda:"R$ "}}</small>
 
-    </div>
-    <div class="row">
-      <hr/>
-    </div>
-  </div>
+				<div class="more-of-brand">
+					Mais produtos da Marca: <a ui-sref="brand({idmarca: produto.marca.id + '-' + produto.marca.url.url})">{{produto.marca.nome}}</a>
+				</div>
+
+				<div class="code">
+					Código do produto: {{produto.codigo}}
+					<div class="availability" style="display: none">Produto disponivel</div>
+				</div>
+			</div>
+
+			<ul class="no-bullet list-actions" style="display: none;">
+				<li>
+					<a href="">
+						<div class="icon">
+							<img src="assets/images/widgets/products/li-act-cart.jpg" alt="">
+						</div>
+
+						<span class="title">
+							Adicionar a lista
+							<small>
+								SALVAR A MINHA LISTA DE PEDIDO
+							</small>
+						</span>
+					</a>
+				</li>
+
+				<li>
+					<a href="">
+						<div class="icon">
+							<img src="assets/images/widgets/products/li-act-suggest.jpg" alt="">
+						</div>
+
+						<span class="title yellow">
+							Adicionar a lista
+							<small>
+								SALVAR A MINHA LISTA DE PEDIDO
+							</small>
+						</span>
+					</a>
+				</li>
+
+				<li>
+					<a href="">
+						<div class="icon">
+							<img src="assets/images/widgets/products/li-act-contact.jpg" alt="">
+						</div>
+
+						<span class="title blue">
+							Adicionar a lista
+							<small>
+								SALVAR A MINHA LISTA DE PEDIDO
+							</small>
+						</span>
+					</a>
+				</li>
+			</ul>
+			
+			<div class="social" style="display: none;">
+				<h6>Compartile</h6>
+
+				<ul class="no-bullet">
+					<li>
+						<div class="count">
+							30
+						</div>
+
+						<div class="icon">
+							<img src="assets/images/icons/social/fb.jpg" alt="">
+						</div>
+					</li>
+
+					<li>
+						<div class="count">
+							30
+						</div>
+
+						<div class="icon">
+							<img src="assets/images/icons/social/tw.jpg" alt="">
+						</div>
+					</li>
+
+					<li>
+						<div class="count">
+							30
+						</div>
+
+						<div class="icon">
+							<img src="assets/images/icons/social/yt.jpg" alt="">
+						</div>
+					</li>
+
+					<li>
+						<div class="count">
+							30
+						</div>
+
+						<div class="icon">
+							<img src="assets/images/icons/social/gp.jpg" alt="">
+						</div>
+					</li>
+
+					<li>
+						<div class="count">
+							30
+						</div>
+
+						<div class="icon">
+							<img src="assets/images/icons/social/in.jpg" alt="">
+						</div>
+					</li>
+				</ul>
+			</div>		
+		</div>
+	</div>
+</div>
+
+<div class="row" ng-if="produto.descricao != '' || produto.manual != ''">
+	<dl class="tabs" data-tab>
+		<dd ng-if="produto.descricao != ''" class="active"><a href="#panel2-1">Descrição</a></dd>
+		<dd style="display: none"><a href="#panel2-2">Vídeos</a></dd>
+		<dd ng-if="produto.manual != ''" ng-class="{active: produto.manual != '' && produto.descricao == ''}"><a href="#panel2-3">Manual</a></dd>
+		<dd style="display: none"><a href="#panel2-4">Garantia</a></dd>
+	</dl>
+	<div class="tabs-content">
+		<div class="content" ng-class="{active: produto.descricao != ''}" id="panel2-1" ng-if="produto.descricao != ''" ng-bind-html="produto.descricao">
+		</div>
+		<div class="content" id="panel2-2" style="display: none;">
+		</div>
+		<div class="content" ng-class="{active: produto.manual != '' && produto.descricao == ''}" id="panel2-3">
+		  <a href="{{produto.manual}}" target="_blank"><img src="/assets/images/icons/icon-pdf-1.png" border="0" /></a>
+		</div>
+		<div class="content" id="panel2-4" style="display: none">
+		</div>
+	</div>
+</div>
+
+<!-- Carrosel -->
+<!-- Carrosel -->
+<div class="carousel-big" ng-if="gruposRelacionados.length > 0">
+	<div class="row">
+		<ul class="no-bullet cycle-slideshow" 
+	    data-cycle-fx=scrollHorz
+	    data-cycle-timeout=5000
+	    data-cycle-slides="> li"
+	    data-cycle-pager=".carousel-big #pager"
+	    >
+		    <li class="group" ng-repeat="grupoRelacionado in gruposRelacionados">
+		    	<ul class="no-bullet">
+		    		<li ng-repeat="produto in grupoRelacionado">
+		    			<a ui-sref="product({idcategoria: produto.urlcategoria, idproduto: produto.urlproduto})" ng-click="$root.setProduto(produto)">
+  	    				<img ng-src="{{produto.imagens[0].imagem.thumb}}" alt="">
+  	    				<span class="price">{{produto.amostra}}</span>
+  	    				<span class="title">{{produto.nome}}</span>
+  	    			</a>
+		    		</li>
+		    	</ul>
+		    </li>
+		</ul>
+
+		<div class="ctrl ctrl-pager" id="pager" ng-if="gruposRelacionados.length > 1"></div>
+	</div>
+</div>
+
+
+<!-- Marcas -->
+<div class="row" style="display: none;">
+	<ul class="no-bullet slider-brands">
+		<li><a href=""><img src="assets/images/brands/1.png" alt=""></a></li>
+		<li><a href=""><img src="assets/images/brands/2.png" alt=""></a></li>
+		<li><a href=""><img src="assets/images/brands/3.png" alt=""></a></li>
+		<li><a href=""><img src="assets/images/brands/4.png" alt=""></a></li>
+		<li><a href=""><img src="assets/images/brands/5.png" alt=""></a></li>
+	</ul>
+</div>
+
+
+<!-- Produtos -->		
+<div class="list-products" ng-if="$root.lancamentos.length > 0">
+	<div class="row">
+		<h4>Lançamentos</h4>
+	</div>
+
+	<ul class="no-bullet list-of-products list-of-products-centered">
+		<li ng-repeat="produto in $root.lancamentos | limitTo:2">
+			<a ui-sref="product({idcategoria: produto.urlcategoria, idproduto: produto.urlproduto})" ng-click="$root.setProduto(produto)">
+  			<div class="img-holder">
+  				<img ng-src="{{produto.imagens[0].imagem.thumb}}" alt="">
+  			</div>
+
+  			<span class="title">
+  				{{produto.nome}}
+  			</span>
+
+  			<span class="price">
+  				{{produto.amostra}}
+  			</span>
+  		</a>
+		</li>
+	</ul>
+</div>
+
+<!-- Newsletter -->
+<div class="row">
+	<div class="newsletter">
+		<div class="title">
+			Receba em seu email nossas melhores ofertas.
+		</div>
+
+		<form action="">
+			<input type="text" placeholder="nome">
+			<input type="text" placeholder="e-mail">
+
+			<input type="submit" value="enviar">
+		</form>
+	</div>
 </div>

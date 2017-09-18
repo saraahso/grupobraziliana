@@ -1,22 +1,74 @@
-<div class="row brands-page">
-  <div class="col-xs-12">
-    <ol class="breadcrumb">
-      <li><a href="/">Página Principal</a></li>
-      <li class="active">
-        Marcas
-      </li>
-    </ol>
-  </div>
-  <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 brand" ng-repeat="brand in $root.brands"
-       ng-if="brand.imagem != ''">
-    <a href="{{brand.enderecourl}}" target="_blank">
-      <div class="image">
-        <img data-original="{{$root.productBrandsURL}}{{brand.imagem | resizeImage:150:100}}"
-             src="/images/trans.png" class="lazy"/>
-      </div>
-      <p class="name">
-        {{brand.nome}}
-      </p>
-    </a>
-  </div>
+<div class="row">
+	<h2>Conheça nossas marcas</h2>
+</div>
+
+
+<!-- Lista -->
+<div class="row" ng-if="$root.marcas.length > 0">
+	<div class="list-simple-with-6">
+		<ul class="no-bullet jsc">
+			<li ng-repeat="marca in $root.marcas">
+			  <a ui-sref="brand({idmarca: marca.id + '-' + marca.url.url})">
+				  <img ng-src="{{marca.imagem}}" border="0" alt="" ng-if="marca.imagem != ''">
+				  <p ng-if="marca.imagem === ''" ng-bind="marca.nome" align="center"></p>
+				</a>
+			</li>
+			<a href="next.html" class="more next" style="display: none;">ABRIR MAIS MARCAS</a>
+		</ul>					
+	</div>
+</div>
+
+
+
+<!-- Marcas -->
+<div class="row" style="display: none;">
+	<ul class="no-bullet slider-brands">
+		<li><a href=""><img src="assets/images/brands/1.png" alt=""></a></li>
+		<li><a href=""><img src="assets/images/brands/2.png" alt=""></a></li>
+		<li><a href=""><img src="assets/images/brands/3.png" alt=""></a></li>
+		<li><a href=""><img src="assets/images/brands/4.png" alt=""></a></li>
+		<li><a href=""><img src="assets/images/brands/5.png" alt=""></a></li>
+	</ul>
+</div>
+
+
+<!-- Produtos -->		
+<div class="list-products" ng-if="$root.lancamentos.length > 0">
+	<div class="row">
+		<h4>Lançamentos</h4>
+	</div>
+
+	<ul class="no-bullet list-of-products list-of-products-centered">
+		<li ng-repeat="produto in $root.lancamentos | limitTo:2">
+			<a ui-sref="product({idcategoria: produto.urlcategoria, idproduto: produto.urlproduto})" ng-click="$root.setProduto(produto)">
+  			<div class="img-holder">
+  				<img ng-src="{{produto.imagens[0].imagem.thumb}}" alt="">
+  			</div>
+
+  			<span class="title">
+  				{{produto.nome}}
+  			</span>
+
+  			<span class="price">
+  				{{produto.amostra}}
+  			</span>
+  		</a>
+		</li>
+	</ul>
+</div>
+
+<!-- Newsletter -->
+<div class="row">
+	<div class="newsletter">
+		<div class="title">
+			Receba em seu email nossas melhores ofertas.
+		</div>
+
+		<form action="">
+			<input type="text" placeholder="nome">
+			<input type="text" placeholder="e-mail">
+
+			<input type="submit" value="enviar">
+		</form>
+	</div>
 </div>

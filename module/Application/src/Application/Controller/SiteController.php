@@ -22,17 +22,18 @@ class SiteController extends AbstractActionController
     $repoCatSlide = $em->getRepository('TemTudoAqui\Slide\Categoria');
     $repoCatProd  = $em->getRepository('TemTudoAqui\Categoria');
     $repoMarcas   = $em->getRepository('TemTudoAqui\Marca');
+    $repoProduto  = $em->getRepository('TemTudoAqui\Produto');
     $siteDao = $this->getServiceLocator()->get('SiteDao');
     $categoriaSlide = $repoCatSlide->find(1);
 
     $rs = [];
     $rs['cambio']['real'] = $siteDao->getProdutoConfig()[0]['cambioreal'];
     $rs['produtosporpagina'] = $siteDao->getProdutoConfig()[0]['produtosporpagina'];
-
+    
     foreach ($categoriaSlide->getSlides() as $k => $v) {
       $rs['slides'][$k] = $v->toArray();
     }
-
+    
     $categorias = $repoCatProd->getCollection(new Categoria(['categoriapai' => new Categoria(['id' => 0])]), [
       'order' => [
         'id' => 'ASC'
@@ -45,6 +46,13 @@ class SiteController extends AbstractActionController
     }
     
     $rs['marcas'] = $repoMarcas->getCollection(new Marca)['result'];
+    
+    $rs['lancamentos']  = $repoProduto->getCollection(new Produto(['disponivel' => true, 'lancamento' => true]), [
+      'order' => [
+        'ordem' => 'ASC'
+      ],
+      'limit' => 5
+    ])['result'];
     
     return new JsonModel($rs);
   }
@@ -63,31 +71,21 @@ class SiteController extends AbstractActionController
   public function homeAction()
   {
     $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-    $repoCategoria  = $em->getRepository('TemTudoAqui\Categoria');
     $repoProduto    = $em->getRepository('TemTudoAqui\Produto');
-    $data = [];
-    $data['categorias'] = [];
-    $data['banners'] = [];
 
-    $categorias = $repoCategoria->getCollection(new Categoria(['home' => true]), [
+    $destaques    = $repoProduto->getCollection(new Produto(['disponivel' => true, 'destaque' => true]), [
       'order' => [
         'ordem' => 'ASC'
       ]
     ])['result'];
-    foreach($categorias as $cat){
-      $cat['categorias']    = $repoCategoria->getCollection(new Categoria(['categoriapai' => new Categoria(['id' => $cat['id']])]))['result'];
-      $secao['categoria']   = $cat;
-      $secao['produtos']    = $repoProduto->getCollectionWithCategoria($repoCategoria->find($cat['id']), true, new Produto, [
-        'limit' => 5,
-        'order' => [
-          'id' => 'DESC'
-        ]
-      ])['result'];
-      
-      $data['categorias'][] = $secao;
-    }
     
-    return new JsonModel($data);
+    $lancamentos  = $repoProduto->getCollection(new Produto(['disponivel' => true, 'lancamento' => true]), [
+      'order' => [
+        'ordem' => 'ASC'
+      ]
+    ])['result'];
+    
+    return new JsonModel(['destaques' => $destaques, 'lancamentos' => $lancamentos]);
   }
 
   public function addNewsletterAction()

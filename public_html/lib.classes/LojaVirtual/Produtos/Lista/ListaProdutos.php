@@ -33,7 +33,8 @@ class ListaProdutos extends Lista {
 	const CODIGO					= 'codigo';
 	const FRETE						= 'frete';
 	const TIPOPEDIDO				= 'tipopedido';
-	const	PALAVRASCHAVES	= 'palavraschaves';
+	const PALAVRASCHAVES			= 'palavraschaves';
+	const MANUAL					= 'manual';
 	
 	const VALOR_DISPONIVEL_TRUE 	= 1;
 	const VALOR_DISPONIVEL_FALSE 	= 0;
@@ -117,6 +118,8 @@ class ListaProdutos extends Lista {
 				$temp->codigo			= $info[self::CODIGO];
 			if(!empty($info[self::PALAVRASCHAVES]))
 				$temp->palavrasChaves 			= $info[self::PALAVRASCHAVES];
+			if(!empty($info[self::MANUAL]))
+				$temp->manual 			= $info[self::MANUAL];
 			
 			if(!empty($info[self::VIDEO]))
 				$temp->setVideo($info[self::VIDEO]);
@@ -149,9 +152,9 @@ class ListaProdutos extends Lista {
 		$destaque 		= $p->destaque 		? self::VALOR_DISPONIVEL_TRUE : self::VALOR_DISPONIVEL_FALSE;
 		
 		if($p->getId() != '')
-			$this->con->executar("INSERT INTO ".Sistema::$BDPrefixo.$this->tabela."(".self::ID.", ".self::PRODUTOPAI.", ".self::NOME.", ".self::URL.", ".self::PESO.", ".self::LARGURA.", ".self::ALTURA.", ".self::COMPRIMENTO.", ".self::VALORCUSTO.", ".self::VALORREAL.", ".self::VALORVENDA.", ".self::ESTOQUE.", ".self::DESCRICAOPEQUENA.", ".self::DESCRICAO.", ".self::DISPONIVEL.", ".self::PROMOCAO.", ".self::LANCAMENTO.", ".self::DESTAQUE.", ".self::ORDEM.", ".self::TIPOUNIDADE.", ".self::QUANTIDADEU.", ".self::DATACADASTRO.", ".self::VIDEO.", ".self::MARCA.", ".self::CODIGO.", ".self::FRETE.", ".self::TIPOPEDIDO.", ".self::PALAVRASCHAVES.") VALUES('".$p->getId()."','".$p->getProdutoPai()."','".addslashes(str_replace("\"", "'", $p->nome))."','".$p->getURL()->getId()."','".$p->peso->formatar(".", "", 3)."','".$p->largura->formatar()."','".$p->altura->formatar()."','".$p->comprimento->formatar()."','".$p->valorCusto->formatar()."','".$p->valorReal->formatar()."','".$p->valorVenda->formatar()."','".$p->estoque."','".addslashes($p->descricaoPequena)."','".addslashes($p->descricao)."','".$disponivel."','".$promocao."','".$lancamento."','".$destaque."','".$p->ordem."','".addslashes(str_replace("\"", "'", $p->tipoUnidade))."','".$p->quantidadeu."','".$p->getDataCadastro()->mostrar("Ymd")."','".$p->getVideo()."','".$p->getMarca()->getId()."','".$p->codigo."','".$p->frete."','".$p->tipoPedido."','".$p->palavrasChaves."')");
+			$this->con->executar("INSERT INTO ".Sistema::$BDPrefixo.$this->tabela."(".self::ID.", ".self::PRODUTOPAI.", ".self::NOME.", ".self::URL.", ".self::PESO.", ".self::LARGURA.", ".self::ALTURA.", ".self::COMPRIMENTO.", ".self::VALORCUSTO.", ".self::VALORREAL.", ".self::VALORVENDA.", ".self::ESTOQUE.", ".self::DESCRICAOPEQUENA.", ".self::DESCRICAO.", ".self::DISPONIVEL.", ".self::PROMOCAO.", ".self::LANCAMENTO.", ".self::DESTAQUE.", ".self::ORDEM.", ".self::TIPOUNIDADE.", ".self::QUANTIDADEU.", ".self::DATACADASTRO.", ".self::VIDEO.", ".self::MARCA.", ".self::CODIGO.", ".self::FRETE.", ".self::TIPOPEDIDO.", ".self::PALAVRASCHAVES.", ".self::MANUAL.") VALUES('".$p->getId()."','".$p->getProdutoPai()."','".addslashes(str_replace("\"", "'", $p->nome))."','".$p->getURL()->getId()."','".$p->peso->formatar(".", "", 3)."','".$p->largura->formatar()."','".$p->altura->formatar()."','".$p->comprimento->formatar()."','".$p->valorCusto->formatar()."','".$p->valorReal->formatar()."','".$p->valorVenda->formatar()."','".$p->estoque."','".addslashes($p->descricaoPequena)."','".addslashes($p->descricao)."','".$disponivel."','".$promocao."','".$lancamento."','".$destaque."','".$p->ordem."','".addslashes(str_replace("\"", "'", $p->tipoUnidade))."','".$p->quantidadeu."','".$p->getDataCadastro()->mostrar("Ymd")."','".$p->getVideo()."','".$p->getMarca()->getId()."','".$p->codigo."','".$p->frete."','".$p->tipoPedido."','".$p->palavrasChaves."','".$p->manual."')");
 		else
-			$this->con->executar("INSERT INTO ".Sistema::$BDPrefixo.$this->tabela."(".self::PRODUTOPAI.", ".self::NOME.", ".self::URL.", ".self::PESO.", ".self::LARGURA.", ".self::ALTURA.", ".self::COMPRIMENTO.", ".self::VALORCUSTO.", ".self::VALORREAL.", ".self::VALORVENDA.", ".self::ESTOQUE.", ".self::DESCRICAOPEQUENA.", ".self::DESCRICAO.", ".self::DISPONIVEL.", ".self::PROMOCAO.", ".self::LANCAMENTO.", ".self::DESTAQUE.", ".self::ORDEM.", ".self::TIPOUNIDADE.", ".self::QUANTIDADEU.", ".self::DATACADASTRO.", ".self::VIDEO.", ".self::MARCA.", ".self::CODIGO.", ".self::FRETE.", ".self::TIPOPEDIDO.", ".self::PALAVRASCHAVES.") VALUES('".$p->getProdutoPai()."','".addslashes(str_replace("\"", "'", $p->nome))."','".$p->getURL()->getId()."','".$p->peso->formatar(".", "", 3)."','".$p->largura->formatar()."','".$p->altura->formatar()."','".$p->comprimento->formatar()."','".$p->valorCusto->formatar()."','".$p->valorReal->formatar()."','".$p->valorVenda->formatar()."','".$p->estoque."','".addslashes($p->descricaoPequena)."','".addslashes($p->descricao)."','".$disponivel."','".$promocao."','".$lancamento."','".$destaque."','".$p->ordem."','".addslashes(str_replace("\"", "'", $p->tipoUnidade))."','".$p->quantidadeu."','".$p->getDataCadastro()->mostrar("Ymd")."','".$p->getVideo()."','".$p->getMarca()->getId()."','".$p->codigo."','".$p->frete."','".$p->tipoPedido."','".$p->palavrasChaves."')");
+			$this->con->executar("INSERT INTO ".Sistema::$BDPrefixo.$this->tabela."(".self::PRODUTOPAI.", ".self::NOME.", ".self::URL.", ".self::PESO.", ".self::LARGURA.", ".self::ALTURA.", ".self::COMPRIMENTO.", ".self::VALORCUSTO.", ".self::VALORREAL.", ".self::VALORVENDA.", ".self::ESTOQUE.", ".self::DESCRICAOPEQUENA.", ".self::DESCRICAO.", ".self::DISPONIVEL.", ".self::PROMOCAO.", ".self::LANCAMENTO.", ".self::DESTAQUE.", ".self::ORDEM.", ".self::TIPOUNIDADE.", ".self::QUANTIDADEU.", ".self::DATACADASTRO.", ".self::VIDEO.", ".self::MARCA.", ".self::CODIGO.", ".self::FRETE.", ".self::TIPOPEDIDO.", ".self::PALAVRASCHAVES.", ".self::MANUAL.") VALUES('".$p->getProdutoPai()."','".addslashes(str_replace("\"", "'", $p->nome))."','".$p->getURL()->getId()."','".$p->peso->formatar(".", "", 3)."','".$p->largura->formatar()."','".$p->altura->formatar()."','".$p->comprimento->formatar()."','".$p->valorCusto->formatar()."','".$p->valorReal->formatar()."','".$p->valorVenda->formatar()."','".$p->estoque."','".addslashes($p->descricaoPequena)."','".addslashes($p->descricao)."','".$disponivel."','".$promocao."','".$lancamento."','".$destaque."','".$p->ordem."','".addslashes(str_replace("\"", "'", $p->tipoUnidade))."','".$p->quantidadeu."','".$p->getDataCadastro()->mostrar("Ymd")."','".$p->getVideo()."','".$p->getMarca()->getId()."','".$p->codigo."','".$p->frete."','".$p->tipoPedido."','".$p->palavrasChaves."','".$p->manual."')");
 		
 		$id = $this->con->getId();
 		
@@ -190,6 +193,7 @@ class ListaProdutos extends Lista {
 		$this->con->alterar(Sistema::$BDPrefixo.$this->tabela, self::DESCRICAOPEQUENA, 	addslashes($p->descricaoPequena), $where);
 		$this->con->alterar(Sistema::$BDPrefixo.$this->tabela, self::DESCRICAO, 		addslashes($p->descricao), $where);
 		$this->con->alterar(Sistema::$BDPrefixo.$this->tabela, self::PALAVRASCHAVES, 		$p->palavrasChaves, $where);
+		$this->con->alterar(Sistema::$BDPrefixo.$this->tabela, self::MANUAL, 			$p->manual, $where);
 		
 		$this->con->alterar(Sistema::$BDPrefixo.$this->tabela, self::DISPONIVEL, 		$disponivel, $where);
 		$this->con->alterar(Sistema::$BDPrefixo.$this->tabela, self::PROMOCAO,	 		$promocao, $where);

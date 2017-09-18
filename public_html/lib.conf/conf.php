@@ -3,8 +3,8 @@
 class Sistema {
 	
 	public static $BDHost 							= 'localhost';
-	public static $BDBanco							= '';
-	public static $BDUsuario						= ''; //onoteatrouser
+	public static $BDBanco							= 'c9';
+	public static $BDUsuario						= 'jhonnybail'; //onoteatrouser
 	public static $BDSenha 							= ''; //#8/wkVTFx=
 	public static $BDPrefixo						= 'tta_';
 	

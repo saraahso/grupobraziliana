@@ -25,7 +25,7 @@ AddDefaultCharset UTF-8
       Header set Connection keep-alive
       Header set Access-Control-Allow-Origin '*'
       Header set Access-Control-Allow-Methods POST,GET
-      Header set Access-Control-Allow-Headers X-Authorization,X-Requested-Withx
+      Header set Access-Control-Allow-Headers X-Authorization
 
       <FilesMatch "\\.(css|js|gif|png|jpg|JPG)$">
            Header set Cache-Control "max-age=2592000, public"

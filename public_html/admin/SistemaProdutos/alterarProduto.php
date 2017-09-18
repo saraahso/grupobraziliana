@@ -53,6 +53,7 @@ if(!empty($_POST)){
 		$estoque				= $p->estoque;
 		$p->tipoPedido			= $_POST['tipoPedido'];
 		$p->palavrasChaves			= $_POST['palavrasChaves'];
+		$p->manual				= $_POST['manual'];
 		
 		$p->descricaoPequena	= $_POST['descricaoPequena'];
 		$p->descricao			= $_POST['descricao'];
@@ -531,6 +532,7 @@ $iAP->trocar("valorReal", 			$p->valorReal->moeda());
 $iAP->trocar("valorVenda", 			$p->valorVenda->moeda());
 $iAP->trocar("tipoUnidade",			$p->tipoUnidade);
 $iAP->trocar("palavrasChaves",			$p->palavrasChaves);
+$iAP->trocar("manual",				$p->manual);
 $iAP->trocar("quantidadeu", 		$p->quantidadeu);
 $iAP->trocar("estoque", 			$p->estoque);
 $iAP->trocar("descricaoPequena", 	$p->descricaoPequena);

@@ -14,7 +14,8 @@ class ProdutoRepository extends EntityRepository
 			$query->innerJoin("{$alias}.categorias", 'c')
 				->addSelect('c')
 				->innerJoin('c.url', 'uc')
-				->addSelect('uc');
+				->addSelect('uc')
+				->andWhere('imagens.destaque = 1');
 			return $query;
 		});
 		

@@ -1,27 +1,93 @@
-<div class="row sellers">
-    <div class="col-xs-12">
-        <ol class="breadcrumb">
-            <li><a href="/">Página Principal</a></li>
-            <li class="active">
-                Vendedores
-            </li>
-        </ol>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 seller" ng-repeat="seller in $root.sellers">
-        <div class="image">
-            <img ng-if="seller.imagem != ''" data-original="{{$root.backURL}}/lib.data/geral/textos/{{seller.imagem.imagem | resizeImage:200:164}}" src="/images/trans.png" class="lazy" />
-        </div>
-        <div class="name">
-            {{seller.nome}}
-        </div>
-        <div class="email">
-            {{seller.email}}
-        </div>
-        <div class="default">
-            Skype: {{seller.skype}}
-        </div>
-        <div class="default telefone">
-            {{seller.telefone}}
-        </div>
-    </div>
+<div class="row">
+	<h2>Vendedores</h2>
+</div>
+
+
+<div class="row" ng-if="gruposVendedores.length > 0">
+	<div class="slider-sellers">
+		<ul class="no-bullet cycle-slideshow" 
+	    data-cycle-fx=scrollHorz
+	    data-cycle-timeout=0
+	    data-cycle-slides="> li"
+	    data-cycle-prev=".slider-sellers #prev"
+      	data-cycle-next=".slider-sellers #next"
+	    >
+			<li class="group" ng-repeat="grupoVendedores in gruposVendedores">
+				<ul class="no-bullet">
+					<li ng-repeat="vendedor in grupoVendedores">
+						<img ng-src="{{vendedor.imagem.imagem}}" alt="">
+
+						<div class="name">
+							{{vendedor.nome}}
+						</div>
+
+						<div class="position">
+							Gerente
+						</div>
+
+						<div class="email">
+							{{vendedor.email}}
+						</div>
+					</li>
+				</ul>
+			</li>
+		</ul>
+
+		<div class="ctrl ctrl-left" id="prev"></div>
+		<div class="ctrl ctrl-right" id="next"></div>
+	</div>
+</div>
+
+
+<!-- Marcas -->
+<div class="row" style="display: none;">
+	<ul class="no-bullet slider-brands">
+		<li><a href=""><img src="assets/images/brands/1.png" alt=""></a></li>
+		<li><a href=""><img src="assets/images/brands/2.png" alt=""></a></li>
+		<li><a href=""><img src="assets/images/brands/3.png" alt=""></a></li>
+		<li><a href=""><img src="assets/images/brands/4.png" alt=""></a></li>
+		<li><a href=""><img src="assets/images/brands/5.png" alt=""></a></li>
+	</ul>
+</div>
+
+
+<!-- Produtos -->		
+<div class="list-products" ng-if="$root.lancamentos.length > 0">
+	<div class="row">
+		<h4>Lançamentos</h4>
+	</div>
+
+	<ul class="no-bullet list-of-products list-of-products-centered">
+		<li ng-repeat="produto in $root.lancamentos | limitTo:2">
+			<a ui-sref="product({idcategoria: produto.urlcategoria, idproduto: produto.urlproduto})" ng-click="$root.setProduto(produto)">
+  			<div class="img-holder">
+  				<img ng-src="{{produto.imagens[0].imagem.thumb}}" alt="">
+  			</div>
+
+  			<span class="title">
+  				{{produto.nome}}
+  			</span>
+
+  			<span class="price">
+  				{{produto.amostra}}
+  			</span>
+  		</a>
+		</li>
+	</ul>
+</div>
+
+<!-- Newsletter -->
+<div class="row">
+	<div class="newsletter">
+		<div class="title">
+			Receba em seu email nossas melhores ofertas.
+		</div>
+
+		<form action="">
+			<input type="text" placeholder="nome">
+			<input type="text" placeholder="e-mail">
+
+			<input type="submit" value="enviar">
+		</form>
+	</div>
 </div>

@@ -2,30 +2,29 @@
 <html class="no-js" lang="">
   <head>
     <meta charset="utf-8">
-    <title>Teste Grupo Braziliana</title>
+    <title>Grupo Braziliana</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
 
+    
+    <!--[if lt IE 9]>
+  	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+  	<script src="//s3.amazonaws.com/nwapi/nwmatcher/nwmatcher-1.2.5-min.js"></script>
+  	<script src="//html5base.googlecode.com/svn-history/r38/trunk/js/selectivizr-1.0.3b.js"></script>
+  	<script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
+  	<![endif]-->
+
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="/bower_components/owl-carousel/owl-carousel/owl.carousel.css" />
-    <link rel="stylesheet" href="/bower_components/owl-carousel/owl-carousel/owl.theme.css" />
     <link rel="stylesheet" href="/bower_components/angular-block-ui/dist/angular-block-ui.css" />
-    <link rel="stylesheet" href="/bower_components/slider-revolution/src/css/settings.css" />
+    <link rel="stylesheet" href="/bower_components/foundation/css/foundation.css" />
+    <link rel="stylesheet" href="/bower_components/fancybox/source/jquery.fancybox.css" />
     <!-- endbower -->
     <!-- endbuild -->
     
-      
-
-    <link rel="stylesheet" href="styles/magiczoomplus.css" />
-    
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/owl-brands.css">
-    <!-- endbuild -->
-    <!-- build:js scripts/vendor/modernizr.js -->
-    <script src="/bower_components/modernizr/modernizr.js"></script>
+	  <link rel="stylesheet" href="assets/stylesheets/app.css">
     <!-- endbuild -->
 
   </head>
@@ -35,172 +34,259 @@
     <![endif]-->
 
 
-    <header class="container-fluid">
-      <div class="container">
-        <div class="col-xs-12 col-sm-6 col-md-3 logo-box">
-          <a href="/"><img src="images/trans.png" /></a>
-        </div>
-        <div class="hidden-xs hidden-sm col-md-6 search-box">
-          <form action="" method="post" ng-submit="$root.$state.go('search', {busca: angular.element('#search').val()});" onsubmit="window.history.pushState('', '', '/search/'+angular.element('#search').val()); angular.element('#search').val(''); return false;">
-            <div class="input-group">
-              <input type="text" class="form-control" name="search" id="search" placeholder="O que você está procurando?" />
-              <div class="input-group-btn">
-                <button type="submit" class="btn btn-primary"><span class="
-glyphicon glyphicon-search"></span></button>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3 social-box">
-          
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3 grid-box">
-          <div class="grid">
-            <!--<p class="lista-precos"><a href="">Lista de Preços</a></p>-->
-            <p class="lista-precos">COTAÇÃO DO DIA</p>
-            <p class="cotacao">{{$root.cambio.real | moeda:'R$ '}}</p>
-          </div>
-        </div>
-        <div class="col-xs-12 visible-xs-inline-block visible-sm-inline-block search-box">
-          <form action="" method="post" ng-submit="$root.$state.go('search', {busca: angular.element('#search-xs').val()});" onsubmit="window.history.pushState('', '', '/search/'+angular.element('#search-xs').val()); angular.element('#search-xs').val(''); return false;">
-            <div class="input-group">
-              <input type="text" class="form-control" name="search" id="search-xs" placeholder="O que você está procurando?" />
-              <div class="input-group-btn">
-                <button type="submit" class="btn btn-primary"><span class="
-glyphicon glyphicon-search"></span></button>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="hidden-xs col-sm-12 col-md-12 menu-box">
-          <ul class="row menu">
-            <li class="col-sm-2"><div><a href="/empresa">A Empresa</a></div></li>
-            <li class="col-sm-3"><div><a href="/vendedores">Vendedores</a></div></li>
-            <li class="col-sm-2"><div><a href="/marcas">Marcas</a></div></li>
-            <li class="col-sm-3"><div><a href="/localizacao">Localização</a></div></li>
-            <li class="col-sm-2"><div><a href="/contato">Contato</a></div></li>
-          </ul>
-        </div>
-      </div>
-    </header>
-
-   
-
-    <main class="container" block-ui="blockui-main">
-      <div class="row">
-        <div class="container" ui-view></div>
-      </div>
-    </main>
-
-    <footer>
-      <div class="container-fluid search-bar">
-        <div class="container-fluid rights" style="background:#FFF; color: #006495;"><span class="glyphicon glyphicon-exclamation-sign" style="top:23px;font-size: 26px;"></span><h4>NÃO REALIZAMOS ENTREGA NO BRASIL</h4></div>
-          
-        <div class="container">
-          <div class="row">
-            <div class="col-md-3">
-              <form action="" method="post" ng-submit="$root.$state.go('search', {busca: angular.element('#search-footer').val()});" onsubmit="window.history.pushState('', '', '/search/'+angular.element('#search-footer').val()); angular.element('#search-footer').val(''); return false;">
-                <div class="input-group">
-                  <input type="text" class="form-control" name="search" id="search-footer" placeholder="O que você está procurando?" />
-                  <div class="input-group-btn">
-                    <button type="submit" class="btn btn-primary"><span class="
-glyphicon glyphicon-search"></span></button>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="col-md-6 news">
-              <form action="" method="post" ng-submit="$root.addNewsletter();" onsubmit="return false;">
-                <div class="input-group">
-                  <input type="text" class="form-control" name="email" id="email-news" placeholder="Digite seu e-mail para promoções." />
-                  <div class="input-group-btn">
-                    <button type="submit" class="btn btn-primary">Cadastrar</button>
-                  </div>
-                </div>
-                <div class="alert alert-{{$root.newsletter.typeMessage}}" ng-if="$root.newsletter.message !== ''">
-                  {{$root.newsletter.message}}
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="container-fluid info-bar">
-        <div class="container">
-          <div class="col-xs-6 col-sm-6 col-md-3 links">
-            <div class="title">
-              Links Úteis
-            </div>
-            <ul>
-              <li><a href="/empresa">A Empresa</a></li>
-              <li><a href="/vendedores">Vendedores</a></li>
-              <li><a href="/marcas">Marcas</a></li>
-              <li><a href="/localizacao">Localização</a></li>
-              <li><a href="/contato">Contato</a></li>
-            </ul>
-          </div>
-          <div class="col-xs-6 col-sm-6 col-md-3 links">
-            <div class="title">
-              Links Úteis
-            </div>
-            <ul>
-              <li><a href="">Facebook</a></li>
-              <li><a href="">RMA</a></li>
-              <li><a href="">Cotação do dia</a></li>
-              <li><a href="">Casas de Câmbio</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="container-fluid rights">
-        <h4>&copy; Todos os direitos reservados</h4>
-      </div>
-    </footer>
-    
-    <script async src="scripts/magiczoomplus.js"></script>
+    <div class="site-wrapper">
+  		<header>
+  			<div class="row row-logo">
+  				<div class="logo-holder">
+  					<a href="#" class="logo">Tudo Livre</a>
+  				</div>
+  
+  				<div class="header-links">
+  					<ul class="no-bullet">
+  						<li><a ui-sref="home">Página Inicial</a></li>
+  					</ul>
+  				</div>
+  
+  				<div class="right">
+  					<div class="notification">
+  						AVISO IMPORTANTE
+  						<small>NÃO FAZEMOS ENTREGA</small>
+  					</div>
+  
+  					<div class="cart" style="display: none;">
+  						20 ítens
+  						<small>MEU ORÇAMENTO</small>
+  					</div>
+  				</div>
+  			</div>
+  
+  			<nav>
+  				<div class="row" style="max-width: 74rem;">
+  					<!-- links das categorias -->
+  					<ul class="no-bullet nav-main-links" style="width: 74rem;" ng-if="$root.categorias.length > 0">
+  						<li ng-repeat="categoria in $root.categorias">
+  							<a ui-sref="category({idcategoria: categoria.id + '-' + categoria.url.url})">
+  								<span class="icon">
+  									<img ng-src="{{categoria.imagem}}" alt="">
+  								</span>
+  								<span class="title" ng-bind="categoria.nome"></span>
+  							</a>
+  						</li>
+  
+  						<li>
+  							<a href="#list-brand" class="all fancybox-list-brands">
+  								<span class="title">TODA A LOJA</span>
+  							</a>
+  						</li>
+  					</ul>
+  					
+  					<!-- links logo abaixo das categorias -->
+  					<ul class="no-bullet nav-other-links">
+  						<li>
+  							<a ui-sref="brands">
+  								<span class="icon">
+  									<img src="assets/images/icons/nav/brands.png" alt="">
+  								</span>
+  								<span class="title">NOSSAS MARCAS</span>
+  							</a>
+  						</li>
+  
+  						<li>
+  							<a href="produtos.html">
+  								<span class="icon">
+  									<img src="assets/images/icons/nav/prices.png" alt="">
+  								</span>
+  								<span class="title">LISTA DE PREÇOS</span>
+  							</a>
+  						</li>
+  
+  						<li>
+  							<a href="produtos.html">
+  								<span class="icon">
+  									<img src="assets/images/icons/nav/chat.png" alt="">
+  								</span>
+  								<span class="title">CHAT-ONLINE</span>
+  							</a>
+  						</li>
+  
+  						<li>
+  							<a ui-sref="sellers">
+  								<span class="icon">
+  									<img src="assets/images/icons/nav/sellers.png" alt="">
+  								</span>
+  								<span class="title">VENDEDORES</span>
+  							</a>
+  						</li>
+  
+  						<li>
+  							<a href="produtos.html">
+  								<span class="icon">
+  									<img src="assets/images/icons/nav/phone.png" alt="">
+  								</span>
+  								<span class="title">TELEFONES</span>
+  							</a>
+  						</li>
+  					</ul>
+  				</div>
+  			</nav>
+  
+  			<div class="search">
+  				<div class="row">
+  					<form action="" method="post" ng-submit="$root.$state.go('search', {busca: angular.element('#search-xs').val()});" onsubmit="window.history.pushState('', '', '/search/'+angular.element('#search-xs').val()); angular.element('#search-xs').val(''); return false;">
+    					<input type="text" style="width: 86%" name="search" id="search-xs" placeholder="Olá, o que você esta procurando hoje?" />
+    					<button type="submit">BUSCAR</button>
+    				</form>
+  				</div>
+  			</div>
+  
+  		</header>
+  
+  
+  		<!-- inicio da página -->
+  		<main id="main" ui-view>
+  			
+  		</main>
+  
+  		<footer>
+  			<!-- Buscar -->
+  			<div class="search">
+  				<form action="" method="post" ng-submit="$root.$state.go('search', {busca: angular.element('#search-xs').val()});" onsubmit="window.history.pushState('', '', '/search/'+angular.element('#search-xs').val()); angular.element('#search-xs').val(''); return false;">
+  					<input type="text" name="search" id="search-xs" placeholder="Olá, o que você esta procurando hoje?" />
+  					<button type="submit">BUSCAR</button>
+  				</form>
+  			</div>
+  			
+  			<!-- Nossas marcas, etc -->
+  			<div class="nav">
+  				<ul class="no-bullet">
+  					<li>
+  						<a href="produtos.html">
+  							<span class="icon">
+  								<img src="assets/images/icons/nav/brands.png" alt="">
+  							</span>
+  							<span class="title">NOSSAS MARCAS</span>
+  						</a>
+  					</li>
+  
+  					<li>
+  						<a href="produtos.html">
+  							<span class="icon">
+  								<img src="assets/images/icons/nav/prices.png" alt="">
+  							</span>
+  							<span class="title">LISTA DE PREÇOS</span>
+  						</a>
+  					</li>
+  
+  					<li>
+  						<a href="produtos.html">
+  							<span class="icon">
+  								<img src="assets/images/icons/nav/chat.png" alt="">
+  							</span>
+  							<span class="title">CHAT-ONLINE</span>
+  						</a>
+  					</li>
+  
+  					<li>
+  						<a href="produtos.html">
+  							<span class="icon">
+  								<img src="assets/images/icons/nav/sellers.png" alt="">
+  							</span>
+  							<span class="title">VENDEDORES</span>
+  						</a>
+  					</li>
+  
+  					<li>
+  						<a href="produtos.html">
+  							<span class="icon">
+  								<img src="assets/images/icons/nav/phone.png" alt="">
+  							</span>
+  							<span class="title">TELEFONES</span>
+  						</a>
+  					</li>
+  				</ul>
+  			</div>
+  
+  			<!--  -->
+  			<div class="main-footer">
+  				<span>
+  					<div>
+  						<ul class="no-bullet">
+  							<li><a href="#">Formas de Pagamentos</a></li>
+  							<li><a href="#">Garantia,Troca e Devoluções</a></li>
+  							<li><a href="#">Entrega</a></li>
+  							<li><a href="#">Institucional</a></li>
+  						</ul>
+  					</div>
+  
+  					<div>
+  						<ul class="no-bullet">
+  							<li><a href="#">Meu Orçamento</a></li>
+  							<li><a href="#">Perguntas Mais Frequentes</a></li>
+  							<li><a href="#">Vendedores</a></li>
+  							<li><a href="#">Nossas Lojas</a></li>
+  						</ul>
+  					</div>
+  
+  					<div>
+  						<div class="notification">
+  							AVISO IMPORTANTE
+  							<small>NÃO FAZEMOS ENTREGA</small>
+  						</div>
+  					</div>
+  				</span>
+  			</div>
+  
+  			<div class="by">
+  				<a href="http://www.rw1digital.com">
+  					<img src="assets/images/footer/by.png" alt="">
+  				</a>
+  			</div>
+  		</footer>
+  	</div>
+  	
+  	<!-- Todas as marcas -->
+  	<div id="list-brand" class="hide">
+  		<ul class="no-bullet modal-list-brand">
+  			<li ng-repeat="marca in $root.marcas"><a ui-sref="brand({idmarca: marca.id + '-' + marca.url.url})" onclick="$.fancybox.close();">{{marca.nome}}</a></li>
+  		</ul>
+  	</div>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
-    <script src="/bower_components/owl-carousel/owl-carousel/owl.carousel.js"></script>
     <script src="/bower_components/angular/angular.js"></script>
     <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="/bower_components/angular-route/angular-route.js"></script>
-    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="/bower_components/angular-animate/angular-animate.js"></script>
     <script src="/bower_components/angular-block-ui/dist/angular-block-ui.js"></script>
-    <script src="/bower_components/slider-revolution/src/js/jquery.themepunch.revolution.js"></script>
+    <script src="/bower_components/jquery-cycle2/build/jquery.cycle2.js"></script>
+    <script src="/bower_components/jscroll/jquery.jscroll.js"></script>
+    <script src="/bower_components/fastclick/lib/fastclick.js"></script>
+    <script src="/bower_components/jquery.cookie/jquery.cookie.js"></script>
+    <script src="/bower_components/jquery-placeholder/jquery.placeholder.js"></script>
+    <script src="/bower_components/foundation/js/foundation.js"></script>
+    <script src="/bower_components/fancybox/source/jquery.fancybox.js"></script>
     <script src="/bower_components/jquery_lazyload/jquery.lazyload.js"></script>
     <script src="/bower_components/jquery_lazyload/jquery.scrollstop.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
-    <script defer src="/bower_components/slider-revolution/src/js/jquery.themepunch.plugins.min.js"></script>
-
-    <!-- build:js(.) scripts/plugins.js -->
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/alert.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/modal.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/transition.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/button.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/popover.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/carousel.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
-    <!-- endbuild -->
-
-
     <!-- build:js scripts/main.js -->
-    <script src="scripts/Application.js"></script>
-    <script src="scripts/shared/filters.js"></script>
-    <script src="scripts/shared/directives.js"></script>
-    <script src="scripts/app.js"></script>
-    <script src="scripts/main.js"></script>
+    <script src="assets/js/Application.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/shared/directives.js"></script>
+    <script src="assets/js/shared/filters.js"></script>
+    <script src="assets/js/main.js"></script>
     <!-- endbuild -->
+    
+    <!-- livezilla.net PLACE WHERE YOU WANT TO SHOW TEXT LINK -->
+    <script type="text/javascript" class="lz_text_link" id="410fd9e4141e97c54fb9c6ff79321f53" src="https://grupobraziliana.com.br/chat/image.php?tl=1&srv=aHR0cHM6Ly9ncnVwb2JyYXppbGlhbmEuY29tLmJyL2NoYXQvY2hhdC5waHA=&tlont=TGl2ZSBIZWxwIChJbmljaWFyIG8gY2hhdCk_&tloft=TGl2ZSBIZWxwIChEZWl4YXIgbWVuc2FnZW0p&sid=410fd9e4141e97c54fb9c6ff79321f53"></script>
+    <!-- livezilla.net PLACE WHERE YOU WANT TO SHOW TEXT LINK -->
+    
+    <!-- livezilla.net PLACE SOMEWHERE IN BODY -->
+    <div id="lvztr_361" style="display:none"></div><script id="lz_r_scr_12401c7cd993a9a0ad39d0fb95e46877" type="text/javascript">lz_ovlel = [{type:"wm",icon:"commenting"},{type:"chat",icon:"comments",counter:true},{type:"ticket",icon:"envelope"},{type:"knowledgebase",icon:"lightbulb-o",counter:true}];lz_ovlec = {ec_br:6,ec_bgcs:'#ffffff',ec_bgce:'#ffffff',ec_bw:0,ec_bcs:'#4989E1',ec_bce:'#4078C7',ec_shx:1,ec_shy:1,ec_shb:5,ec_shc:'#666',ec_m:[0,28,78,0],ec_ht_c:'#666',ec_st_c:'#777',ec_p:true,ec_a_bc:'#ffffff',ec_a_bw:2,ec_a_bgc:'#eee',ec_w:300,ec_h:120};lz_code_id="12401c7cd993a9a0ad39d0fb95e46877";var script = document.createElement("script");script.async=true;script.type="text/javascript";var src = "https://grupobraziliana.com.br/chat/server.php?rqst=track&output=jcrpt&ovlv=djI_&ovltwo=MQ__&ovlc=MQ__&esc=IzQwNzhjNw__&epc=IzQ5ODllMQ__&ovlts=MA__&hots=MQ__&eci=aHR0cHM6Ly8_&ecio=aHR0cHM6Ly8_&nse="+Math.random();script.src=src;document.getElementById('lvztr_361').appendChild(script);</script>
+    <!-- livezilla.net PLACE SOMEWHERE IN BODY -->
     
   </body>
 </html>

@@ -47,6 +47,7 @@ if(!empty($_POST)){
 		$p->estoque				= $_POST['estoque'];
 		$p->tipoPedido			= $_POST['tipoPedido'];
 		$p->palavrasChaves			= $_POST['palavrasChaves'];
+		$p->manual				= $_POST['manual'];
 		
 		if(trim(strip_tags($_POST['descricaoPequena'])) != '')
 			$p->descricaoPequena	= $_POST['descricaoPequena'];
@@ -217,6 +218,7 @@ $iCP->trocar("valorReal", 			$_POST['valorReal']);
 $iCP->trocar("valorVenda", 			$_POST['valorVenda']);
 $iCP->trocar("tipoUnidade",			$_POST['tipoUnidade']);
 $iCP->trocar("palavrasChaves",			$_POST['palavrasChaves']);
+$iCP->trocar("manual",				$_POST['manual']);
 $iCP->trocar("quantidadeu", 		$_POST['quantidadeu']);
 $iCP->trocar("descricaoPequena",	$_POST['descricaoPequena']);
 $iCP->trocar("descricao", 			$_POST['descricao']);

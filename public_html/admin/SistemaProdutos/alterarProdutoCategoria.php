@@ -21,6 +21,12 @@ if(!empty($_POST)){
 		$lCP->condicoes('', $_GET['categoria'], ListaProdutoCategorias::ID);
 		$pC = $lCP->listar();
 		
+		if($pC->getIdCategoriaPai()){
+			$lCP->condicoes('', $pC->getIdCategoriaPai(), ListaProdutoCategorias::ID);
+			$cP = $lCP->listar();
+		}else
+			$cP = new ProdutoCategoria;
+		
 		$pC->nome 			= addslashes(str_replace("\"", "'", $_POST['nome']));
 		$pC->ordem			= $_POST['ordem'];
 		$pC->subreferencia	= $_POST['subreferencia'];
