@@ -52,11 +52,11 @@ module.exports = function (grunt) {
         files: ['Gruntfile.js']
       },
       sass: {
-        files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
+        files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}','<%= config.app %>/assets/stylesheets/{,*/}*.{scss,sass}'],
         tasks: ['sass:server', 'postcss']
       },
       styles: {
-        files: ['<%= config.app %>/styles/{,*/}*.css'],
+        files: ['<%= config.app %>/assets/stylesheets/{,*/}*.css'],
         tasks: ['newer:copy:styles', 'postcss']
       }
     },
@@ -78,7 +78,8 @@ module.exports = function (grunt) {
           server: {
             baseDir: ['.tmp', config.app],
             routes: {
-              '/bower_components': './bower_components'
+              '/bower_components': './bower_components',
+              '/images': 'app/assets/images'
             }
           }
         }
@@ -176,7 +177,7 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= config.app %>/styles',
+          cwd: '<%= config.app %>/assets/stylesheets',
           src: ['*.{scss,sass}'],
           dest: '.tmp/styles',
           ext: '.css'
@@ -185,7 +186,7 @@ module.exports = function (grunt) {
       server: {
         files: [{
           expand: true,
-          cwd: '<%= config.app %>/styles',
+          cwd: '<%= config.app %>/assets/stylesheets',
           src: ['*.{scss,sass}'],
           dest: '.tmp/styles',
           ext: '.css'
@@ -221,7 +222,7 @@ module.exports = function (grunt) {
         ignorePath: /^(\.\.\/)*\.\./
       },
       sass: {
-        src: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
+        src: ['<%= config.app %>/assets/stylesheets/{,*/}*.{scss,sass}'],
         ignorePath: /^(\.\.\/)+/
       }
     },
@@ -350,6 +351,14 @@ module.exports = function (grunt) {
             'styles/{,*/}*.css',
             'scripts/magiczoomplus.js'
           ]
+        },{
+          expand: true,
+          dot: true,
+          cwd: '<%= config.app %>/assets/images',
+          dest: '<%= config.dist %>/images',
+          src: [
+            '**/{,*/}*.{gif,jpeg,jpg,png}',
+          ]
         }, {
           expand: true,
           dot: true,
@@ -444,17 +453,17 @@ module.exports = function (grunt) {
     http: {
       'clear-cache': {
         options: {
-          url: 'http://www.marktronic.com.br/application/site/clear-cache'
+          url: 'http://www.grupobraziliana.com.br/application/site/clear-cache'
         }
       },
       'home': {
         options: {
-          url: 'http://www.marktronic.com.br/application/site/home'
+          url: 'http://www.grupobraziliana.com.br/application/site/home'
         }
       },
       'general': {
         options: {
-          url: 'http://www.marktronic.com.br/application/site/general'
+          url: 'http://www.grupobraziliana.com.br/application/site/general'
         }
       }
     },

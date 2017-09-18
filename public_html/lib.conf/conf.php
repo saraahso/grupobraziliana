@@ -22,7 +22,7 @@ class Sistema {
 	public static $adminLayoutCaminhoDiretorio		= '';
 	public static $adminLayoutCaminhoURL			= '';
 	
-	public static $nomeEmpresa 						= 'Marktronic Comunicação';
+	public static $nomeEmpresa 						= 'Grupo Braziliana';
 	public static $dominioEmpresa					= '';
 	public static $emailEmpresa 					= '';
 	public static $sistemaVersao					= 'Versão Beta 2.0';
