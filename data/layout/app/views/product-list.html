@@ -32,7 +32,7 @@
     </select>
   </div>
   <div class="paginator" style="float: right;"
-       ng-if="$root.search.pagination.pages.length > 1 && $root.search.category && !$root.search.brand">
+       ng-if="$root.search.pagination.pages.length > 1 && $root.search.category.id && !$root.search.brand.id">
     <ul class="pagination">
       <li ng-class="{'unavailable': $root.search.pagination.page == 1}">
         <a ui-sref="category-page({idcategoria: $root.search.category.id + '-' + $root.search.category.url.url, page: $root.search.pagination.page-1})" aria-label="Anterior"
@@ -57,7 +57,7 @@
     </ul>
   </div>
   <div class="paginator" style="float: right;"
-       ng-if="$root.search.pagination.pages.length > 1 && !$root.search.category && $root.search.brand">
+       ng-if="$root.search.pagination.pages.length > 1 && !$root.search.category.id && $root.search.brand.id">
     <ul class="pagination">
       <li ng-class="{'unavailable': $root.search.pagination.page == 1}">
         <a ui-sref="brand-page({idmarca: $root.search.brand.id + '-' + $root.search.brand.url.url, page: $root.search.pagination.page-1})" aria-label="Anterior"

@@ -51,7 +51,7 @@ class Sistema {
 
 Sistema::$dominioEmpresa				= str_replace('www.', '', $_SERVER['HTTP_HOST']);
 Sistema::$caminhoDiretorio				= dirname(__FILE__)."/..".Sistema::$caminhoDiretorio;
-Sistema::$caminhoURL					= "http://".$_SERVER['HTTP_HOST'].Sistema::$caminhoURL;
+Sistema::$caminhoURL					= $_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST'].Sistema::$caminhoURL;
 Sistema::$layoutCaminhoDiretorio 		= Sistema::$caminhoDiretorio.'lib.templates/'.Sistema::$layoutTemplate.'/';
 Sistema::$layoutCaminhoURL				= Sistema::$caminhoURL.'lib.templates/'.Sistema::$layoutTemplate.'/';
 

@@ -53,7 +53,8 @@ class ListaImagens extends Lista {
 		
 		if(!empty($img->getImage()->nome)){
 			$img->getImage()->open();
-			$imagem = $img->getImage()->saveImage($this->caminhoEscrita);
+			$nome = $img->getImage()->nome.'-'.date("YmdHis");
+			$imagem = $img->getImage()->saveImage($this->caminhoEscrita, $nome);
 		}
 		
 		$principal = $img->destaque ? self::VALOR_DESTAQUE_TRUE : self::VALOR_DESTAQUE_FALSE;
