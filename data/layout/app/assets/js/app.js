@@ -306,19 +306,23 @@
 				//Imagens
 				if(produto.imagens && produto.imagens.length > 0){
 					$.each(produto.imagens, function(k2, imagem){
-						imagem.imagem = {
-							thumb: $rootScope.productImagesURL + $filter('resizeImage')(imagem.imagem, 160, 105),
-							medium: $rootScope.productImagesURL + $filter('resizeImage')(imagem.imagem, 500, 500),
-							real: $rootScope.productImagesURL + imagem.imagem
-						};
+						if(angular.isString(imagem.imagem)){
+							imagem.imagem = {
+								thumb: $rootScope.productImagesURL + $filter('resizeImage')(imagem.imagem, 160, 105),
+								medium: $rootScope.productImagesURL + $filter('resizeImage')(imagem.imagem, 500, 500),
+								real: $rootScope.productImagesURL + imagem.imagem
+							};
+						}
 					});
 				}else if(produto.imagens && produto.imagens.destaque){
 					$.each(produto.imagens, function(k2, imagem){
-						imagem.imagem = {
-							thumb: $rootScope.productImagesURL + $filter('resizeImage')(imagem.imagem, 160, 105),
-							medium: $rootScope.productImagesURL + $filter('resizeImage')(imagem.imagem, 500, 500),
-							real: $rootScope.productImagesURL + imagem.imagem
-						};
+						if(angular.isString(imagem.imagem)){
+							imagem.imagem = {
+								thumb: $rootScope.productImagesURL + $filter('resizeImage')(imagem.imagem, 160, 105),
+								medium: $rootScope.productImagesURL + $filter('resizeImage')(imagem.imagem, 500, 500),
+								real: $rootScope.productImagesURL + imagem.imagem
+							};
+						}
 					});
 				}else{
 					produto.imagens = [{
