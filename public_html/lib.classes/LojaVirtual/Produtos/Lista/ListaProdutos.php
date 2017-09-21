@@ -88,9 +88,9 @@ class ListaProdutos extends Lista {
 			
 			$temp->setURL($info[parent::URL]);
 			
-			if(trim(strip_tags($info[self::DESCRICAOPEQUENA])) != '')
+			if(trim(strip_tags($info[self::DESCRICAOPEQUENA])) != '' || preg_match("!<img!", $info[self::DESCRICAOPEQUENA]))
 				$temp->descricaoPequena	= $info[self::DESCRICAOPEQUENA];
-			if(trim(strip_tags($info[self::DESCRICAO])) != '')
+			if(trim(strip_tags($info[self::DESCRICAO])) != '' || preg_match("!<img!", $info[self::DESCRICAO]))
 				$temp->descricao 		= $info[self::DESCRICAO];
 			
 			if($info[self::ORDEM] > 0)
