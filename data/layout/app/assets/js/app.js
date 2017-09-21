@@ -985,7 +985,7 @@
 
 	}])
 
-	.controller('ProdutoController', ['$scope', '$rootScope', '$state', '$http', '$timeout', 'blockUI', function($scope, $rootScope, $state, $http, $timeout, blockUI) {
+	.controller('ProdutoController', ['$scope', '$rootScope', '$state', '$http', '$timeout', 'blockUI', '$sce', function($scope, $rootScope, $state, $http, $timeout, blockUI, $sce) {
 
 		var cat = $state.params.idcategoria.split("-")[0],
 			prod = $state.params.idproduto.split("-")[0],
@@ -994,6 +994,10 @@
 		blockMain.start();
 		$scope.breadcrumb 				= [];
 		$scope.gruposRelacionados	= [];
+
+		$scope.trustAsHtml = function(string) {
+	    return $sce.trustAsHtml(string);
+		};
 
 		function addBreadcrumb(categoria) {
 			if (categoria.categoriapai !== null) {

@@ -170,7 +170,7 @@
 		<dd style="display: none"><a href="#panel2-4">Garantia</a></dd>
 	</dl>
 	<div class="tabs-content">
-		<div class="content" ng-class="{active: produto.descricao != ''}" id="panel2-1" ng-if="produto.descricao != ''" ng-bind-html="produto.descricao">
+		<div class="content" ng-class="{active: produto.descricao != ''}" id="panel2-1" ng-if="produto.descricao != ''" ng-bind-html="trustAsHtml(produto.descricao)">
 		</div>
 		<div class="content" id="panel2-2" style="display: none;">
 		</div>
