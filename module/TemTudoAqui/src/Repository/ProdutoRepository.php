@@ -53,6 +53,7 @@ class ProdutoRepository extends EntityRepository
 					->andWhere("i.sessao = 'produtos'")
 					->orderBy('i.id', "DESC");
 			};
+			$query->andWhere('imagens.destaque = 1');
 			return $query;
 		});
 		

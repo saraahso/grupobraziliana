@@ -443,7 +443,7 @@
 
 		function makePaginator() {
 
-			var pages = Number($rootScope.search.pagination.total / $rootScope.search.pagination.length),
+			var pages = Math.round(Number($rootScope.search.pagination.total / $rootScope.search.pagination.length)),
 					paginas = 0,
 					iniPag = 0,
 					fimPag = 0;
@@ -584,7 +584,7 @@
 
 		function makePaginator() {
 
-			var pages = Number($rootScope.search.pagination.total / $rootScope.search.pagination.length),
+			var pages = Math.round(Number($rootScope.search.pagination.total / $rootScope.search.pagination.length)),
 					paginas = 0,
 					iniPag = 0,
 					fimPag = 0;
@@ -725,7 +725,7 @@
 
 		function makePaginator() {
 
-			var pages = Number($rootScope.search.pagination.total / $rootScope.search.pagination.length),
+			var pages = Math.round(Number($rootScope.search.pagination.total / $rootScope.search.pagination.length)),
 				paginas = 0,
 				iniPag = 0,
 				fimPag = 0;
@@ -864,7 +864,7 @@
 
 		function makePaginator() {
 
-			var pages = Number($rootScope.search.pagination.total / $rootScope.search.pagination.length),
+			var pages = Math.round(Number($rootScope.search.pagination.total / $rootScope.search.pagination.length)),
 				paginas = 0,
 				iniPag = 0,
 				fimPag = 0;
