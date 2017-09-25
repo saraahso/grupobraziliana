@@ -10,3 +10,4 @@ vendor/*
 .vagrant
 composer.lock
 auth.json
+Vagrantfile

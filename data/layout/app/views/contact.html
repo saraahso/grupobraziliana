@@ -1,0 +1,75 @@
+<div class="row">
+	<h2>Contato</h2>
+</div>
+
+
+<div class="row">
+	<div class="small-6 columns">
+		<div class="desc">
+
+			Telefone : <a href="tel:002159561501416">0021 595 61 501 416</a>
+			<br />
+			<br />
+			Whatsapp : <a href="tel:+595973204721">+595 973 204 721</a>
+			<br />
+			<br />
+			E-mail: <a href="mailto:brasilianakaf@gmail.com">brasilianakaf@gmail.com</a>
+			<br />
+			<br />
+			<address>
+				Endereço: Avenida Monseñor Rodriguez
+				<br />
+				Galeria Marcel Center - 1º piso
+				<br />
+				Ao lado da Mega Eletrônicos e la Petisquera
+				<br />
+				Ciudad del leste - Paraguay
+			</address>
+		</div>
+	</div>
+
+	<div class="small-5 small-offset-1 columns">
+		<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d365.8112678574463!2d-54.60909858630608!3d-25.509999075440746!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xd561dbdf6e265dc6!2sGaleria+Marcel+Center!5e0!3m2!1sen!2sbr!4v1505750358558" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+	</div>
+</div>
+
+
+
+<!-- Marcas -->
+<div class="row" style="display: none;">
+	<ul class="no-bullet slider-brands">
+		<li><a href=""><img src="assets/images/brands/1.png" alt=""></a></li>
+		<li><a href=""><img src="assets/images/brands/2.png" alt=""></a></li>
+		<li><a href=""><img src="assets/images/brands/3.png" alt=""></a></li>
+		<li><a href=""><img src="assets/images/brands/4.png" alt=""></a></li>
+		<li><a href=""><img src="assets/images/brands/5.png" alt=""></a></li>
+	</ul>
+</div>
+
+
+<!-- Produtos -->
+<div class="list-products" ng-if="$root.lancamentos.length > 0">
+	<div class="row">
+		<h4>Lançamentos</h4>
+	</div>
+
+	<ul class="no-bullet list-of-products list-of-products-centered">
+		<li ng-repeat="produto in $root.lancamentos | limitTo:2">
+			<a ui-sref="product({idcategoria: produto.urlcategoria, idproduto: produto.urlproduto})" ng-click="$root.setProduto(produto)">
+				<div class="img-holder">
+					<img ng-src="{{produto.imagens[0].imagem.thumb}}" alt="">
+				</div>
+
+  			<span class="title">
+  				{{produto.nome}}
+  			</span>
+
+  			<span class="price">
+  				{{produto.amostra}}
+  			</span>
+			</a>
+		</li>
+	</ul>
+</div>
+
+<!-- Newsletter -->

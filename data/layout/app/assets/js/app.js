@@ -443,10 +443,11 @@
 
 		function makePaginator() {
 
-			var pages = Math.round(Number($rootScope.search.pagination.total / $rootScope.search.pagination.length)),
+			var pages = Math.ceil(Number($rootScope.search.pagination.total / $rootScope.search.pagination.length)),
 					paginas = 0,
 					iniPag = 0,
 					fimPag = 0;
+			
 			pages = Number(pages.toFixed(0)) < pages ? Number(pages.toFixed(0)) + 1 : pages;
 			$rootScope.search.pagination.totalPages = pages;
 			if (pages > $rootScope.search.pagination.viewPages) {
@@ -584,7 +585,7 @@
 
 		function makePaginator() {
 
-			var pages = Math.round(Number($rootScope.search.pagination.total / $rootScope.search.pagination.length)),
+			var pages = Math.ceil(Number($rootScope.search.pagination.total / $rootScope.search.pagination.length)),
 					paginas = 0,
 					iniPag = 0,
 					fimPag = 0;
@@ -725,7 +726,7 @@
 
 		function makePaginator() {
 
-			var pages = Math.round(Number($rootScope.search.pagination.total / $rootScope.search.pagination.length)),
+			var pages = Math.ceil(Number($rootScope.search.pagination.total / $rootScope.search.pagination.length)),
 				paginas = 0,
 				iniPag = 0,
 				fimPag = 0;
@@ -864,7 +865,7 @@
 
 		function makePaginator() {
 
-			var pages = Math.round(Number($rootScope.search.pagination.total / $rootScope.search.pagination.length)),
+			var pages = Math.ceil(Number($rootScope.search.pagination.total / $rootScope.search.pagination.length)),
 				paginas = 0,
 				iniPag = 0,
 				fimPag = 0;
@@ -1163,20 +1164,19 @@
   }])
 
   .controller('ContatoController', ['$scope', '$rootScope', '$http', 'blockUI', function($scope, $rootScope, $http, blockUI){
-    var blockMain = blockUI.instances.get('blockui-main'),
+    var blockMain = blockUI,
         blockCon = blockUI.instances.get('form-contact');
     $scope.message = {
       error: null,
       success: null
-    }
+    };
+
+		/*
     blockMain.start();
     $http.get($rootScope.backURL+'api/textos/2').then(function(data){
       $scope.texto = data.data.data;
       blockMain.stop();
     }, function(error){});
-    $('html, body').animate({
-      scrollTop: ($(".simple-page").offset().top - 70)
-    }, 500);
     $scope.enviar = function(){
       blockCon.start('Enviando mensagem...');
       $http.post($rootScope.backURL+'contato', {
@@ -1198,7 +1198,10 @@
         blockCon.stop();
       });
       return false;
-    };
+    };*/
+		$('html, body').animate({
+			scrollTop: ($("#main").offset().top - 70)
+		}, 500);
   }])
 
   .controller('NovosController', ['$scope', '$rootScope', '$http', '$state', '$timeout', '$interval', 'blockUI', function($scope, $rootScope, $http, $state, $timeout, $interval, blockUI) {

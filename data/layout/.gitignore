@@ -4,3 +4,4 @@ test
 dist
 .ftppass
 npm-debug.log
+package-lock.json
