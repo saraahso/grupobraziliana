@@ -64,7 +64,7 @@ $iTAUDA->trocar("linkVoltar", "?p=".$_GET['p']."&a=listarUploadDownloadArquivos"
 
 $iTAUDA->trocar("produtos", 		$uDA->produtos);
 $iTAUDA->trocar("ordem", 			$uDA->ordem);
-$iTAUDA->trocar("url.Arquivo",		$uDA->getArquivo()->url);
+$iTAUDA->trocar("url.Arquivo",		Sistema::$caminhoURL.Sistema::$caminhoDataUploadsDownloads.$uDA->getArquivo()->getNome());
 $iTAUDA->trocar("nome.Arquivo",		$uDA->getArquivo()->nome.".".$uDA->getArquivo()->extensao);
 
 $iTAUDA->createRepeticao("repetir->UploadDownloadArquivoCategorias.UploadDownloadArquivo");

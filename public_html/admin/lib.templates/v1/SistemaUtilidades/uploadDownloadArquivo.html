@@ -117,7 +117,7 @@
         		  <td width="788" colspan="3" bgcolor="#E5E5E5">
                     {condicao->arquivo.UploadDownloadArquivo}
         		    <input type="file" name="arquivo" id="arquivo" />
-                    {else}
+                    {else:condicao->arquivo.UploadDownloadArquivo}
        		      	<a href="{url.Arquivo}" target="_blank" style="color: #000">{nome.Arquivo}</a>
                   	{condicao->arquivo.UploadDownloadArquivo}
                   </td>

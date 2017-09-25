@@ -55,7 +55,7 @@ while($uDA = $lUDA->listar("ASC", ListaUploadDownloadArquivos::ARQUIVO)){
 	   
 	   $lTUDA->enterRepeticao()->trocar("id.UploadDownloadArquivo", $uDA->getId());
 	   $lTUDA->enterRepeticao()->trocar("nome.Arquivo.UploadDownloadArquivo", $uDA->getArquivo()->nome.".".$uDA->getArquivo()->extensao);
-	   $lTUDA->enterRepeticao()->trocar("url.Arquivo.UploadDownloadArquivo", Sistema::$caminhoURL.'lib.conf/abrirArquivo.php?caminho='.$m->criptografar(Sistema::$caminhoURL.Sistema::$caminhoDataUploadsDownloads.$uDA->getArquivo()->getNome()));
+	   $lTUDA->enterRepeticao()->trocar("url.Arquivo.UploadDownloadArquivo", Sistema::$caminhoURL.Sistema::$caminhoDataUploadsDownloads.$uDA->getArquivo()->getNome());
 	   $lTUDA->enterRepeticao()->trocar("linkVisualizar.UploadDownloadArquivo", "?p=".$_GET['p']."&a=listarUploadDownloadArquivos&arquivo=".$uDA->getId());
 	   $lTUDA->enterRepeticao()->trocar("linkAlterar.UploadDownloadArquivo", "?p=".$_GET['p']."&a=alterarUploadDownloadArquivo&arquivo=".$uDA->getId());
 	   
