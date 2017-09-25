@@ -428,7 +428,7 @@
 
 	}])
 
-	.controller('CategoriaController', ['$scope', '$rootScope', '$http', '$state', '$timeout', '$interval', 'blockUI', function($scope, $rootScope, $http, $state, $timeout, $interval, blockUI) {
+	.controller('CategoriaController', ['$scope', '$rootScope', '$http', '$state', '$timeout', '$interval', 'blockUI', '$q', function($scope, $rootScope, $http, $state, $timeout, $interval, blockUI, $q) {
 
 		var cat = $state.params.idcategoria.split("-")[0],
 				mar = $state.params.idmarca ? $state.params.idmarca.split("-")[0] : null,
@@ -471,6 +471,15 @@
 				$rootScope.search.pagination.pages.push(i);
 
 		}
+		
+		$scope.selecionarMarca = function() {
+			$state.go('category-brand', {
+				idcategoria: $rootScope.search.category.id + '-' + $rootScope.search.category.url.url,
+				idmarca: $rootScope.search.brand.id + '-' + $rootScope.search.brand.url.url
+			});
+			//mar = $rootScope.search.brand ? $rootScope.search.brand.id : null;
+			//$scope.buscar();
+		};
 
 		$scope.buscar = function(page) {
 
@@ -530,6 +539,7 @@
 		};
 
 		if (($rootScope.search.category === undefined || $rootScope.search.category.id != cat) || ($rootScope.search.brand === undefined || $rootScope.search.brand.id != mar)) {
+			blockMain.start();
 			var idI = $interval(function() {
 				if ($rootScope.produtosPorPagina !== undefined) {
 					angular.extend($rootScope.search, {
@@ -548,6 +558,7 @@
 						},
 						category: {},
 						brand: {},
+						marcas: [],
 						term: undefined,
 						result: [],
 						breadcrumb: [],
@@ -558,22 +569,32 @@
 						addBreadcrumb(data.data.data);
 						$rootScope.search.category = data.data.data;
 					}, function(error) {});
+					
+					var buscaMarcas = $http.get($scope.backURL + 'api/categorias/' + cat + '/marcas');
+					buscaMarcas.then(function(data){
+						$rootScope.search.marcas = data.data.data.result;
+					}, function(error){});
 
 					if (mar) {
-						$http.get($scope.backURL + 'api/marcas/' + mar).then(function(data) {
+						var buscaMarca = $http.get($scope.backURL + 'api/marcas/' + mar);
+						buscaMarca.then(function(data) {
 							$rootScope.search.brand = data.data.data;
 						}, function(error) {});
+						$q.all([buscaMarcas, buscaMarca]).then(function(){
+							$.each($rootScope.search.marcas, function(k, v){
+								if(v.id == $rootScope.search.brand.id){
+									$rootScope.search.brand = v;
+								}
+							});
+						});
 					}
 					$interval.cancel(idI);
+					blockMain.stop();
 					$scope.buscar();
 				}
 			}, 1000);
 		} else {
-			$timeout(function() {
-				$("img.lazy").lazyload({
-					effect: "fadeIn"
-				});
-			}, 100);
+			$scope.buscar();
 		}
 
 	}])
@@ -692,6 +713,7 @@
 						term: undefined,
 						result: [],
 						breadcrumb: [],
+						marcas: [],
 						order: "1"
 					});
 
@@ -837,6 +859,7 @@
 						result: [],
 						category: undefined,
 						breadcrumb: undefined,
+						marcas: [],
 						order: "1"
 					});
 					$interval.cancel(idI);
@@ -971,6 +994,7 @@
 					result: [],
 					category: undefined,
 					breadcrumb: undefined,
+					marcas: [],
 					order: "1"
 				});
 				$interval.cancel(idI);
@@ -1039,11 +1063,14 @@
 						limit: 15
 					}
 				}).then(function(data) {
+					var produtos = [];
 					$.each(data.data.data.result, function(k, v){
 						$rootScope.tratarProduto(v);
+						if(v.id !== $rootScope.produto.id)
+							produtos.push(v);
 					});
-					while(data.data.data.result.length > 0){
-						$scope.gruposRelacionados.push(data.data.data.result.splice(0, 5));
+					while(produtos.length > 0){
+						$scope.gruposRelacionados.push(produtos.splice(0, 5));
 					}
 				}, function(error) {});
 		}
@@ -1260,6 +1287,7 @@
           brand: {},
           term: undefined,
           result: [],
+						marcas: [],
           breadcrumb: [],
           order: "1"
         });
