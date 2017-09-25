@@ -477,8 +477,8 @@
 				idcategoria: $rootScope.search.category.id + '-' + $rootScope.search.category.url.url,
 				idmarca: $rootScope.search.brand.id + '-' + $rootScope.search.brand.url.url
 			});
-			//mar = $rootScope.search.brand ? $rootScope.search.brand.id : null;
-			//$scope.buscar();
+			$rootScope.search.pagination.page = 1;
+			$rootScope.search.pagination.offset = 0;
 		};
 
 		$scope.buscar = function(page) {
