@@ -295,7 +295,7 @@ module.exports = function (grunt) {
           removeAttributeQuotes: true,
           removeCommentsFromCDATA: true,
           removeEmptyAttributes: true,
-          removeOptionalTags: true,
+          removeOptionalTags: false,
           // true would impact styles with attribute selectors
           removeRedundantAttributes: false,
           useShortDoctype: true
