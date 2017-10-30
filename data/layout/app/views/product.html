@@ -17,7 +17,7 @@
 <div class="row">
 	<div class="produtcs-detail">
 		<!-- Fotos do produtos -->
-		<div class="products-photos">
+		<div class="products-photos small-12 medium-7 columns">
 			<div class="main-photo">
 				<img ng-src="{{imagens.destaque.imagem.medium}}" alt="">
 			</div>
@@ -41,7 +41,7 @@
 		</div>
 
 		<!-- Detalhes -->
-		<div class="product-detail">
+		<div class="product-detail small-12 medium-5 columns">
 			<div class="price">
 				<span ng-if="produto.valorreal > 0">{{produto.valorreal | moeda:"U$ "}}</span>
 				<small ng-if="produto.valorreal > 0 && $root.cambio > 0">Câmbio: 1 U$ = ({{$root.cambio | moeda}}) - Preço em {{$root.cambio * produto.valorreal | moeda:"R$ "}}</small>
@@ -223,14 +223,14 @@
 
 
 <!-- Produtos -->		
-<div class="list-products" ng-if="$root.lancamentos.length > 0">
-	<div class="row">
-		<h4>Lançamentos</h4>
-	</div>
+<div class="list-products row">
+  <div class="phrase small-12 columns">
+  	<h4>Lançamentos</h4>
+  </div>
 
-	<ul class="no-bullet list-of-products list-of-products-centered">
-		<li ng-repeat="produto in $root.lancamentos | limitTo:2">
-			<a ui-sref="product({idcategoria: produto.urlcategoria, idproduto: produto.urlproduto})" ng-click="$root.setProduto(produto)">
+  <ul class="no-bullet row list-of-products">
+  	<li class="small-12 medium-4 columns" ng-repeat="produto in lancamentos">
+  		<a ui-sref="product({idcategoria: produto.urlcategoria, idproduto: produto.urlproduto})" ng-click="$root.setProduto(produto)">
   			<div class="img-holder">
   				<img ng-src="{{produto.imagens[0].imagem.thumb}}" alt="">
   			</div>
@@ -243,22 +243,6 @@
   				{{produto.amostra}}
   			</span>
   		</a>
-		</li>
-	</ul>
-</div>
-
-<!-- Newsletter -->
-<div class="row">
-	<div class="newsletter">
-		<div class="title">
-			Receba em seu email nossas melhores ofertas.
-		</div>
-
-		<form action="">
-			<input type="text" placeholder="nome">
-			<input type="text" placeholder="e-mail">
-
-			<input type="submit" value="enviar">
-		</form>
-	</div>
+  	</li>
+  </ul>
 </div>

@@ -48,17 +48,17 @@
 
 
 <!-- Produtos -->
-<div class="list-products" ng-if="$root.lancamentos.length > 0">
-	<div class="row">
-		<h4>Lançamentos</h4>
-	</div>
+<div class="list-products row">
+  <div class="phrase small-12 columns">
+  	<h4>Lançamentos</h4>
+  </div>
 
-	<ul class="no-bullet list-of-products list-of-products-centered">
-		<li ng-repeat="produto in $root.lancamentos | limitTo:2">
-			<a ui-sref="product({idcategoria: produto.urlcategoria, idproduto: produto.urlproduto})" ng-click="$root.setProduto(produto)">
-				<div class="img-holder">
-					<img ng-src="{{produto.imagens[0].imagem.thumb}}" alt="">
-				</div>
+  <ul class="no-bullet row list-of-products">
+  	<li class="small-12 medium-4 columns" ng-repeat="produto in lancamentos">
+  		<a ui-sref="product({idcategoria: produto.urlcategoria, idproduto: produto.urlproduto})" ng-click="$root.setProduto(produto)">
+  			<div class="img-holder">
+  				<img ng-src="{{produto.imagens[0].imagem.thumb}}" alt="">
+  			</div>
 
   			<span class="title">
   				{{produto.nome}}
@@ -67,9 +67,7 @@
   			<span class="price">
   				{{produto.amostra}}
   			</span>
-			</a>
-		</li>
-	</ul>
+  		</a>
+  	</li>
+  </ul>
 </div>
-
-<!-- Newsletter -->

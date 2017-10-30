@@ -1,5 +1,5 @@
 
-<div class="row" ng-if="slides.length > 0">
+<div class="row show-for-medium-up" ng-if="slides.length > 0">
   <!-- Banner maior -->
   <div class="banner-big">
   	<ul class="no-bullet cycle-slideshow" 
@@ -10,6 +10,23 @@
       data-cycle-next=".banner-big #next"
       >
   	    <li ng-repeat="slide in slides | orderBy:ordem"><a href="{{slide.enderecourl}}"><img ng-src="{{slide.imagem}}" alt=""></a></li>
+  	</ul>
+
+  	<div class="ctrl ctrl-left" id="prev" ng-if="slides.length > 1"></div>
+  	<div class="ctrl ctrl-right" id="next" ng-if="slides.length > 1"></div>
+  </div>
+</div>
+<div class="row hide-for-medium-up" ng-if="slidesMobile.length > 0">
+  <!-- Banner maior -->
+  <div class="banner-big">
+  	<ul class="no-bullet cycle-slideshow" 
+      data-cycle-fx=scrollHorz
+      data-cycle-timeout=0
+      data-cycle-slides="> li"
+      data-cycle-prev=".banner-big #prev"
+      data-cycle-next=".banner-big #next"
+      >
+  	    <li ng-repeat="slide in slidesMobile | orderBy:ordem"><a href="{{slide.enderecourl}}"><img ng-src="{{slide.imagem}}" alt=""></a></li>
   	</ul>
 
   	<div class="ctrl ctrl-left" id="prev" ng-if="slides.length > 1"></div>
@@ -55,13 +72,13 @@
 </div>
 
 <!-- Produtos -->		
-<div class="list-products">
-  <div class="row">
-  	<h4>Lançamentos e novidades é aqui na GRUPOBRAZILIANA.com.br</h4>
+<div class="list-products row">
+  <div class="phrase small-12 columns">
+  	<h4>Lançamentos e novidades é aqui <span class="show-for-medium-up">na GRUPOBRAZILIANA.com.br</span></h4>
   </div>
 
-  <ul class="no-bullet list-of-products">
-  	<li ng-repeat="produto in lancamentos">
+  <ul class="no-bullet row list-of-products">
+  	<li class="small-12 medium-4 columns" ng-repeat="produto in lancamentos">
   		<a ui-sref="product({idcategoria: produto.urlcategoria, idproduto: produto.urlproduto})" ng-click="$root.setProduto(produto)">
   			<div class="img-holder">
   				<img ng-src="{{produto.imagens[0].imagem.thumb}}" alt="">
@@ -77,20 +94,4 @@
   		</a>
   	</li>
   </ul>
-</div>
-
-<!-- Newsletter -->
-<div class="row">
-  <div class="newsletter">
-  	<div class="title">
-  		Receba em seu email nossas melhores ofertas.
-  	</div>
-
-  	<form action="">
-  		<input type="text" placeholder="nome">
-  		<input type="text" placeholder="e-mail">
-
-  		<input type="submit" value="enviar">
-  	</form>
-  </div>
 </div>

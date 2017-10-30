@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Grupo Braziliana</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="/">
 
     
@@ -25,6 +25,7 @@
     
     <!-- build:css(.tmp) styles/main.css -->
 	  <link rel="stylesheet" href="styles/app.css">
+	  <link rel="stylesheet" href="styles/top-bar.css">
     <!-- endbuild -->
     
   </head>
@@ -33,21 +34,62 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
+    <nav class="top-bar hide-for-medium-up" data-topbar="" role="navigation" style="">
+        <ul class="title-area">
+    
+            <li class="name">
+                <a ui-sref="home">
+  				  <div class="logo">
+  				      <img src="images/logo.png" height="90%" />  
+  				  </div>
+				</a>
+            </li>
+    
+            <li class="toggle-topbar menu-icon">
+                <a href=""><span>Menu</span></a>
+            </li>
+        </ul>
+    
+        <section class="top-bar-section" style="left: -200%;">
+            <ul class="left">
+                <li ng-repeat="categoria in $root.categorias">
+                    <a ui-sref="category({idcategoria: categoria.id + '-' + categoria.url.url})">
+                        <span class="icon">
+      						<img ng-src="{{categoria.imagem}}" alt="">
+      					</span>
+      					<span class="title" ng-bind="categoria.nome"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#list-brand" class="all fancybox-list-brands">MARCAS</a>
+                </li>
+                <li>
+                    <a href="#">LISTA DE PREÇOS</a>
+                </li>
+                <li>
+                    <a ui-sref="sellers">VENDEDORES</a>
+                </li>
+                <li>
+                    <a ui-sref="contato">CONTATO</a>
+                </li>
+            </ul>
+        </section>
+    </nav>
 
     <div class="site-wrapper">
   		<header>
-  			<div class="row row-logo">
-  				<div class="logo-holder">
-  					<a href="#" class="logo">Tudo Livre</a>
+  			<div class="row row-logo show-for-medium-up">
+  				<div class="small-12 medium-4 columns">
+  					<a ui-sref="home">
+  					  <img src="images/logo.png" class="logo" />  
+					</a>
   				</div>
   
-  				<div class="header-links">
-  					<ul class="no-bullet">
-  						<li><a ui-sref="home">Página Inicial</a></li>
-  					</ul>
+  				<div class="header-links small-12 medium-4 columns">
+  					
   				</div>
   
-  				<div class="right">
+  				<div class="right small-12 medium-4 columns">
   					<div class="notification">
   						AVISO IMPORTANTE
   						<small>NÃO FAZEMOS ENTREGA</small>
@@ -60,7 +102,7 @@
   				</div>
   			</div>
   
-  			<nav>
+  			<nav class="show-for-medium-up">
   				<div class="row" style="max-width: 74rem;">
   					<!-- links das categorias -->
   					<ul class="no-bullet nav-main-links" style="width: 74rem;" ng-if="$root.categorias.length > 0">
@@ -131,12 +173,16 @@
   			</nav>
   
   			<div class="search">
-  				<div class="row">
-  					<form action="" method="post" ng-submit="$root.$state.go('search', {busca: angular.element('#search-xs').val()});" onsubmit="window.history.pushState('', '', '/search/'+angular.element('#search-xs').val()); angular.element('#search-xs').val(''); return false;">
-    					<input type="text" style="width: 86%" name="search" id="search-xs" placeholder="Olá, o que você esta procurando hoje?" />
-    					<button type="submit">BUSCAR</button>
-    				</form>
-  				</div>
+					<form action="" method="post" ng-submit="$root.$state.go('search', {busca: angular.element('#search-xs').val()});" onsubmit="window.history.pushState('', '', '/search/'+angular.element('#search-xs').val()); angular.element('#search-xs').val(''); return false;">
+  					<div class="row collapse">
+    					<div class="small-7 medium-4 medium-offset-3 columns">
+    					  <input type="text" name="search" id="search-xs" placeholder="Olá, o que você esta procurando hoje?" />
+    					</div>
+    					<div class="small-5 medium-2 columns end">
+    					  <button class="button postfix" type="submit">BUSCAR</button>
+    					</div>
+  					</div>
+  				</form>
   			</div>
   
   		</header>
@@ -151,8 +197,14 @@
   			<!-- Buscar -->
   			<div class="search">
   				<form action="" method="post" ng-submit="$root.$state.go('search', {busca: angular.element('#search-xs').val()});" onsubmit="window.history.pushState('', '', '/search/'+angular.element('#search-xs').val()); angular.element('#search-xs').val(''); return false;">
-  					<input type="text" name="search" id="search-xs" placeholder="Olá, o que você esta procurando hoje?" />
-  					<button type="submit">BUSCAR</button>
+  					<div class="row collapse">
+  					  <div class="small-7 medium-4 medium-offset-3 columns">
+    					  <input type="text" name="search" id="search-xs" placeholder="Olá, o que você esta procurando hoje?" />
+    					</div>
+    					<div class="small-5 medium-2 columns end">
+    					  <button class="button postfix" type="submit">BUSCAR</button>
+    					</div>
+  					</div>
   				</form>
   			</div>
   			
@@ -227,7 +279,7 @@
   						</ul>
   					</div>
   
-  					<div>
+  					<div class="show-for-medium-up">
   						<div class="notification">
   							AVISO IMPORTANTE
   							<small>NÃO FAZEMOS ENTREGA</small>

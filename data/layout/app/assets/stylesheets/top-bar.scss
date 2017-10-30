@@ -1,0 +1,29 @@
+.top-bar {
+    .logo {
+        width: 50%;
+        height: 100%;
+        background-color: #fff;
+        border-radius: 0 5px 5px 0;
+        img {
+            height: 80%;
+            margin: 6px;
+        }
+    }
+    background-color: #002279 !important;
+    .title-area {
+        background-color: #002279 !important;
+    }
+    .top-bar-section ul {
+        background-color: #002279 !important;
+        li > a {
+            background-color: #002279 !important;
+        }
+    }
+    &.expanded .toggle-topbar a {
+        color: #acd6ac;
+        span {
+            box-shadow: none !important;
+            webkit-box-shadow: none !important;
+        }
+    }
+}

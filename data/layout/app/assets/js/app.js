@@ -264,6 +264,7 @@
 				$rootScope.cambio 						= data.data.cambio;
 				$rootScope.produtosPorPagina	= data.data.produtosporpagina;
 				$rootScope.slides 						= data.data.slides;
+				$rootScope.slidesMobile				= data.data.slidesMobile;
         $rootScope.categorias					= data.data.categorias;
         $rootScope.marcas							= data.data.marcas;
         $rootScope.lancamentos				= data.data.lancamentos;
@@ -280,6 +281,9 @@
 					$rootScope.tratarProduto(v);
 				});
 				$.each($rootScope.slides, function(k, v){
+					v.imagem = $rootScope.slidesURL + v.imagem;
+				});
+				$.each($rootScope.slidesMobile, function(k, v){
 					v.imagem = $rootScope.slidesURL + v.imagem;
 				});
 
@@ -547,7 +551,7 @@
 							offset: 0,
 							length: $rootScope.produtosPorPagina,
 							total: 0,
-							viewPages: 10,
+							viewPages: 8,
 							totalPages: 1,
 							order: {
 								nome: "asc"

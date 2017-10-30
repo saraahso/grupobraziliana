@@ -19,12 +19,13 @@ class SiteController extends AbstractActionController
   {
 
     $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-    $repoCatSlide = $em->getRepository('TemTudoAqui\Slide\Categoria');
-    $repoCatProd  = $em->getRepository('TemTudoAqui\Categoria');
-    $repoMarcas   = $em->getRepository('TemTudoAqui\Marca');
-    $repoProduto  = $em->getRepository('TemTudoAqui\Produto');
-    $siteDao = $this->getServiceLocator()->get('SiteDao');
-    $categoriaSlide = $repoCatSlide->find(1);
+    $repoCatSlide     = $em->getRepository('TemTudoAqui\Slide\Categoria');
+    $repoCatProd      = $em->getRepository('TemTudoAqui\Categoria');
+    $repoMarcas       = $em->getRepository('TemTudoAqui\Marca');
+    $repoProduto      = $em->getRepository('TemTudoAqui\Produto');
+    $siteDao          = $this->getServiceLocator()->get('SiteDao');
+    $categoriaSlide   = $repoCatSlide->find(1);
+    $categoriaSlideM  = $repoCatSlide->find(2);
 
     $rs = [];
     $rs['cambio']['real'] = $siteDao->getProdutoConfig()[0]['cambioreal'];
@@ -32,6 +33,10 @@ class SiteController extends AbstractActionController
     
     foreach ($categoriaSlide->getSlides() as $k => $v) {
       $rs['slides'][$k] = $v->toArray();
+    }
+    
+    foreach ($categoriaSlideM->getSlides() as $k => $v) {
+      $rs['slidesMobile'][$k] = $v->toArray();
     }
     
     $categorias = $repoCatProd->getCollection(new Categoria(['categoriapai' => new Categoria(['id' => 0])]), [

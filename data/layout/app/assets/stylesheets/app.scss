@@ -1556,7 +1556,7 @@ ul.pagination li {
 	height: 1.5rem;
 	color: #222;
 	font-size: 0.875rem;
-	margin-left: 0.3125rem
+	margin-left: 0.1125rem
 }
 ul.pagination li a {
 	display: block;
@@ -2074,7 +2074,6 @@ h2, h3 {
 .site-wrapper {
 	float: left;
 	width: 100%;
-	min-width: 1000px
 }
 main {
 	float: left;
@@ -2115,7 +2114,9 @@ h4 {
 }
 .modal-list-brand {
 	float: left;
-	width: 400px;
+	width: 100%;
+	min-width: 250px;
+	max-width: 400px;
 	height: 480px;
 	margin: 0;
 	overflow-x: hidden;
@@ -2142,12 +2143,16 @@ h4 {
 }
 .banner-big ul {
 	float: left;
-	width: 877px;
-	height: 376px;
+	max-width: 877px;
 	position: relative;
 	text-align: center;
 	z-index: 10;
-	margin: 0 0 0 61px
+}
+@media (min-width: 40.063em){
+	.banner-big ul {
+		max-height: 376px;
+		margin: 0 0 0 61px
+	}
 }
 .banner-big ul li {
 	float: left;
@@ -2257,7 +2262,7 @@ h4 {
 	position: absolute;
 	bottom: 50px;
 	left: 50%;
-	margin: 0 0 0 -140px;
+	margin: 0 0 0 -150px;
 	width: 300px;
 	height: 30px;
 	text-align: center;
@@ -2271,6 +2276,16 @@ h4 {
 }
 .carousel-big .ctrl.ctrl-pager .cycle-pager-active {
 	color: #11258a
+}
+.carousel-big ul li.group li {
+	display: inline-block;
+    overflow: hidden;
+    float: none !important;
+}
+@media (max-width: 40.063em){
+	.carousel-big ul li.group ul {
+		text-align: center;
+	}
 }
 .slider-brands {
 	float: left;
@@ -2375,33 +2390,29 @@ h4 {
 .slider-sellers .ctrl.ctrl-right:hover {
 	background-position: 0 -50px
 }
-.list-products {
-	float: left;
-	width: 100%
+.list-products .phrase {
+	overflow: hidden;
+}
+@media (max-width: 40.063em){
+	.list-products .phrase {
+		text-align: center;
+	}	
 }
 .list-products h4 {
 	margin: 30px 0
 }
 .list-products .list-of-products {
-	width: 1000px;
 	margin: 0 auto
 }
-@media (min-width: 1250px) {
-.list-products .list-of-products {
-	width: 1200px
-}
-}
 .list-products .list-of-products li {
-	float: left;
-	width: 33%;
-	margin: 0 0.5% 0.5% 0;
 	border: 1px solid #ddd;
 	padding: 10px 15px;
-	position: relative
+	position: relative;
+    margin-bottom: 10px;
 }
-.list-products .list-of-products li:nth-of-type(3n+0) {
+/*.list-products .list-of-products li:nth-of-type(3n+0) {
 	margin: 0 0 1.5% 0
-}
+}*/
 .list-products .list-of-products li:hover {
 	border: 1px solid #11258a
 }
@@ -2426,7 +2437,7 @@ h4 {
 }
 .list-products .list-of-products li .price {
 	display: block;
-	font: bold 24px "Oswald", Arial, Verdana, Helvetica;
+	font: bold 20px "Oswald", Arial, Verdana, Helvetica;
 	color: #000;
 	margin: 15px 0 0 0
 }
@@ -2478,7 +2489,6 @@ h4 {
 }
 .produtcs-detail .products-photos {
 	float: left;
-	width: 650px
 }
 .produtcs-detail .products-photos .main-photo {
 	float: left;
@@ -2534,8 +2544,6 @@ h4 {
 	color: #11258a
 }
 .produtcs-detail .product-detail {
-	float: left;
-	width: 350px;
 	background: url(../images/widgets/products/bg-price.jpg) top left no-repeat;
 	padding: 30px;
 	border-left: 1px solid #ccc
@@ -2872,30 +2880,22 @@ h4 {
 header {
 	float: left;
 	width: 100%;
-	min-width: 980px;
 	background: url(../images/header/bg.jpg) top center no-repeat
-}
-header .row-logo {
-	padding: 0 30px
 }
 header .logo-holder {
 	float: left;
-	width: 321px;
-	height: 135px
+	width: 100%;
+	max-width: 321px;
+	max-height: 135px
 }
 header .logo {
-	float: left;
-	width: 321px;
-	height: 95px;
-	overflow: hidden;
-	text-indent: -999px;
-	background: url(../images/logo.png) no-repeat;
-	margin-top: 20px
+	margin-top: 20px;
+	width: 100%;
+	max-width: 321px;
 }
 header .header-links {
 	float: left;
 	height: 135px;
-	margin: 0 0 0 60px;
 	padding-top: 60px
 }
 header .header-links ul li a {
@@ -2912,9 +2912,8 @@ header .header-links ul li a:hover {
 	color: #fff
 }
 header .right {
-	width: 400px;
 	height: 135px;
-	padding-top: 55px
+	padding-top: 55px;
 }
 header .right>div {
 	float: left;
@@ -3032,25 +3031,21 @@ header .search, header footer .nav, footer header .nav {
 header .search form, header footer .nav form, footer header .nav form, footer .nav header .search ul, header footer .nav ul, footer header .nav ul {
 	float: left;
 	width: 100%;
-	padding: 0 20px
 }
 header .search form input[type="text"], header footer .nav form input[type="text"], footer header .nav form input[type="text"], footer .nav header .search ul input[type="text"], header footer .nav ul input[type="text"], footer header .nav ul input[type="text"] {
 	float: left;
-	width: 90%;
 	height: 45px;
 	border: 1px solid #ccc;
 	background: #eee;
 	font: normal 16px/24px "Open Sans", Arial, Verdana, Helvetica;
 	color: #666
 }
-header .search form input[type="submit"], header footer .nav form input[type="submit"], footer header .nav form input[type="submit"], footer .nav header .search ul input[type="submit"], header footer .nav ul input[type="submit"], footer header .nav ul input[type="submit"] {
+header .search form input[type="submit"], header .search form button[type="submit"], header footer .nav form input[type="submit"], footer header .nav form input[type="submit"], footer .nav header .search ul input[type="submit"], header footer .nav ul input[type="submit"], footer header .nav ul input[type="submit"] {
 	float: right;
-	height: 45px;
+	height: 45px !important;
 	margin: 0;
-	background: none;
 	border: none;
 	font: bold 16px/1 "Open Sans", Arial, Verdana, Helvetica;
-	color: #000;
 	cursor: pointer
 }
 footer {
@@ -3061,37 +3056,25 @@ footer {
 footer .search, footer .nav {
 	float: left;
 	width: 100%;
-	margin: 10px 0 0 0
+	margin: 10px 0 0 0;
 }
 footer .search form, footer .nav form, footer .nav ul {
 	width: 100%;
-	height: 68px;
-	padding: 10px 0;
+	min-height: 68px;
+    padding: 10px 17.5px;
 	background: url(../images/footer/bg-blue.png) top center repeat-x;
 	text-align: center
 }
-@media (min-width: 1700px) {
-footer .search form, footer .nav form, footer .nav ul {
-	width: 1680px;
-	margin: 0 auto
-}
-}
 footer .search form input[type="text"], footer .nav form input[type="text"], footer .nav ul input[type="text"] {
 	display: inline-block;
-	width: 870px;
 	height: 48px;
 	font: normal 16px "Open Sans", Arial, Verdana, Helvetica;
 	color: #666;
 	text-indent: 10px;
 	border: none
 }
-footer .search form input[type="submit"], footer .nav form input[type="submit"], footer .nav ul input[type="submit"] {
-	display: inline-block;
-	width: 70px;
+footer .search form input[type="submit"], footer .search form button[type="submit"], footer .nav form input[type="submit"], footer .nav ul input[type="submit"] {
 	height: 48px;
-	background: none;
-	padding: none;
-	border: none;
 	font: normal 16px "Open Sans", Arial, Verdana, Helvetica;
 	color: #fff;
 	cursor: pointer
@@ -3106,7 +3089,32 @@ footer .nav ul {
 footer .nav ul li {
 	display: inline-block;
 	vertical-align: center;
-	margin-right: 30px
+	margin-right: 30px;
+}
+@media (max-width: 40.063em){
+	footer .nav ul {
+		float: left;
+		padding-left: 20px;
+	}
+	footer .nav ul li {
+		width: 100%;
+		margin-top: 10px;
+		float: left;
+		clear: both;
+	}
+	footer .nav ul li .icon {
+		display: block;
+		width: 45px;
+		margin-right: 5px;
+		float: left;
+	}
+	footer .nav ul li .title {
+		display: block;
+		float: left;
+	}
+	footer .nav ul li:last-child {
+		margin-top: 10px !important;
+	}
 }
 footer .nav ul li:last-child {
 	margin: 0
