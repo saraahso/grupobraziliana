@@ -28,8 +28,8 @@ AddDefaultCharset UTF-8
       Header set Access-Control-Allow-Headers X-Authorization
 
       <FilesMatch "\\.(css|js|gif|png|jpg|JPG)$">
-           Header set Cache-Control "max-age=2592000, public"
-           Header set Last-Modified "Mon, 24 Mar 2014 00:00:00 GMT"
+           Header set Cache-Control "max-age=86400, public"
+           #Header set Last-Modified "Mon, 24 Mar 2014 00:00:00 GMT"
       </FilesMatch>
 
 </ifModule>
@@ -63,11 +63,11 @@ AddDefaultCharset UTF-8
                                   font/opentype \
                                   image/svg+xml \
                                   image/x-icon \
-		                  image/png \
-		                  image/jpeg \
-		                  image/jpg \
-		                  image/gif \
-		                  image/bmp \
+            		                  image/png \
+            		                  image/jpeg \
+            		                  image/jpg \
+            		                  image/gif \
+            		                  image/bmp \
                                   text/css \
                                   text/html \
                                   text/plain \

@@ -2460,20 +2460,6 @@ h4 {
 .list-products .list-of-products li .add-to-cart:hover {
 	background-color: #4b65e9
 }
-@media (min-width: 1650px) {
-.list-products .list-of-products {
-	width: 1600px
-}
-.list-products .list-of-products li {
-	width: 24.625%
-}
-.list-products .list-of-products li:nth-of-type(3n+0) {
-	margin: 0 0.5% 0.5% 0
-}
-.list-products .list-of-products li:nth-of-type(4n+0) {
-	margin: 0 0 1.5% 0
-}
-}
 .list-products .list-of-products.list-of-products-centered {
 	text-align: center
 }
