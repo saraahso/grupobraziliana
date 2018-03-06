@@ -15,7 +15,7 @@
     <meta property="og:image:secure_url" content="https://www.grupobraziliana.com.br/images/icon.jpg"/>
     <meta property="og:site_name" content="Grupo Braziliana"/>
 	<meta property="og:description" content="Lançamentos e novidades é aqui na GRUPOBRAZILIANA.com.br">
-    
+
     <!--[if lt IE 9]>
   	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
   	<script src="//s3.amazonaws.com/nwapi/nwmatcher/nwmatcher-1.2.5-min.js"></script>
@@ -30,20 +30,21 @@
     <link rel="stylesheet" href="/bower_components/fancybox/source/jquery.fancybox.css" />
     <!-- endbower -->
     <!-- endbuild -->
-    
+
     <!-- build:css(.tmp) styles/main.css -->
 	  <link rel="stylesheet" href="styles/app.css">
 	  <link rel="stylesheet" href="styles/top-bar.css">
     <!-- endbuild -->
+
     <!--Start of Zendesk Chat Script-->
-    <script type="text/javascript">
-    window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
-    d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
-    _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
-    $.src="https://v2.zopim.com/?5WTqulB5KHXQsvv2K19dj55EcbuXviVx";z.t=+new Date;$.
-    type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
-    </script>
-    <!--End of Zendesk Chat Script-->
+  <script type="text/javascript">
+  window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+  d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+  _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
+  $.src="https://v2.zopim.com/?5WTqulB5KHXQsvv2K19dj55EcbuXviVx";z.t=+new Date;$.
+  type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
+  </script>
+  <!--End of Zendesk Chat Script-->
 
   </head>
   <body>
@@ -53,20 +54,20 @@
 
     <nav class="top-bar hide-for-medium-up" data-topbar="" role="navigation" style="">
         <ul class="title-area">
-    
+
             <li class="name">
                 <a ui-sref="home">
   				  <div class="logo">
-  				      <img src="images/logo.png" height="90%" />  
+  				      <img src="images/logo.png" height="90%" />
   				  </div>
 				</a>
             </li>
-    
+
             <li class="toggle-topbar menu-icon">
                 <a href=""><span>Menu</span></a>
             </li>
         </ul>
-    
+
         <section class="top-bar-section" style="left: -200%;">
             <ul class="left">
                 <li ng-repeat="categoria in $root.categorias">
@@ -98,27 +99,27 @@
   			<div class="row row-logo show-for-medium-up">
   				<div class="small-12 medium-4 columns">
   					<a ui-sref="home">
-  					  <img src="images/logo.png" class="logo" />  
+  					  <img src="images/logo.png" class="logo" />
 					</a>
   				</div>
-  
+
   				<div class="header-links small-12 medium-4 columns">
-  					
+
   				</div>
-  
+
   				<div class="right small-12 medium-4 columns">
   					<div class="notification">
   						AVISO IMPORTANTE
   						<small>NÃO FAZEMOS ENTREGA</small>
   					</div>
-  
+
   					<div class="cart" style="display: none;">
   						20 ítens
   						<small>MEU ORÇAMENTO</small>
   					</div>
   				</div>
   			</div>
-  
+
   			<nav class="show-for-medium-up">
   				<div class="row" style="max-width: 74rem;">
   					<!-- links das categorias -->
@@ -131,14 +132,14 @@
   								<span class="title" ng-bind="categoria.nome"></span>
   							</a>
   						</li>
-  
+
   						<li>
   							<a href="#list-brand" class="all fancybox-list-brands">
   								<span class="title">TODA A LOJA</span>
   							</a>
   						</li>
   					</ul>
-  					
+
   					<!-- links logo abaixo das categorias -->
   					<ul class="no-bullet nav-other-links">
   						<li>
@@ -149,7 +150,7 @@
   								<span class="title">NOSSAS MARCAS</span>
   							</a>
   						</li>
-  
+
   						<li>
   							<a href="produtos.html">
   								<span class="icon">
@@ -158,7 +159,7 @@
   								<span class="title">LISTA DE PREÇOS</span>
   							</a>
   						</li>
-  
+
   						<!--<li>
   							<a href="produtos.html">
   								<span class="icon">
@@ -167,7 +168,7 @@
   								<span class="title">CHAT-ONLINE</span>
   							</a>
   						</li> -->
-  
+
   						<li>
   							<a ui-sref="sellers">
   								<span class="icon">
@@ -176,7 +177,7 @@
   								<span class="title">VENDEDORES</span>
   							</a>
   						</li>
-  
+
   						<li>
   							<a ui-sref="contato">
   								<span class="icon">
@@ -188,7 +189,7 @@
   					</ul>
   				</div>
   			</nav>
-  
+
   			<div class="search">
 					<form action="" method="post" ng-submit="$root.$state.go('search', {busca: angular.element('#search-xs').val()});" onsubmit="window.history.pushState('', '', '/search/'+angular.element('#search-xs').val()); angular.element('#search-xs').val(''); return false;">
   					<div class="row collapse">
@@ -201,15 +202,15 @@
   					</div>
   				</form>
   			</div>
-  
+
   		</header>
-  
-  
+
+
   		<!-- inicio da página -->
   		<main id="main" ui-view>
-  			
+
   		</main>
-  
+
   		<footer>
   			<!-- Buscar -->
   			<div class="search">
@@ -224,7 +225,7 @@
   					</div>
   				</form>
   			</div>
-  			
+
   			<!-- Nossas marcas, etc -->
   			<div class="nav">
   				<ul class="no-bullet">
@@ -236,7 +237,7 @@
   							<span class="title">NOSSAS MARCAS</span>
   						</a>
   					</li>
-  
+
   					<li>
   						<a href="produtos.html">
   							<span class="icon">
@@ -245,7 +246,7 @@
   							<span class="title">LISTA DE PREÇOS</span>
   						</a>
   					</li>
-  
+
   					<!-- <li>
   						<a href="produtos.html">
   							<span class="icon">
@@ -254,7 +255,7 @@
   							<span class="title">CHAT-ONLINE</span>
   						</a>
   					</li> -->
-  
+
   					<li>
   						<a href="produtos.html">
   							<span class="icon">
@@ -263,7 +264,7 @@
   							<span class="title">VENDEDORES</span>
   						</a>
   					</li>
-  
+
   					<li>
 							<a ui-sref="contato">
   							<span class="icon">
@@ -274,7 +275,7 @@
   					</li>
   				</ul>
   			</div>
-  
+
   			<!--  -->
   			<div class="main-footer">
   				<span>
@@ -286,7 +287,7 @@
   							<li><a href="#">Institucional</a></li>
   						</ul>
   					</div>
-  
+
   					<div style="display: none;">
   						<ul class="no-bullet">
   							<li><a href="#">Meu Orçamento</a></li>
@@ -295,7 +296,7 @@
   							<li><a href="#">Nossas Lojas</a></li>
   						</ul>
   					</div>
-  
+
   					<div class="show-for-medium-up">
   						<div class="notification">
   							AVISO IMPORTANTE
@@ -304,7 +305,7 @@
   					</div>
   				</span>
   			</div>
-  
+
   			<div class="by">
   				<a href="http://www.rw1digital.com">
   					<img src="images/footer/by.png" alt="">
@@ -312,7 +313,7 @@
   			</div>
   		</footer>
   	</div>
-  	
+
   	<!-- Todas as marcas -->
   	<div id="list-brand" class="hide">
   		<ul class="no-bullet modal-list-brand">
@@ -348,6 +349,6 @@
     <script src="assets/js/shared/filters.js"></script>
     <script src="assets/js/main.js"></script>
     <!-- endbuild -->
-    
+
   </body>
 </html>
